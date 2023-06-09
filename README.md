@@ -1,1 +1,25 @@
-# Movie-search-Modsen![unnamed](https://github.com/mebry/Movie-search-Modsen/assets/91991278/c41af875-be8c-4a7a-8f71-245733c61d7f)
+Тема проекта - Кинопоиск
+
+Архитектура: микросервисная
+
+Применяемые технологии:
+1. Microsoft Identity
+2. Entity Framework
+3. ASP.Net Core Web Api
+4. RabbitNQ
+5. Azure, MS SQLServer
+6. AutoMapper
+7. Docker
+
+Описание проекта: 
+
+1. Просмотр информации о фильме, включая жанры, возрастные ограничения, рейтинг
+2. Оценка фильма
+3. Возможность добавления рецензии
+4. Коллекции фильмов
+5. Отслеживание по сиквелам, приквелам
+6. Различные фильтрации
+7. Авторизация, аутентификация
+8. Ролевая политика 
+
+![image](https://github.com/mebry/Movie-search-Modsen/assets/100085180/ed5eca73-3830-4f12-804f-5d5f283737c7)
