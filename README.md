@@ -6,7 +6,7 @@
 1. Microsoft Identity
 2. Entity Framework
 3. ASP.Net Core Web Api
-4. RabbitNQ
+4. RabbitMQ
 5. Azure, MS SQLServer
 6. AutoMapper
 7. Docker
