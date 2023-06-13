@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\Rating.BusinessLogic\Rating.BusinessLogic.csproj" />
   </ItemGroup>
 
 </Project>
