@@ -12,6 +12,12 @@ namespace Authentication.API.IdentityServerConfig
                 new ApiResource(IdentityServerConstants.RATING_API_RESOURCE_NAME),
             };
 
+        public static IEnumerable<IdentityResource> GetIdentityResources() =>
+            new List<IdentityResource>
+            {
+                new IdentityResources.OpenId()
+            };
+
         public static IEnumerable<Client> GetClients() =>
             new List<Client>
             {
