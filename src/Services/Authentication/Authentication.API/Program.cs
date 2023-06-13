@@ -4,9 +4,12 @@ using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
 
-LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "\nlog.config"));
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 builder.Services.ConfigureAPI();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -23,8 +26,9 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 
 app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
-
+app.UseIdentityServer();
 app.MapControllers();
 
 app.Run();
