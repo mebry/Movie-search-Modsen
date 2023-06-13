@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Authentication.BusinessLogic.Services.Implementations
 {
-    internal class LoggerService : ILoggerService
+    public class LoggerService : ILoggerService
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
 
