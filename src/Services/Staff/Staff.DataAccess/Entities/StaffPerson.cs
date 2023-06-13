@@ -1,4 +1,6 @@
-﻿namespace Staff.DataAccess.Entities
+﻿using Shared.Enums;
+
+namespace Staff.DataAccess.Entities
 {
     public class StaffPerson
     {
@@ -7,7 +9,7 @@
         public string StaffSurname { get; set; }
         public string ImgUrl { get; set; }
         public DateTimeOffset DateOfBirthday { get; set; }
-        public string Country { get; set; }
+        public Countries Country { get; set; }
         public string Description { get; set; }
 
     }
