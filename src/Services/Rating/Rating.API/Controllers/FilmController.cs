@@ -23,18 +23,14 @@ namespace Rating.API.Controllers
             return Ok(film);
         }
 
-        [HttpPost]
-        public async Task<ActionResult<FilmDTO>> Create(FilmDTO filmDto)
+        [HttpPost("{id}")]
+        public async Task<ActionResult<FilmDTO>> Create(Guid id)
         {
+            var filmDto = new FilmDTO
+            {
+                Id = id
+            };
             var film = await _filmService.Create(filmDto);
-
-            return Ok(film);
-        }
-
-        [HttpPut]
-        public async Task<ActionResult<FilmDTO>> Update(FilmDTO filmDto)
-        {
-            var film = await _filmService.Update(filmDto);
 
             return Ok(film);
         }
