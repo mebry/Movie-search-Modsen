@@ -30,7 +30,7 @@ namespace Rating.DataAccess.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FilmId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Score = table.Column<int>(type: "int", maxLength: 10, nullable: false)
                 },

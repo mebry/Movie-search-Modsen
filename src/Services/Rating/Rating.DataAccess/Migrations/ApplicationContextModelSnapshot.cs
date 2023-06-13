@@ -56,8 +56,8 @@ namespace Rating.DataAccess.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 

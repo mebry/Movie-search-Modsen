@@ -12,7 +12,7 @@ using Rating.DataAccess.Contexts;
 namespace Rating.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20230613120104_Init")]
+    [Migration("20230613121001_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -59,8 +59,8 @@ namespace Rating.DataAccess.Migrations
                         .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
