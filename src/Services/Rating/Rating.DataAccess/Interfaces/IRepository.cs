@@ -4,7 +4,7 @@
     {
         public void Create(TEntity entity);
         public Task<TEntity?> GetByIdAsync(Guid entityId);
-        public Task<IEnumerable<TEntity>> GetAllAsync();
+        public IEnumerable<TEntity> GetAll();
         public void Delete(TEntity entity);
         public void Update(TEntity entity);
         public Task SaveAsync();
