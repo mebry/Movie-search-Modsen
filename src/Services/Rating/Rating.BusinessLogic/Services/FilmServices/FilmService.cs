@@ -10,9 +10,9 @@ namespace Rating.BusinessLogic.Services.FilmServices
     internal class FilmService : IFilmService
     {
         private readonly IFilmRepository _filmRepository;
-        private ILogger<IFilmService> _logger;
+        private readonly ILogger<FilmService> _logger;
 
-        public FilmService(IFilmRepository filmRepository, ILogger<IFilmService> logger)
+        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger)
         {
             _filmRepository = filmRepository;
             _logger = logger;

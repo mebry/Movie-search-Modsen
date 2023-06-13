@@ -6,7 +6,7 @@ namespace Rating.DataAccess.Repositories.FilmRepositories
 {
     internal class FilmRepository : IFilmRepository
     {
-        private ApplicationContext _context;
+        private readonly ApplicationContext _context;
 
         public FilmRepository(ApplicationContext context)
         {

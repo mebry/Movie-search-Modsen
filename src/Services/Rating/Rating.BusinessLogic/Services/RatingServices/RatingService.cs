@@ -10,9 +10,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
     internal class RatingService : IRatingService
     {
         private readonly IRatingFilmRepository _ratingRepository;
-        private ILogger<IRatingService> _logger;
+        private readonly ILogger<RatingService> _logger;
 
-        public RatingService(IRatingFilmRepository ratingRepository, ILogger<IRatingService> logger)
+        public RatingService(IRatingFilmRepository ratingRepository, ILogger<RatingService> logger)
         {
             _ratingRepository = ratingRepository;
             _logger = logger;
