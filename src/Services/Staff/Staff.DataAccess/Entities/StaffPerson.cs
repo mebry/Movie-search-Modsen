@@ -8,11 +8,10 @@ namespace Staff.DataAccess.Entities
         public string StaffName { get; set; }
         public string StaffSurname { get; set; }
         public string ImgUrl { get; set; }
-        public DateTimeOffset DateOfBirthday { get; set; }
+        public DateOnly DateOfBirthday { get; set; }
         public Countries Country { get; set; }
         public string Description { get; set; }
 
         public ICollection<StaffPersonPosition> StaffPersonPositions { get; set; }
-
     }
 }
