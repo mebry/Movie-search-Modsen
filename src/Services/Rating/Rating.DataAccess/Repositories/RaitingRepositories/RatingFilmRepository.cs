@@ -19,10 +19,6 @@ namespace Rating.DataAccess.Repositories.RaitingRepositories
         public void Delete(RatingFilm entity)
              => _context.Remove(entity);
 
-        public IEnumerable<RatingFilm> GetAll()
-              => _context.Ratings
-                .AsNoTracking();
-
         public async Task<RatingFilm?> GetByIdAsync(Guid entityId)
              => await _context.Ratings
             .AsNoTracking()
