@@ -12,5 +12,7 @@ namespace Staff.DataAccess.Entities
         public Countries Country { get; set; }
         public string Description { get; set; }
 
+        public ICollection<StaffPersonPosition> StaffPersonPositions { get; set; }
+
     }
 }
