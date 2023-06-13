@@ -1,4 +1,4 @@
-﻿namespace BLL.Exceptions
+﻿namespace Rating.BusinessLogic.Exceptions
 {
     public class NotImplementedException : Exception
     {
