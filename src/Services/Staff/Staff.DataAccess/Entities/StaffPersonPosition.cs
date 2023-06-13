@@ -2,9 +2,9 @@
 {
     public class StaffPersonPosition
     {
-        public int StaffPersonId { get; set; }
+        public Guid StaffPersonId { get; set; }
         public StaffPerson StaffPerson { get; set; }
-        public int PositionId { get; set; }
+        public Guid PositionId { get; set; }
         public Position Position { get; set; }
     }
 }
