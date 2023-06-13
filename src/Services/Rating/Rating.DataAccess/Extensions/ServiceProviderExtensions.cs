@@ -20,7 +20,7 @@ namespace Rating.DataAccess.Extensions
         {
             service.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Raiting.DataAccess")));
+                    b => b.MigrationsAssembly("Rating.DataAccess")));
         }
 
         private static void AddRepositoriesService(this IServiceCollection service)
