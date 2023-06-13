@@ -39,7 +39,7 @@ namespace Rating.API.Controllers
             return Ok(rating);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<RatingDTO>> Delete(Guid id)
         {
             var ratingDto = new RatingDTO

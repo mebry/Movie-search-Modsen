@@ -35,7 +35,7 @@ namespace Rating.API.Controllers
             return Ok(film);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<FilmDTO>> Delete(Guid id)
         {
             var filmDto = new FilmDTO
