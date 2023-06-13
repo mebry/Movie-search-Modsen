@@ -14,5 +14,6 @@ namespace Rating.DataAccess.Entities
 
         [MinLength(0)]
         public int OldCountOfScores { get; set; }
+        public List<RatingFilm> RatingFilms { get; set; } = new();
     }
 }
