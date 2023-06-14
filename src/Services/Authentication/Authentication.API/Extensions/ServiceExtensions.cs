@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Authentication.API.IdentityServerConfig;
 using Microsoft.Extensions.DependencyInjection;
 using DataAccess.Models;
+using Microsoft.OpenApi.Models;
 
 namespace Authentication.API.Extensions
 {
@@ -17,6 +18,7 @@ namespace Authentication.API.Extensions
             services.AddAuthorization();
             services.AddControllers();
             services.ConfigureIdentityServer();
+            services.ConfigureSwagger();
         }
 
         private static void ConfigureCors(this IServiceCollection services)
@@ -30,8 +32,17 @@ namespace Authentication.API.Extensions
             });
         }
         
+        private static void ConfigureSwagger(this IServiceCollection services)
+        {
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service", Version = "v1" });
+            });
+        }
+
         private static void ConfigureIdentityServer(this IServiceCollection services)
         {
+
             services.AddIdentityServer()
                 .AddAspNetIdentity<User>()
                 .AddInMemoryApiResources(Configuration.GetApis())

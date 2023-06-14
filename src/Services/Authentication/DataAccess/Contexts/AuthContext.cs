@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Contexts
 {
-    internal class AuthContext : IdentityDbContext<User>
+    public class AuthContext : IdentityDbContext<User>
     {
 
         public AuthContext(DbContextOptions options) : base(options) { }

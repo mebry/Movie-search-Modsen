@@ -10,9 +10,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
-builder.Services.ConfigureAPI();
 builder.Services.ConfigureDataAccess(builder.Configuration);
+builder.Services.ConfigureAPI();
 builder.Services.ConfigureBusinessLogic();
+
 
 
 var app = builder.Build();
@@ -23,7 +24,11 @@ app.ConfigureExceptionHandler(logger);
 if(app.Environment.IsProduction())
     app.UseHsts();
 
-
+app.UseSwagger();
+app.UseSwaggerUI(s =>
+{
+    s.SwaggerEndpoint("/swagger/v1/swagger.json", "Identity API v1");
+});
 app.UseHttpsRedirection();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
 {

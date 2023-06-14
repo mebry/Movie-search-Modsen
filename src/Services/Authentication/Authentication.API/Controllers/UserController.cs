@@ -7,6 +7,7 @@ namespace Authentication.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
