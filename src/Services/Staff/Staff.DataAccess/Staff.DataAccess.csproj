@@ -21,8 +21,4 @@
     <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\Implementations\" />
-  </ItemGroup>
-
 </Project>

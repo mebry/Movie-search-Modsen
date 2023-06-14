@@ -13,10 +13,7 @@ namespace Staff.DataAccess.Contexts
         public virtual DbSet<Film> Films { get; set; }
         public virtual DbSet<StaffPersonPosition> StaffPersonPositions { get; set; }
 
-        public StaffsDbContext()
-        {
-        }
-        public StaffsDbContext(DbContextOptions options, IConfiguration configuration)
+        public StaffsDbContext(IConfiguration configuration)
         {
             _configuration = configuration;
         }
