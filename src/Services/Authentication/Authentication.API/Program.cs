@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using DataAccess.Extensions;
 using NLog;
 using Authentication.BusinessLogic.Extensions;
+using Authentication.BusinessLogic.Services.Interfaces;
+using Authentication.API.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,10 +17,12 @@ builder.Services.ConfigureBusinessLogic();
 
 var app = builder.Build();
 
-if(app.Environment.IsDevelopment())
-    app.UseDeveloperExceptionPage();
-else
+var logger = app.Services.GetRequiredService<ILoggerService>();
+app.ConfigureExceptionHandler(logger);
+
+if(app.Environment.IsProduction())
     app.UseHsts();
+
 
 app.UseHttpsRedirection();
 app.UseForwardedHeaders(new ForwardedHeadersOptions
