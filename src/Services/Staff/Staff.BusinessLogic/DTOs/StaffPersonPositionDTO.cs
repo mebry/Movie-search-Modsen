@@ -3,7 +3,7 @@
     public class StaffPersonPositionDTO
     {
         public Guid StaffPersonId { get; set; }
-        public PositionDTO Position { get; set; }
-        public FilmDTO Film { get; set; }
+        public ResponsePositionDTO Position { get; set; }
+        public ResponseFilmDTO Film { get; set; }
     }
 }
