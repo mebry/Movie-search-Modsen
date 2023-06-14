@@ -25,9 +25,9 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
         public async Task<FilmDTO> CreateAsync(FilmDTO model)
         {
-            var filmChecked = await _filmRepository.GetByIdAsync(model.Id);
+            var existingFilm = await _filmRepository.GetByIdAsync(model.Id);
 
-            if(filmChecked is not null)
+            if(existingFilm is not null)
             {
                 _logger.LogError("The creation attempt failed. This id is already in use");
 
@@ -54,16 +54,16 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
         public async Task<FilmDTO> DeleteAsync(FilmDTO model)
         {
-            var filmChecked = await _filmRepository.GetByIdAsync(model.Id);
+            var existingFilm = await _filmRepository.GetByIdAsync(model.Id);
 
-            if(filmChecked is null)
+            if(existingFilm is null)
             {
                 _logger.LogError("The deletion attempt failed. This id is missing");
 
                 throw new NotFoundException("This id is missing");
             }
 
-            _filmRepository.Delete(filmChecked);
+            _filmRepository.Delete(existingFilm);
 
             await _filmRepository.SaveAsync();
 
@@ -72,25 +72,25 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
         public async Task<FilmDTO?> GetByIdAsync(Guid id)
         {
-            var filmChecked = await _filmRepository.GetByIdAsync(id);
+            var existingFilm = await _filmRepository.GetByIdAsync(id);
 
-            if(filmChecked is null)
+            if(existingFilm is null)
             {
                 _logger.LogError("The deletion attempt failed. This id is missing");
 
                 throw new NotFoundException("This id is missing");
             }
 
-            var mappingModel = filmChecked.Adapt<FilmDTO>();
+            var mappingModel = existingFilm.Adapt<FilmDTO>();
 
             return mappingModel;
         }
 
         public async Task<FilmDTO> UpdateAsync(FilmDTO model)
         {
-            var filmChecked = await _filmRepository.GetByIdAsync(model.Id);
+            var existingFilm = await _filmRepository.GetByIdAsync(model.Id);
 
-            if(filmChecked is null)
+            if(existingFilm is null)
             {
                 _logger.LogError("The updating attempt failed. This id is missing");
 

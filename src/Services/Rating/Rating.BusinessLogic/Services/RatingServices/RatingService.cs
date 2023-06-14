@@ -25,9 +25,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
         public async Task<RatingDTO> CreateAsync(RatingDTO model)
         {
-            var ratingChecked = await _ratingRepository.GetByIdAsync(model.Id);
+            var existingRating = await _ratingRepository.GetByIdAsync(model.Id);
 
-            if(ratingChecked is not null)
+            if(existingRating is not null)
             {
                 _logger.LogError("The creation attempt failed. This id is already in use");
 
@@ -54,16 +54,16 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
         public async Task<RatingDTO> DeleteAsync(RatingDTO model)
         {
-            var ratingChecked = await _ratingRepository.GetByIdAsync(model.Id);
+            var existingRating = await _ratingRepository.GetByIdAsync(model.Id);
 
-            if(ratingChecked is null)
+            if(existingRating is null)
             {
                 _logger.LogError("The deletion attempt failed. This id is missing");
 
                 throw new NotFoundException("This id is missing");
             }
 
-            _ratingRepository.Delete(ratingChecked);
+            _ratingRepository.Delete(existingRating);
 
             await _ratingRepository.SaveAsync();
 
@@ -88,9 +88,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
         public async Task<RatingDTO> UpdateAsync(RatingDTO model)
         {
-            var ratingChecked = await _ratingRepository.GetByIdAsync(model.Id);
+            var existingRating = await _ratingRepository.GetByIdAsync(model.Id);
 
-            if(ratingChecked is null)
+            if(existingRating is null)
             {
                 _logger.LogError("The deletion attempt failed. This id is missing");
 
