@@ -1,5 +1,6 @@
 using Authentication.API.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
+using DataAccess.Extensions;
 using NLog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 builder.Services.ConfigureAPI();
+builder.Services.ConfigureDataAccess(builder.Configuration);
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
