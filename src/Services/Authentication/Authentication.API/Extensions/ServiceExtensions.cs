@@ -1,7 +1,9 @@
 ﻿using Authentication.BusinessLogic.Services.Interfaces;
 using Authentication.BusinessLogic.Services.Implementations;
+using Microsoft.AspNetCore.Identity;
 using Authentication.API.IdentityServerConfig;
 using Microsoft.Extensions.DependencyInjection;
+using DataAccess.Models;
 
 namespace Authentication.API.Extensions
 {
@@ -31,6 +33,7 @@ namespace Authentication.API.Extensions
         private static void ConfigureIdentityServer(this IServiceCollection services)
         {
             services.AddIdentityServer()
+                .AddAspNetIdentity<User>()
                 .AddInMemoryApiResources(Configuration.GetApis())
                 .AddInMemoryClients(Configuration.GetClients())
                 .AddInMemoryIdentityResources(Configuration.GetIdentityResources())

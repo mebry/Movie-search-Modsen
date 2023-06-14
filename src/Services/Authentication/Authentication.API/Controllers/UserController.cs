@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+﻿using Authentication.BusinessLogic.Services.Interfaces;
+using Microsoft.AspNetCore.Mvc;
+using Authentication.BusinessLogic.DTOs;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Authentication.API.Controllers
 {
@@ -8,36 +9,58 @@ namespace Authentication.API.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        // GET: api/<AuthenticateController>
+        private readonly IUserService _userService;
+
+        public UserController(IUserService userService)
+        {
+            _userService = userService;
+        }   
+
         [HttpGet]
-        public IEnumerable<string> Get()
+        [ProducesResponseType(200)]
+        public async Task<IActionResult> GetUsers()
         {
-            return new string[] { "value1", "value2" };
+            var usersToReturn  = await _userService.GetAllUsers();
+            return Ok(usersToReturn);   
         }
 
-        // GET api/<AuthenticateController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{id:string}", Name = "UserById")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetUser(string userId)
         {
-            return "value";
+            var userToReturn = await _userService.GetUserById(userId);
+            return Ok(userToReturn);
         }
 
-        // POST api/<AuthenticateController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> CreateUser(UserForCreationDto userForCreationDto)
         {
+            var createdUser = await _userService.CreateUser(userForCreationDto);
+            return CreatedAtRoute("UserById", new { userId = createdUser.Id }, createdUser);
+
         }
 
-        // PUT api/<AuthenticateController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPost("{userId:string}/roles/{roleId:string}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        [ProducesResponseType(400)]
+        public async Task<IActionResult> AddToRole([FromRoute]string userId, [FromRoute] string roleId)
         {
+            await _userService.AddUserToRole(userId, roleId);
+            return Ok();    
         }
 
-        // DELETE api/<AuthenticateController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        
+        [HttpDelete("{id:string}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteUser(string userId)
         {
+            await _userService.DeleteUserByUserId(userId);
+            return NoContent();
         }
     }
 }
