@@ -2,8 +2,12 @@
 
 namespace Staff.DataAccess.Extensions
 {
-    public class ConfigurationExtensions
+    public static class ConfigurationExtensions
     {
+        public static void ConfigureServices(this IServiceCollection services)
+        {
+
+        }
 
     }
 }
