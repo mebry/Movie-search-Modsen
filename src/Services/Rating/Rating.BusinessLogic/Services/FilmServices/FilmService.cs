@@ -26,7 +26,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
             {
                 _logger.LogError("The creation attempt failed. This id is already in use");
 
-                throw new NotFoundException("This id is already used");
+                throw new AlreadyExistException("This id is already used");
             }
 
             var mapperModel = model.Adapt<Film>();
