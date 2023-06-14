@@ -28,6 +28,11 @@ namespace Staff.DataAccess.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<StaffPersonPosition> GetPosition(Guid positionId, Guid staffPersonId, Guid filmId)
+        {
+            return await _dbContext.StaffPersonPositions.FindAsync(positionId, staffPersonId, filmId);
+        }
+
         public async Task<IEnumerable<Position>> GetPositionsByStaffPersonId(Guid staffPersonId)
         {
             return await _dbContext.StaffPersonPositions
@@ -35,11 +40,6 @@ namespace Staff.DataAccess.Repositories.Implementations
                 .Select(x => x.Position)
                 .AsNoTracking()
                 .ToListAsync();
-        }
-
-        public void Update(StaffPersonPosition staffPersonPosition)
-        {
-            _dbContext.StaffPersonPositions.Update(staffPersonPosition);
         }
     }
 }

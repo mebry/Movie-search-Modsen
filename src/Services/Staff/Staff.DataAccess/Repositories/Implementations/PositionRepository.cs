@@ -14,6 +14,11 @@ namespace Staff.DataAccess.Repositories.Implementations
             _dbContext = dbContext;
         }
 
+        public async Task CreateAsync(Position position)
+        {
+            await _dbContext.Positions.AddAsync(position);
+        }
+
         public async Task<Position> GetPositionByIdAsync(Guid id)
         {
             return await _dbContext.Positions.FindAsync(id);
