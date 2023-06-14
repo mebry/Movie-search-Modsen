@@ -1,7 +1,10 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Mapster;
 using Microsoft.Extensions.Logging;
 using Rating.BusinessLogic.DTOs;
 using Rating.BusinessLogic.Exceptions;
+using Rating.BusinessLogic.Extensions;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 
@@ -11,11 +14,13 @@ namespace Rating.BusinessLogic.Services.FilmServices
     {
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<FilmService> _logger;
+        private IValidator<Film> _validator;
 
-        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger)
+        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<Film> validator)
         {
             _filmRepository = filmRepository;
             _logger = logger;
+            _validator = validator;
         }
 
         public async Task<FilmDTO> CreateAsync(FilmDTO model)
@@ -30,6 +35,15 @@ namespace Rating.BusinessLogic.Services.FilmServices
             }
 
             var mapperModel = model.Adapt<Film>();
+
+            ValidationResult result = await _validator.ValidateAsync(mapperModel);
+
+            if(!result.IsValid)
+            {
+                var errorMessages = result.ResultErrorMessage();
+
+                throw new ValidationProblem(errorMessages);
+            }
 
             _filmRepository.Create(mapperModel);
 
@@ -83,7 +97,9 @@ namespace Rating.BusinessLogic.Services.FilmServices
                 throw new NotFoundException("This id is missing");
             }
 
-            _filmRepository.Update(filmChecked);
+            var mapperModel = model.Adapt<Film>();
+
+            _filmRepository.Update(mapperModel);
 
             await _filmRepository.SaveAsync();
 

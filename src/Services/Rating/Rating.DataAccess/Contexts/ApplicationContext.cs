@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rating.DataAccess.Entities;
+using System.Reflection;
 
 namespace Rating.DataAccess.Contexts
 {
@@ -11,6 +12,13 @@ namespace Rating.DataAccess.Contexts
         public ApplicationContext(DbContextOptions<ApplicationContext> options)
             : base(options)
         {
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }
