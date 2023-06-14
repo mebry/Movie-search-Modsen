@@ -31,6 +31,7 @@ namespace Authentication.API.Extensions
             services.AddIdentityServer()
                 .AddInMemoryApiResources(Configuration.GetApis())
                 .AddInMemoryClients(Configuration.GetClients())
+                .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
                 .AddDeveloperSigningCredential();
                 
         }
