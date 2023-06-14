@@ -7,8 +7,8 @@
 2. Entity Framework
 3. ASP.Net Core Web Api
 4. RabbitMQ
-5. Azure, MS SQLServer
-6. AutoMapper
+5. MS SQLServer
+6. AutoMapper, Mapster
 7. Docker
 
 Описание проекта: 
