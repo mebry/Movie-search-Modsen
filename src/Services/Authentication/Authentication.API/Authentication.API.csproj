@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Authentication.BusinessLogic\Authentication.BusinessLogic.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>

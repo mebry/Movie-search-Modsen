@@ -11,7 +11,9 @@ namespace Authentication.API.Extensions
         public static void ConfigureAPI(this IServiceCollection services) 
         {
             services.ConfigureCors();
-            services.ConfigureLoggerService();
+            services.AddAuthentication();
+            services.AddAuthorization();
+            services.AddControllers();
             services.ConfigureIdentityServer();
         }
 
@@ -35,8 +37,5 @@ namespace Authentication.API.Extensions
                 .AddDeveloperSigningCredential();
                 
         }
-
-
-        private static void ConfigureLoggerService(this IServiceCollection services) => services.AddSingleton<ILoggerService, LoggerService>();
     }
 }

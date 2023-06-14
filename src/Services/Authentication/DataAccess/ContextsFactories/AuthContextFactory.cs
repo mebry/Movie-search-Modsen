@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.ContextsFactories
 {
-    internal class AuthContextContextFactory : IDesignTimeDbContextFactory<AuthContext>
+    internal class AuthContextFactory : IDesignTimeDbContextFactory<AuthContext>
     {
         public AuthContext CreateDbContext(string[] args)
         {

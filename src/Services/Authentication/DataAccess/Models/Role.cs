@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Models
 {
-    internal class Role : IdentityRole
+    public class Role : IdentityRole
     {
     }
 }

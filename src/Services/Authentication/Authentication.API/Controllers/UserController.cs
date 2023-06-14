@@ -6,7 +6,7 @@ namespace Authentication.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AuthenticateController : ControllerBase
+    public class UserController : ControllerBase
     {
         // GET: api/<AuthenticateController>
         [HttpGet]
