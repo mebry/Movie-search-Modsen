@@ -6,7 +6,7 @@ namespace Rating.DataAccess.Repositories.FilmRepositories
 {
     internal class FilmRepository : IFilmRepository
     {
-        private ApplicationContext _context;
+        private readonly ApplicationContext _context;
 
         public FilmRepository(ApplicationContext context)
         {
@@ -18,10 +18,6 @@ namespace Rating.DataAccess.Repositories.FilmRepositories
 
         public void Delete(Film entity)
             => _context.Remove(entity);
-
-        public IEnumerable<Film> GetAll()
-            => _context.Films
-                .AsNoTracking();
 
         public async Task<Film?> GetByIdAsync(Guid entityId)
              => await _context.Films
