@@ -8,7 +8,7 @@ namespace Rating.DataAccess.Configurations
     {
         public void Configure(EntityTypeBuilder<Film> builder)
         {
-            builder.Property(x => x.AverageRaiting)
+            builder.Property(x => x.AverageRating)
                 .HasMaxLength(10)
                 .IsRequired();
         }

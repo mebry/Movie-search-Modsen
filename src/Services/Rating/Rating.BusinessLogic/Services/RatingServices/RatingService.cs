@@ -42,7 +42,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             {
                 var errorMessages = result.ResultErrorMessage();
 
-                throw new ValidationProblem(errorMessages);
+                throw new ValidationProblemException(errorMessages);
             }
 
             _ratingRepository.Create(mapperModel);

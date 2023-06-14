@@ -42,7 +42,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
             {
                 var errorMessages = result.ResultErrorMessage();
 
-                throw new ValidationProblem(errorMessages);
+                throw new ValidationProblemException(errorMessages);
             }
 
             _filmRepository.Create(mapperModel);

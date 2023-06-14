@@ -7,7 +7,7 @@ namespace Rating.DataAccess.Validators
     {
         public FilmValidator()
         {
-            RuleFor(x => x.AverageRaiting).Must(x => x >= 1);
+            RuleFor(x => x.AverageRating).Must(x => x >= 1);
         }
     }
 }
