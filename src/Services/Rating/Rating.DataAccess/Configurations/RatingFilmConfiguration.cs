@@ -4,7 +4,7 @@ using Rating.DataAccess.Entities;
 
 namespace Rating.DataAccess.Configurations
 {
-    internal class RatingConfiguration : IEntityTypeConfiguration<RatingFilm>
+    internal class RatingFilmConfiguration : IEntityTypeConfiguration<RatingFilm>
     {
         public void Configure(EntityTypeBuilder<RatingFilm> builder)
         {
