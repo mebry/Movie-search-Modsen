@@ -34,34 +34,34 @@ namespace Staff.BusinessLogic.Services.Implementations
 
         public async Task<ResponsePositionDTO> GetPositionByIdAsync(Guid id)
         {
-            var position = await _unitOfWork.PositionRepository.GetPositionByIdAsync(id);
+            var existingPosition = await _unitOfWork.PositionRepository.GetPositionByIdAsync(id);
 
-            if (position == null)
+            if (existingPosition == null)
             {
                 _logger.LogError($"Position with ID '{id}' not found.");
 
                 throw new NotFoundException("This id was not found");
             }
 
-            var mapperPosition = position.Adapt<ResponsePositionDTO>();
+            var mapperPosition = existingPosition.Adapt<ResponsePositionDTO>();
 
             return mapperPosition;
         }
 
         public async Task<IEnumerable<ResponsePositionDTO>> GetPositionsAsync()
         {
-            var position = await _unitOfWork.PositionRepository.GetPositionsAsync();
+            var positions = await _unitOfWork.PositionRepository.GetPositionsAsync();
 
-            if (position.Count() == 0)
+            if (positions.Count() == 0)
             {
                 _logger.LogError("Can't get all positions, there is no data");
 
                 throw new NotFoundException("There is no data");
             }
 
-            var positions = position.Adapt<IEnumerable<ResponsePositionDTO>>();
+            var responseModel = positions.Adapt<IEnumerable<ResponsePositionDTO>>();
 
-            return positions;
+            return responseModel;
         }
     }
 }

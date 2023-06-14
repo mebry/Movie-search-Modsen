@@ -51,16 +51,16 @@ namespace Staff.BusinessLogic.Services.Implementations
 
         public async Task<ResponseStaffPersonDTO> GetStaffPersonByIdAsync(Guid id)
         {
-            var staffPerson = await _unitOfWork.StaffPersonRepository.GetStaffPersonByIdAsync(id);
+            var existingStaffPerson = await _unitOfWork.StaffPersonRepository.GetStaffPersonByIdAsync(id);
 
-            if (staffPerson == null)
+            if (existingStaffPerson == null)
             {
                 _logger.LogError($"Staff person with ID '{id}' not found.");
 
                 throw new NotFoundException("This id was not found");
             }
 
-            var mapperStaffPerson = staffPerson.Adapt<ResponseStaffPersonDTO>();
+            var mapperStaffPerson = existingStaffPerson.Adapt<ResponseStaffPersonDTO>();
 
             return mapperStaffPerson;
         }

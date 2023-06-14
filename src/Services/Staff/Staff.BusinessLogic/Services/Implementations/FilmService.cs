@@ -33,16 +33,16 @@ namespace Staff.BusinessLogic.Services.Implementations
 
         public async Task<ResponseFilmDTO> GetFilmByIdAsync(Guid id)
         {
-            var film = await _unitOfWork.FilmRepository.GetFilmByIdAsync(id);
+            var existingFilm = await _unitOfWork.FilmRepository.GetFilmByIdAsync(id);
 
-            if (film == null)
+            if (existingFilm == null)
             {
                 _logger.LogError($"Film with ID '{id}' not found.");
 
                 throw new NotFoundException("This id was not found");
             }
 
-            var mapperFilm = film.Adapt<ResponseFilmDTO>();
+            var mapperFilm = existingFilm.Adapt<ResponseFilmDTO>();
 
             return mapperFilm;
         }
