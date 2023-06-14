@@ -8,7 +8,7 @@ namespace Staff.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<StaffPersonPosition> builder)
         {
-            builder.Property(x => new { x.StaffPersonId, x.PositionId });
+            builder.Property(x => new { x.StaffPersonId, x.PositionId, x.FilmId });
 
             builder
                 .HasOne(x => x.StaffPerson)
@@ -20,6 +20,10 @@ namespace Staff.DataAccess.Configuration
                 .HasOne(x => x.Position)
                 .WithMany(x => x.StaffPersonPositions)
                 .HasForeignKey(x => x.PositionId);
+            builder
+                .HasOne(x => x.Film)
+                .WithMany(x => x.StaffPersonPositions)
+                .HasForeignKey(x => x.FilmId);
         }
     }
 }

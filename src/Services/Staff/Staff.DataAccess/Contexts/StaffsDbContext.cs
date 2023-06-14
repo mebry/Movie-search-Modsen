@@ -29,8 +29,6 @@ namespace Staff.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //Применит все конфигурации, определенные в текущей сборке. EF Core будет автоматически искать все классы, реализующие IEntityTypeConfiguration<T>,
-            //в текущей сборке и применять их конфигурации.
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
