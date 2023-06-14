@@ -16,7 +16,7 @@ namespace Rating.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<RatingDTO>> GetById(Guid id)
+        public async Task<ActionResult<ResponseRatingDTO>> GetById(Guid id)
         {
             var rating = await _ratingService.GetByIdAsync(id);
 
@@ -24,29 +24,25 @@ namespace Rating.API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<RatingDTO>> Create(RatingDTO ratingDto)
+        public async Task<ActionResult<ResponseRatingDTO>> Create(RequestRatingDTO ratingDto)
         {
             var rating = await _ratingService.CreateAsync(ratingDto);
 
             return Ok(rating);
         }
 
-        [HttpPut]
-        public async Task<ActionResult<RatingDTO>> Update(RatingDTO ratingDto)
+        [HttpPut("{id}")]
+        public async Task<ActionResult<ResponseRatingDTO>> Update(Guid id, RequestRatingDTO ratingDto)
         {
-            var rating = await _ratingService.UpdateAsync(ratingDto);
+            var rating = await _ratingService.UpdateAsync(id, ratingDto);
 
             return Ok(rating);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<RatingDTO>> Delete(Guid id)
+        public async Task<ActionResult<ResponseRatingDTO>> Delete(Guid id)
         {
-            var ratingDto = new RatingDTO
-            {
-                Id = id
-            };
-            var rating = await _ratingService.DeleteAsync(ratingDto);
+            var rating = await _ratingService.DeleteAsync(id);
 
             return Ok(rating);
         }

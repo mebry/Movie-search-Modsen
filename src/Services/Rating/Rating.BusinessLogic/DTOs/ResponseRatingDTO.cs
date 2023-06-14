@@ -1,6 +1,6 @@
 ﻿namespace Rating.BusinessLogic.DTOs
 {
-    public class RatingDTO
+    public class ResponseRatingDTO
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }

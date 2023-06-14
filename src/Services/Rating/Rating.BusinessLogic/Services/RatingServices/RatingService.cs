@@ -23,18 +23,11 @@ namespace Rating.BusinessLogic.Services.RatingServices
             _validator = validator;
         }
 
-        public async Task<RatingDTO> CreateAsync(RatingDTO model)
+        public async Task<ResponseRatingDTO> CreateAsync(RequestRatingDTO model)
         {
-            var existingRating = await _ratingRepository.GetByIdAsync(model.Id);
-
-            if(existingRating is not null)
-            {
-                _logger.LogError("The creation attempt failed. This id is already in use");
-
-                throw new AlreadyExistException("This id is already used");
-            }
-
             var mapperModel = model.Adapt<RatingFilm>();
+
+            mapperModel.Id = new Guid();
 
             ValidationResult result = await _validator.ValidateAsync(mapperModel);
 
@@ -49,12 +42,14 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             await _ratingRepository.SaveAsync();
 
-            return model;
+            var responseModel = mapperModel.Adapt<ResponseRatingDTO>();
+
+            return responseModel;
         }
 
-        public async Task<RatingDTO> DeleteAsync(RatingDTO model)
+        public async Task<ResponseRatingDTO> DeleteAsync(Guid id)
         {
-            var existingRating = await _ratingRepository.GetByIdAsync(model.Id);
+            var existingRating = await _ratingRepository.GetByIdAsync(id);
 
             if(existingRating is null)
             {
@@ -67,10 +62,12 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             await _ratingRepository.SaveAsync();
 
-            return model;
+            var responseModel = existingRating.Adapt<ResponseRatingDTO>();
+
+            return responseModel;
         }
 
-        public async Task<RatingDTO?> GetByIdAsync(Guid id)
+        public async Task<ResponseRatingDTO?> GetByIdAsync(Guid id)
         {
             var filmChecked = await _ratingRepository.GetByIdAsync(id);
 
@@ -81,14 +78,14 @@ namespace Rating.BusinessLogic.Services.RatingServices
                 throw new NotFoundException("This id is missing");
             }
 
-            var mappingModel = filmChecked.Adapt<RatingDTO>();
+            var mappingModel = filmChecked.Adapt<ResponseRatingDTO>();
 
             return mappingModel;
         }
 
-        public async Task<RatingDTO> UpdateAsync(RatingDTO model)
+        public async Task<ResponseRatingDTO> UpdateAsync(Guid id, RequestRatingDTO model)
         {
-            var existingRating = await _ratingRepository.GetByIdAsync(model.Id);
+            var existingRating = await _ratingRepository.GetByIdAsync(id);
 
             if(existingRating is null)
             {
@@ -99,11 +96,15 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             var mapperModel = model.Adapt<RatingFilm>();
 
+            mapperModel.Id = id;
+
             _ratingRepository.Update(mapperModel);
 
             await _ratingRepository.SaveAsync();
 
-            return model;
+            var responseModel = mapperModel.Adapt<ResponseRatingDTO>();
+
+            return responseModel;
         }
     }
 }

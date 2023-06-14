@@ -23,9 +23,9 @@ namespace Rating.BusinessLogic.Services.FilmServices
             _validator = validator;
         }
 
-        public async Task<FilmDTO> CreateAsync(FilmDTO model)
+        public async Task<FilmDTO> CreateAsync(Guid id)
         {
-            var existingFilm = await _filmRepository.GetByIdAsync(model.Id);
+            var existingFilm = await _filmRepository.GetByIdAsync(id);
 
             if(existingFilm is not null)
             {
@@ -34,7 +34,12 @@ namespace Rating.BusinessLogic.Services.FilmServices
                 throw new AlreadyExistException("This id is already used");
             }
 
-            var mapperModel = model.Adapt<Film>();
+            var filmDto = new FilmDTO()
+            {
+                Id = id
+            };
+
+            var mapperModel = filmDto.Adapt<Film>();
 
             ValidationResult result = await _validator.ValidateAsync(mapperModel);
 
@@ -49,12 +54,12 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
             await _filmRepository.SaveAsync();
 
-            return model;
+            return filmDto;
         }
 
-        public async Task<FilmDTO> DeleteAsync(FilmDTO model)
+        public async Task<FilmDTO> DeleteAsync(Guid id)
         {
-            var existingFilm = await _filmRepository.GetByIdAsync(model.Id);
+            var existingFilm = await _filmRepository.GetByIdAsync(id);
 
             if(existingFilm is null)
             {
@@ -67,7 +72,9 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
             await _filmRepository.SaveAsync();
 
-            return model;
+            var mapperModel = existingFilm.Adapt<FilmDTO>();
+
+            return mapperModel;
         }
 
         public async Task<FilmDTO?> GetByIdAsync(Guid id)
