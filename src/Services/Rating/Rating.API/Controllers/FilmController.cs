@@ -30,7 +30,7 @@ namespace Rating.API.Controllers
             {
                 Id = id
             };
-            var film = await _filmService.Create(filmDto);
+            var film = await _filmService.CreateAsync(filmDto);
 
             return Ok(film);
         }
@@ -42,7 +42,7 @@ namespace Rating.API.Controllers
             {
                 Id = id
             };
-            var film = await _filmService.Delete(filmDto);
+            var film = await _filmService.DeleteAsync(filmDto);
 
             return Ok(film);
         }

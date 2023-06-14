@@ -26,7 +26,7 @@ namespace Rating.API.Controllers
         [HttpPost]
         public async Task<ActionResult<RatingDTO>> Create(RatingDTO ratingDto)
         {
-            var rating = await _ratingService.Create(ratingDto);
+            var rating = await _ratingService.CreateAsync(ratingDto);
 
             return Ok(rating);
         }
@@ -34,7 +34,7 @@ namespace Rating.API.Controllers
         [HttpPut]
         public async Task<ActionResult<RatingDTO>> Update(RatingDTO ratingDto)
         {
-            var rating = await _ratingService.Update(ratingDto);
+            var rating = await _ratingService.UpdateAsync(ratingDto);
 
             return Ok(rating);
         }
@@ -46,7 +46,7 @@ namespace Rating.API.Controllers
             {
                 Id = id
             };
-            var rating = await _ratingService.Delete(ratingDto);
+            var rating = await _ratingService.DeleteAsync(ratingDto);
 
             return Ok(rating);
         }

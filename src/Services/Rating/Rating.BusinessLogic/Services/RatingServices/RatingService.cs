@@ -18,7 +18,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             _logger = logger;
         }
 
-        public async Task<RatingDTO> Create(RatingDTO model)
+        public async Task<RatingDTO> CreateAsync(RatingDTO model)
         {
             var ratingChecked = await _ratingRepository.GetByIdAsync(model.Id);
 
@@ -38,7 +38,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             return model;
         }
 
-        public async Task<RatingDTO> Delete(RatingDTO model)
+        public async Task<RatingDTO> DeleteAsync(RatingDTO model)
         {
             var ratingChecked = await _ratingRepository.GetByIdAsync(model.Id);
 
@@ -72,7 +72,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             return mappingModel;
         }
 
-        public async Task<RatingDTO> Update(RatingDTO model)
+        public async Task<RatingDTO> UpdateAsync(RatingDTO model)
         {
             var ratingChecked = await _ratingRepository.GetByIdAsync(model.Id);
 

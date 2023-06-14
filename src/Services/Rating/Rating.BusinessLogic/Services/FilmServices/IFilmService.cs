@@ -1,9 +1,12 @@
 ﻿using Rating.BusinessLogic.DTOs;
-using Rating.BusinessLogic.Interfaces;
 
 namespace Rating.BusinessLogic.Services.FilmServices
 {
-    public interface IFilmService : IBaseService<FilmDTO>
+    public interface IFilmService
     {
+        public Task<FilmDTO> CreateAsync(FilmDTO model);
+        public Task<FilmDTO?> GetByIdAsync(Guid id);
+        public Task<FilmDTO> DeleteAsync(FilmDTO model);
+        public Task<FilmDTO> UpdateAsync(FilmDTO model);
     }
 }

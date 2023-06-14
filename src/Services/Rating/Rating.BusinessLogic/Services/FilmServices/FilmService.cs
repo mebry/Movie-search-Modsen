@@ -18,7 +18,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
             _logger = logger;
         }
 
-        public async Task<FilmDTO> Create(FilmDTO model)
+        public async Task<FilmDTO> CreateAsync(FilmDTO model)
         {
             var filmChecked = await _filmRepository.GetByIdAsync(model.Id);
 
@@ -38,7 +38,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
             return model;
         }
 
-        public async Task<FilmDTO> Delete(FilmDTO model)
+        public async Task<FilmDTO> DeleteAsync(FilmDTO model)
         {
             var filmChecked = await _filmRepository.GetByIdAsync(model.Id);
 
@@ -72,7 +72,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
             return mappingModel;
         }
 
-        public async Task<FilmDTO> Update(FilmDTO model)
+        public async Task<FilmDTO> UpdateAsync(FilmDTO model)
         {
             var filmChecked = await _filmRepository.GetByIdAsync(model.Id);
 

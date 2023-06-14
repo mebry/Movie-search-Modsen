@@ -1,9 +1,12 @@
 ﻿using Rating.BusinessLogic.DTOs;
-using Rating.BusinessLogic.Interfaces;
 
 namespace Rating.BusinessLogic.Services.RatingServices
 {
-    public interface IRatingService : IBaseService<RatingDTO>
+    public interface IRatingService
     {
+        public Task<RatingDTO> CreateAsync(RatingDTO model);
+        public Task<RatingDTO?> GetByIdAsync(Guid id);
+        public Task<RatingDTO> DeleteAsync(RatingDTO model);
+        public Task<RatingDTO> UpdateAsync(RatingDTO model);
     }
 }
