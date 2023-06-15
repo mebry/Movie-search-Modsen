@@ -12,9 +12,17 @@ namespace Rating.BusinessLogic.Services.AlgorithmServices
 
         public bool CountOfScoresСhangesInSpecifiedPercentage(Film film)
             => ((film.CountOfScores / film.OldCountOfScores) * 100 - 100) > Precentage;
-        public bool IsTherePossibilityToChangeAverageRating(RequestRatingDTO rating, FilmDTO film)
+
+        public bool IsTherePossibilityToChangeAverageRating(double oldAverageRating, int oldCountOfScores, int newScore, int newCountOfScores)
         {
-            throw new NotImplementedException();
+            double oldTotalRating = oldAverageRating * oldCountOfScores;
+            double newTotalRating = oldTotalRating + newScore;
+
+            double newAverageRating = newTotalRating / newCountOfScores;
+
+            double ratingDifference = Math.Abs(newAverageRating - oldAverageRating);
+
+            return ratingDifference >= 0.1;
         }
     }
 }
