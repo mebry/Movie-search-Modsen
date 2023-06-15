@@ -5,6 +5,6 @@
         public const string RATING_API_RESOURCE_NAME = "Rating";
         public const string CLIENT_ID = "client_id";
         public const string CLIENT_SECRET = "client_secret";
-        public const string ROLE_IDENTITY_RECOURCE_NAME = "role";
+        public const string ROLE_IDENTITY_RECOURCE_NAME = "Role";
     }
 }
