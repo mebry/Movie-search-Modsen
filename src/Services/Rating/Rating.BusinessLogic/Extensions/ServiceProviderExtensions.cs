@@ -24,7 +24,7 @@ namespace Rating.BusinessLogic.Extensions
             services.AddScoped<IFilmService, FilmService>();
             services.AddScoped<IEventDispatchService, EventDispatchService>();
             services.AddScoped<IEventDecisionService, EventDecisionService>();
-            services.AddScoped<IAlgorithmService, AlgorithmService>();
+            services.AddScoped<IAlgorithmService, AlgorithmsForEventDecisionService>();
         }
     }
 }
