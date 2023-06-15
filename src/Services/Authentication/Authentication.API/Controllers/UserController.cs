@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Authentication.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/users")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
     public class UserController : ControllerBase
@@ -19,48 +19,48 @@ namespace Authentication.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(200)]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsersAsync()
         {
-            var usersToReturn  = await _userService.GetAllUsers();
+            var usersToReturn  = await _userService.GetAllUsersAsync();
             return Ok(usersToReturn);   
         }
 
-        [HttpGet("{id:string}", Name = "UserById")]
+        [HttpGet("{userId}", Name = "UserById")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> GetUser(string userId)
+        public async Task<IActionResult> GetUserAsync(string userId)
         {
-            var userToReturn = await _userService.GetUserById(userId);
+            var userToReturn = await _userService.GetUserByIdAsync(userId);
             return Ok(userToReturn);
         }
 
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> CreateUser(UserForCreationDto userForCreationDto)
+        public async Task<IActionResult> CreateUserAsync(UserForCreationDto userForCreationDto)
         {
-            var createdUser = await _userService.CreateUser(userForCreationDto);
+            var createdUser = await _userService.CreateUserAsync(userForCreationDto);
             return CreatedAtRoute("UserById", new { userId = createdUser.Id }, createdUser);
 
         }
 
-        [HttpPost("{userId:string}/roles/{roleId:string}")]
+        [HttpPost("{userId}/roles/{roleId}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> AddToRole([FromRoute]string userId, [FromRoute] string roleId)
+        public async Task<IActionResult> AddToRoleAsync([FromRoute]string userId, [FromRoute] string roleId)
         {
-            await _userService.AddUserToRole(userId, roleId);
+            await _userService.AddUserToRoleAsync(userId, roleId);
             return Ok();    
         }
 
         
-        [HttpDelete("{id:string}")]
+        [HttpDelete("{userId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
-        public async Task<IActionResult> DeleteUser(string userId)
+        public async Task<IActionResult> DeleteUserAsync(string userId)
         {
-            await _userService.DeleteUserByUserId(userId);
+            await _userService.DeleteUserByUserIdAsync(userId);
             return NoContent();
         }
     }

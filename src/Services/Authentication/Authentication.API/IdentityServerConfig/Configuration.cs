@@ -10,6 +10,7 @@ namespace Authentication.API.IdentityServerConfig
             new List<ApiResource>
             {
                 new ApiResource(IdentityServerConstants.RATING_API_RESOURCE_NAME),
+                new ApiResource("Ratings"),
                 new ApiResource(IdentityServer4.IdentityServerConstants.LocalApi.ScopeName)
             };
 
@@ -21,6 +22,13 @@ namespace Authentication.API.IdentityServerConfig
                 new IdentityResource(IdentityServerConstants.ROLE_IDENTITY_RECOURCE_NAME, new List<string>() {IdentityServerConstants.ROLE_IDENTITY_RECOURCE_NAME})
             };
 
+        public static IEnumerable<ApiScope> GetApiScopes() =>
+            new List<ApiScope>
+            {
+                new ApiScope("Ratings"),
+                new ApiScope(IdentityServer4.IdentityServerConstants.LocalApi.ScopeName)
+            };
+
         public static IEnumerable<Client> GetClients() =>
             new List<Client>
             {
@@ -28,11 +36,13 @@ namespace Authentication.API.IdentityServerConfig
                 {
                     ClientId = IdentityServerConstants.CLIENT_ID,
                     ClientSecrets = { new Secret(IdentityServerConstants.CLIENT_SECRET.ToSha256())},
+                    AllowAccessTokensViaBrowser = true,
                     AllowedGrantTypes = GrantTypes.ClientCredentials,
                     AllowedScopes = {
                         IdentityServerConstants.RATING_API_RESOURCE_NAME,
-                        IdentityServer4.IdentityServerConstants.LocalApi.ScopeName,
-                        IdentityServerConstants.ROLE_IDENTITY_RECOURCE_NAME
+                        IdentityServerConstants.ROLE_IDENTITY_RECOURCE_NAME,
+                        "Ratings",
+                        IdentityServer4.IdentityServerConstants.LocalApi.ScopeName
                     }
                 }
             };

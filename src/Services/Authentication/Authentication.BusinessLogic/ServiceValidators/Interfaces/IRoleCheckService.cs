@@ -9,6 +9,6 @@ namespace Authentication.BusinessLogic.ServiceValidators.Interfaces
 {
     internal interface IRoleCheckService
     {
-        Task<Role> CheckIfRoleExistsAndGetById(string roleId);
+        Task<Role> CheckIfRoleExistsAndGetByIdAsync(string roleId);
     }
 }

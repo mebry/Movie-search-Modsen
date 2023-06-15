@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using MapsterMapper;
 
 namespace Authentication.BusinessLogic.Services.Implementations
 {
@@ -20,55 +21,58 @@ namespace Authentication.BusinessLogic.Services.Implementations
         private readonly UserManager<User> _userManager;
         private readonly IUserCheckService _userCheckService;
         private readonly IRoleCheckService _roleCheckService;
+        private readonly IMapper _mapper;
 
         public UserService(UserManager<User> userManager,
             IUserCheckService userCheckService,
-            IRoleCheckService roleCheckService
+            IRoleCheckService roleCheckService,
+            IMapper mapper
             )
         {
             _userManager = userManager;
             _userCheckService = userCheckService;
             _roleCheckService = roleCheckService;
+            _mapper = mapper;
         }
 
-        public async Task AddUserToRole(string userId, string roleId)
+        public async Task AddUserToRoleAsync(string userId, string roleId)
         {
-            var user = await _userCheckService.CheckIfUserExistsAndGetById(userId);
-            var role = await _roleCheckService.CheckIfRoleExistsAndGetById(roleId);
+            var user = await _userCheckService.CheckIfUserExistsAndGetByIdAsync(userId);
+            var role = await _roleCheckService.CheckIfRoleExistsAndGetByIdAsync(roleId);
             if (await _userManager.IsInRoleAsync(user, role.Name))
                 throw new UserWithGivenRoleAlreadyExistsException();
             await _userManager.AddToRoleAsync(user, role.Name);
         }
 
-        public async Task<UserDto> CreateUser(UserForCreationDto user)
+        public async Task<UserDto> CreateUserAsync(UserForCreationDto user)
         {
-            var mappedUser = user.Adapt<User>();
-            var result = await _userManager.CreateAsync(mappedUser);
+            var mappedUser = _mapper.Map<User>(user);
+            var result = await _userManager.CreateAsync(mappedUser, user.Password);
             if(!result.Succeeded)
             {
                 throw new UserInvalidCredentialsBadRequestException(result.Errors.ToList()[0].Description);
             }
-            var userToReturn = mappedUser.Adapt<UserDto>();
+            var userToReturn = _mapper.Map<UserDto>(mappedUser);
             return userToReturn;
         }
 
-        public async Task DeleteUserByUserId(string userId)
+        public async Task DeleteUserByUserIdAsync(string userId)
         {
-            var user = await _userCheckService.CheckIfUserExistsAndGetById(userId);
+            var user = await _userCheckService.CheckIfUserExistsAndGetByIdAsync(userId);
             await _userManager.DeleteAsync(user);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUsers()
+        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
         {
             var allUsers = await _userManager.Users.AsNoTracking().ToListAsync();
-            var mappedUsers = allUsers.Adapt<IEnumerable<UserDto>>();
+            var mappedUsers = _mapper.Map<IEnumerable<UserDto>>(allUsers);
             return mappedUsers;
         }
 
-        public async Task<UserDto> GetUserById(string id)
+        public async Task<UserDto> GetUserByIdAsync(string id)
         {
-            var user = await _userCheckService.CheckIfUserExistsAndGetById(id);
-            return user.Adapt<UserDto>();
+            var user = await _userCheckService.CheckIfUserExistsAndGetByIdAsync(id);
+            return _mapper.Map<UserDto>(user);
         }
     }
 }

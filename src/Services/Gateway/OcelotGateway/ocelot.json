@@ -1,7 +1,7 @@
 {
   "Routes": [
     {
-      "UpstreamPathTemplate": "/api/identity",
+      "UpstreamPathTemplate": "/api/users",
       "UpstreamHttpMethod": [ "Get", "Post" ],
       "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
@@ -10,7 +10,11 @@
           "Port": 7269
         }
       ],
-      "DownstreamPathTemplate": "/api/authenticate"
+      "DownstreamPathTemplate": "/api/v1/users",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      }
     }
   ],
   "GlobalConfiguration": {

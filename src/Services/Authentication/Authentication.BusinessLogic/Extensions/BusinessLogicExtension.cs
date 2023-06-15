@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Authentication.BusinessLogic.Extensions
 {
@@ -20,6 +21,7 @@ namespace Authentication.BusinessLogic.Extensions
         {
             services.ConfigureServices();
             services.ConfigureServiceValidators();
+            services.AddMappings();
         }
 
         private static void ConfigureServiceValidators(this IServiceCollection services)
@@ -32,6 +34,14 @@ namespace Authentication.BusinessLogic.Extensions
         {
             services.AddSingleton<ILoggerService, LoggerService>();
             services.AddScoped<IUserService, UserService>();
+        }
+
+        private static void AddMappings(this IServiceCollection services) 
+        {
+            var config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config);
+            services.AddScoped<IMapper, ServiceMapper>();
         }
     }
 }

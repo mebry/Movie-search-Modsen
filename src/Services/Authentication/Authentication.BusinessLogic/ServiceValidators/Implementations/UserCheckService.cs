@@ -19,7 +19,7 @@ namespace Authentication.BusinessLogic.ServiceValidators.Implementations
             _userManager = userManager;
         }   
 
-        public async Task<User> CheckIfUserExistsAndGetById(string userId)
+        public async Task<User> CheckIfUserExistsAndGetByIdAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -29,7 +29,7 @@ namespace Authentication.BusinessLogic.ServiceValidators.Implementations
             return user;
         }
 
-        public async Task<User> CheckIfUserExistsByUsernameAndGet(string username)
+        public async Task<User> CheckIfUserExistsByUsernameAndGetAsync(string username)
         {
             var user = await _userManager.FindByNameAsync(username);
             if (user == null)

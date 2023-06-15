@@ -28,6 +28,9 @@ namespace Authentication.API.Middlewares
                             AlreadyExistsException => StatusCodes.Status409Conflict,
                             _ => StatusCodes.Status500InternalServerError
                         };
+
+                        loggerService.LogError($"Something went wrong: {contextFeature.Error}");
+
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
                             StatusCode = context.Response.StatusCode,

@@ -20,7 +20,7 @@ namespace Authentication.BusinessLogic.ServiceValidators.Implementations
             _roleManager = roleManager;
         }
 
-        public async Task<Role> CheckIfRoleExistsAndGetById(string roleId)
+        public async Task<Role> CheckIfRoleExistsAndGetByIdAsync(string roleId)
         {
             var role = await _roleManager.FindByIdAsync(roleId);
             if (role == null)

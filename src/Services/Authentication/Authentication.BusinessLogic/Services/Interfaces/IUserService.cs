@@ -10,15 +10,15 @@ namespace Authentication.BusinessLogic.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDto> CreateUser(UserForCreationDto user);
+        Task<UserDto> CreateUserAsync(UserForCreationDto user);
 
-        Task<IEnumerable<UserDto>> GetAllUsers();
+        Task<IEnumerable<UserDto>> GetAllUsersAsync();
 
-        Task<UserDto> GetUserById(string id);
+        Task<UserDto> GetUserByIdAsync(string id);
 
-        Task AddUserToRole(string userId, string roleId);
+        Task AddUserToRoleAsync(string userId, string roleId);
 
-        Task DeleteUserByUserId(string userId); 
+        Task DeleteUserByUserIdAsync(string userId); 
 
     }
 }

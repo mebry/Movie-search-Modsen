@@ -9,8 +9,8 @@ namespace Authentication.BusinessLogic.ServiceValidators.Interfaces
 {
     public interface IUserCheckService
     {
-        Task<User> CheckIfUserExistsAndGetById(string userId);
-        Task<User> CheckIfUserExistsByUsernameAndGet(string username);
+        Task<User> CheckIfUserExistsAndGetByIdAsync(string userId);
+        Task<User> CheckIfUserExistsByUsernameAndGetAsync(string username);
 
 
     }

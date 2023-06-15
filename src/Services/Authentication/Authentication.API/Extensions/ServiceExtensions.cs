@@ -45,10 +45,12 @@ namespace Authentication.API.Extensions
 
             services.AddIdentityServer()
                 .AddAspNetIdentity<User>()
+                .AddInMemoryApiScopes(Configuration.GetApiScopes())
                 .AddInMemoryApiResources(Configuration.GetApis())
                 .AddInMemoryClients(Configuration.GetClients())
                 .AddInMemoryIdentityResources(Configuration.GetIdentityResources())
-                .AddDeveloperSigningCredential();
+                .AddDeveloperSigningCredential()
+                .AddProfileService<ProfileService>();
                 
         }
     }
