@@ -45,6 +45,7 @@ namespace Film.DataAccess.Repositories.Implementations
         public async Task<FilmModel> GetByIdAsync(Guid id)
         {
             var film = await _context.Films.AsNoTracking()
+                .IncludeRelatedData()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return film;
@@ -59,6 +60,7 @@ namespace Film.DataAccess.Repositories.Implementations
         public async Task<FilmModel> GetByTitleAndReleaseDateAsync(string title, DateOnly releaseDate)
         {
             var film = await _context.Films.AsNoTracking()
+                .IncludeRelatedData()
                 .FirstOrDefaultAsync(x => x.Title == title && x.ReleaseDate == releaseDate);
 
             return film;
@@ -76,6 +78,7 @@ namespace Film.DataAccess.Repositories.Implementations
             string orderByQueryString)
         {
             var films = await _context.Films.AsNoTracking()
+                .IncludeRelatedData()
                 .Filter(filterQueryString)
                 .Sort(orderByQueryString)
                 .Paginate(pageNumber, pageSize)

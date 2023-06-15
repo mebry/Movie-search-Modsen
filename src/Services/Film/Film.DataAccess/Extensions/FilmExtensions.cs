@@ -1,10 +1,7 @@
 ﻿using Film.DataAccess.Entities;
-using System.Reflection;
 using System.Linq.Dynamic.Core;
-using System.Text;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using System.Linq.Expressions;
-using System.Web;
+using Microsoft.EntityFrameworkCore;
 using System;
 
 namespace Film.DataAccess.Extensions
@@ -46,6 +43,26 @@ namespace Film.DataAccess.Extensions
         {
             return filmModels.Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize);
+        }
+
+        /// <summary>
+        /// Includes related data for FilmModel entities in the query, including AverageRating, FilmCountries, FilmGenres,
+        /// FilmTags, StaffPersonPositions, Position, and StaffPerson entities.
+        /// </summary>
+        /// <param name="filmModels">The IQueryable of FilmModel entities.</param>
+        /// <returns>The IQueryable of FilmModel entities with the related data included.</returns>
+        public static IQueryable<FilmModel> IncludeRelatedData(this IQueryable<FilmModel> filmModels)
+        {
+            return filmModels.Include(f=>f.AverageRating)
+                .Include(f=>f.FilmCountries)
+                .Include(f => f.FilmGenres)
+                    .ThenInclude(sp => sp.Genre)
+                .Include(f => f.FilmTags)
+                    .ThenInclude(sp => sp.Tag)
+                .Include(f => f.StaffPersonPositions)
+                    .ThenInclude(sp => sp.Position)
+                .Include(f => f.StaffPersonPositions)
+                    .ThenInclude(sp => sp.StaffPerson);
         }
 
         /// <summary>
