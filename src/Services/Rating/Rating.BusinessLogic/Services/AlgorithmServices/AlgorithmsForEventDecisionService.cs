@@ -1,9 +1,8 @@
-﻿using Rating.BusinessLogic.DTOs;
-using Rating.DataAccess.Entities;
+﻿using Rating.DataAccess.Entities;
 
 namespace Rating.BusinessLogic.Services.AlgorithmServices
 {
-    internal class AlgorithmService : IAlgorithmService
+    internal class AlgorithmsForEventDecisionService : IAlgorithmsForEventDecisionService
     {
         const double Precentage = 10;
 
@@ -13,7 +12,7 @@ namespace Rating.BusinessLogic.Services.AlgorithmServices
         public bool CountOfScoresСhangesInSpecifiedPercentage(Film film)
             => ((film.CountOfScores / film.OldCountOfScores) * 100 - 100) > Precentage;
 
-        public bool IsTherePossibilityToChangeAverageRating(double oldAverageRating, int oldCountOfScores, int newScore, int newCountOfScores)
+        public bool IsTherePossibilityToChangeAverageRating(double oldAverageRating, uint oldCountOfScores, int newScore, uint newCountOfScores)
         {
             double oldTotalRating = oldAverageRating * oldCountOfScores;
             double newTotalRating = oldTotalRating + newScore;
