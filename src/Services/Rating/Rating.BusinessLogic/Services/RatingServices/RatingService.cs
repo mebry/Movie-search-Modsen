@@ -3,8 +3,11 @@ using FluentValidation.Results;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using Rating.BusinessLogic.DTOs;
+using Rating.BusinessLogic.Enums;
 using Rating.BusinessLogic.Exceptions;
 using Rating.BusinessLogic.Extensions;
+using Rating.BusinessLogic.Services.EventDecisionServices;
+using Rating.BusinessLogic.Services.FilmServices;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 
@@ -12,22 +15,27 @@ namespace Rating.BusinessLogic.Services.RatingServices
 {
     internal class RatingService : IRatingService
     {
+        private readonly IFilmService _filmService;
         private readonly IRatingFilmRepository _ratingRepository;
         private readonly ILogger<RatingService> _logger;
-        private IValidator<RatingFilm> _validator;
+        private readonly IValidator<RatingFilm> _validator;
+        private readonly IEventDecisionService _eventDecisionService;
 
-        public RatingService(IRatingFilmRepository ratingRepository, ILogger<RatingService> logger, IValidator<RatingFilm> validator)
+        public RatingService(IFilmService filmService, IRatingFilmRepository ratingRepository,
+            ILogger<RatingService> logger, IValidator<RatingFilm> validator, IEventDecisionService eventDecisionService)
         {
+            _filmService = filmService;
             _ratingRepository = ratingRepository;
             _logger = logger;
             _validator = validator;
+            _eventDecisionService = eventDecisionService;
         }
 
         public async Task<ResponseRatingDTO> CreateAsync(RequestRatingDTO model)
         {
             var mapperModel = model.Adapt<RatingFilm>();
 
-            mapperModel.Id = new Guid();
+            mapperModel.Id = Guid.NewGuid();
 
             ValidationResult result = await _validator.ValidateAsync(mapperModel);
 
@@ -39,6 +47,10 @@ namespace Rating.BusinessLogic.Services.RatingServices
             }
 
             _ratingRepository.Create(mapperModel);
+
+            await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Create);
+
+            await _filmService.IncrementCountOfScores((Guid)mapperModel.FilmId!);
 
             await _ratingRepository.SaveAsync();
 
@@ -59,6 +71,12 @@ namespace Rating.BusinessLogic.Services.RatingServices
             }
 
             _ratingRepository.Delete(existingRating);
+
+            var requestRatingDto = existingRating.Adapt<RequestRatingDTO>();
+
+            await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(requestRatingDto, (int)Changes.Delete);
+
+            await _filmService.DecrementCountOfScores((Guid)existingRating.FilmId!);
 
             await _ratingRepository.SaveAsync();
 
@@ -97,6 +115,8 @@ namespace Rating.BusinessLogic.Services.RatingServices
             var mapperModel = model.Adapt<RatingFilm>();
 
             mapperModel.Id = id;
+
+            await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Update);
 
             _ratingRepository.Update(mapperModel);
 
