@@ -10,7 +10,7 @@ namespace Staff.BusinessLogic.Extensions
     {
         public static void AddBusinessLogicService(this IServiceCollection services, IConfiguration configuration)
         {
-            services.ConfigureServices();
+            services.AddDataAccessService(configuration);
             services.AddServices();
         }
 
