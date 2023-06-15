@@ -14,7 +14,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
     {
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<FilmService> _logger;
-        private IValidator<Film> _validator;
+        private readonly IValidator<Film> _validator;
 
         public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<Film> validator)
         {
