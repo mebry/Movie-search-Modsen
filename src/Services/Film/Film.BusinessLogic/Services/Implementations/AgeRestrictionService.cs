@@ -128,7 +128,7 @@ namespace Film.BusinessLogic.Services.Implementations
             if (foundAgeRestriction is null)
             {
                 _logger.LogError("The model for the get was not found");
-                throw new NotFoundException("The age restriction with this name wasn't found");
+                throw new NotFoundException("The age restriction with this age wasn't found");
             }
 
             return foundAgeRestriction.Adapt<AgeRestrictionResponseDTO>();
