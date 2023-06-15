@@ -18,14 +18,6 @@ namespace Film.DataAccess.Repositories.Interfaces
         Task<IEnumerable<FilmModel>> GetFilmsAsync(int pageNumber, int pageSize, string filterQueryString, string orderByQueryString);
 
         /// <summary>
-        /// Retrieves a film model entity by title and release date asynchronously.
-        /// </summary>
-        /// <param name="title">The title of the film.</param>
-        /// <param name="releaseDate">The release date of the film.</param>
-        /// <returns> The task result contains the film model entity if found; otherwise, null.</returns>
-        Task<FilmModel> GetByTitleAndReleaseDateAsync(string title, DateOnly releaseDate);
-
-        /// <summary>
         /// Checks if a film with the given title and release date exists.
         /// </summary>
         /// <param name="title">The title of the film.</param>

@@ -64,21 +64,6 @@ namespace Film.DataAccess.Repositories.Implementations
         }
 
         /// <summary>
-        /// Retrieves a film entity by its title and release date asynchronously.
-        /// </summary>
-        /// <param name="title">The title of the film.</param>
-        /// <param name="releaseDate">The release date of the film.</param>
-        /// <returns>A task that represents the asynchronous retrieval operation.</returns>
-        public async Task<FilmModel> GetByTitleAndReleaseDateAsync(string title, DateOnly releaseDate)
-        {
-            var film = await _context.Films.AsNoTracking()
-                .IncludeRelatedData()
-                .FirstOrDefaultAsync(x => x.Title == title && x.ReleaseDate == releaseDate);
-
-            return film;
-        }
-
-        /// <summary>
         /// Retrieves a collection of film entities based on specified filtering, sorting, and pagination criteria asynchronously.
         /// </summary>
         /// <param name="pageNumber">The page number to retrieve.</param>
