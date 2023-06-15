@@ -1,0 +1,8 @@
+﻿namespace Film.BusinessLogic.Exceptions.NotFound
+{
+    public class AgeRestrictionNotFoundException : NotFoundException
+    {
+        public AgeRestrictionNotFoundException(Guid id)
+            : base($"Age restriction with id: {id} doesn't exist in the database.") { }
+    }
+}
