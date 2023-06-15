@@ -10,10 +10,10 @@ namespace Film.DataAccess.Repositories.Interfaces
     public interface IFilmCountryRepository
     {
         /// <summary>
-        /// Creates a new film genre.
+        /// Creates a new film country entity.
         /// </summary>
-        /// <param name="filmGenre">The film genre to create.</param>
-        void Create(FilmGenre filmGenre);
+        /// <param name="filmCountry">The film country entity to create.</param>
+        void Create(FilmCountry filmCountry);
 
         /// <summary>
         /// Deletes a film country by film ID and country.
