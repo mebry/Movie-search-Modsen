@@ -15,42 +15,39 @@ namespace Reviews.DataAccess.Repositories.Implementations
         }
 
         public async Task CreateAsync(Review review)
-        {
-            await _dbContext.Reviews.AddAsync(review);
-        }
+            => await _dbContext.Reviews.AddAsync(review);
+
 
         public async Task<IEnumerable<Review>> GetAllByCriticIdAsync(Guid criticId)
-        {
-            return await _dbContext.Reviews
+            => await _dbContext.Reviews
                 .Where(x => x.CriticId == criticId)
                 .AsNoTracking()
                 .ToListAsync();
-        }
 
-        public async Task<IEnumerable<Review>> GetAllByFilmIdAndType(Guid filmId, Guid typeOfReviewId)
-        {
-            return await _dbContext.Reviews
+
+        public async Task<IEnumerable<Review>> GetAllByFilmIdAndTypeAsync(Guid filmId, Guid typeOfReviewId)
+            => await _dbContext.Reviews
                 .Where(x => x.FilmId == filmId && x.TypeOfReviewId == typeOfReviewId)
                 .AsNoTracking()
                 .ToListAsync();
-        }
+
 
         public async Task<IEnumerable<Review>> GetAllByFilmIdAsync(Guid filmId)
-        {
-            return await _dbContext.Reviews
+            => await _dbContext.Reviews
                 .Where(x => x.FilmId == filmId)
                 .AsNoTracking()
                 .ToListAsync();
-        }
+
+
+        public async Task<Review> GetByIdAsync(Guid id)
+            => await _dbContext.Reviews.FindAsync(id);
+
 
         public void RemoveReview(Review review)
-        {
-            _dbContext.Reviews.Remove(review);
-        }
+            => _dbContext.Reviews.Remove(review);
 
         public void Update(Review review)
-        {
-            _dbContext.Reviews.Update(review);
-        }
+            => _dbContext.Reviews.Update(review);
+
     }
 }

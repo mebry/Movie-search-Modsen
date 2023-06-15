@@ -7,5 +7,6 @@ namespace Reviews.DataAccess.Repositories.Interfaces
         public Task CreateAsync(Critic critic);
         public void Update(Critic critic);
         public void RemoveCritic(Critic critic);
+        public Task<Critic?> GetByIdAsync(Guid id);
     }
 }

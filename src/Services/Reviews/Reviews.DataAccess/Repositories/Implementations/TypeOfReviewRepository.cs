@@ -14,8 +14,7 @@ namespace Reviews.DataAccess.Repositories.Implementations
         }
 
         public async Task CreateAsync(TypeOfReview typeOfReview)
-        {
-            await _dbContext.TypesOfReview.AddAsync(typeOfReview);
-        }
+            => await _dbContext.TypesOfReview.AddAsync(typeOfReview);
+
     }
 }
