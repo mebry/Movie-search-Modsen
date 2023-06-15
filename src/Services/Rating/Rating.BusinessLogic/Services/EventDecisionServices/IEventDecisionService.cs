@@ -9,7 +9,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public Task<bool> DecisionToSendAveragRatingChangEventAsync(RequestRatingDTO rating);
+        public Task<bool> DecisionToSendAveragRatingChangEventAsync(RequestRatingDTO rating, int change)
 
         /// <summary>
         /// The service decides whether to send an event for changes to CountOfScore. This method checks for changes every few hours.

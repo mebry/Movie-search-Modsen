@@ -4,7 +4,7 @@ namespace Rating.BusinessLogic.Services.EventDispatchServices
 {
     internal class EventDispatchService : IEventDispatchService
     {
-        public bool SendNewAverageRating(IEnumerable<FilmDTO> films)
+        public bool SendNewAverageRating(FilmDTO films)
         {
             throw new NotImplementedException();
         }
