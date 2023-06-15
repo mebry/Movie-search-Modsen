@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rating.DataAccess.Contexts;
 using Rating.DataAccess.Entities;
+using System.Linq.Expressions;
 
 namespace Rating.DataAccess.Repositories.FilmRepositories
 {
@@ -18,6 +19,11 @@ namespace Rating.DataAccess.Repositories.FilmRepositories
 
         public void Delete(Film entity)
             => _context.Remove(entity);
+
+        public IEnumerable<Film> GetAllByPredicate(Func<Film, bool> predicate)
+            => _context.Films
+            .AsNoTracking()
+            .Where(predicate);
 
         public async Task<Film?> GetByIdAsync(Guid entityId)
              => await _context.Films

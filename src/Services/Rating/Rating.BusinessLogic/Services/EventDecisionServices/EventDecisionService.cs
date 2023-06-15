@@ -4,6 +4,7 @@ using Rating.BusinessLogic.Services.AlgorithmServices;
 using Rating.BusinessLogic.Services.EventDispatchServices;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
+using System.Linq.Expressions;
 
 namespace Rating.BusinessLogic.Services.EventDecisionServices
 {
@@ -25,30 +26,33 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             throw new NotImplementedException();
         }
 
-        public async Task DecisionToSendCountOfScoresLongChangEventAsync()
+        public async Task<bool> DecisionToSendCountOfScoresLongChangEventAsync()
         {
             var predicate = _algorithmService.CountOfScoresForLongPeriod;
 
-            await DecisionToSendCountOfScoresChangEventAsync(predicate);
+            return await DecisionToSendCountOfScoresChangEventAsync(predicate);
         }
 
-        public async Task DecisionToSendCountOfScoresShortChangEventAsync()
+        public async Task<bool> DecisionToSendCountOfScoresShortChangEventAsync()
         {
             var predicate = _algorithmService.CountOfScoresСhangesInSpecifiedPercentage;
 
-            await DecisionToSendCountOfScoresChangEventAsync(predicate);
+            return await DecisionToSendCountOfScoresChangEventAsync(predicate);
         }
 
-        private async Task DecisionToSendCountOfScoresChangEventAsync(Func<Film, bool> predicate)
+        private async Task<bool> DecisionToSendCountOfScoresChangEventAsync(Func<Film, bool> func)
         {
-            var films = await _filmRepository.GetAllByPredicate(predicate);
 
-            if(films.Count() == 0)
-                return;
+            var films = _filmRepository.GetAllByPredicate(func);
+
+            if(films is null || films.Count() == 0)
+                return false;
 
             var eventFilms = await PreparingToSendCountOfScoresAsync(films);
 
             _eventDispatchService.SendNewCountOfScores(eventFilms);
+
+            return true;
         }
 
         private async Task<IEnumerable<FilmDTO>> PreparingToSendCountOfScoresAsync(IEnumerable<Film> films)

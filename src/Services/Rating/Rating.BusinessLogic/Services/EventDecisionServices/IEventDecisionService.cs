@@ -16,13 +16,13 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public Task DecisionToSendCountOfScoresShortChangEventAsync();
+        public Task<bool> DecisionToSendCountOfScoresShortChangEventAsync();
 
         /// <summary>
         /// The service decides whether to send an event for changes to CountOfScore. This method checks for changes every month.
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public Task DecisionToSendCountOfScoresLongChangEventAsync();
+        public Task<bool> DecisionToSendCountOfScoresLongChangEventAsync();
     }
 }
