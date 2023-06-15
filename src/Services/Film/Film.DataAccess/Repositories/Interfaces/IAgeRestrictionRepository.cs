@@ -11,6 +11,13 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// Retrieves all age restrictions.
         /// </summary>
         /// <returns>A task that represents the asynchronous operation and contains the collection of age restrictions.</returns>
-        Task<IEnumerable<AgeRestriction>> GetAgeRestrictions();
+        Task<IEnumerable<AgeRestriction>> GetAgeRestrictionsAsync();
+
+        /// <summary>
+        /// Retrieves an age restriction entity by age asynchronously.
+        /// </summary>
+        /// <param name="age">The age to search for.</param>
+        /// <returns> The task result contains the age restriction entity if found; otherwise, null.</returns>
+        Task<AgeRestriction> GetAgeRestrictionByAgeAsync(int age);
     }
 }

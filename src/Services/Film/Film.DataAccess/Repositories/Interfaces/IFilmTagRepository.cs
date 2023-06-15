@@ -11,8 +11,7 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// Creates a new film tag.
         /// </summary>
         /// <param name="filmTag">The film tag to create.</param>
-        /// <returns>The created film tag.</returns>
-        FilmTag Create(FilmTag filmTag);
+        void Create(FilmTag filmTag);
 
         /// <summary>
         /// Deletes a film tag by film ID and tag ID.

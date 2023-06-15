@@ -11,9 +11,8 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// Creates a new position.
         /// </summary>
         /// <param name="position">The position to create.</param>
-        /// <returns>The created position.</returns>
-        Position Create(Position position);
-
+        void Create(Position position);
+        
         /// <summary>
         /// Updates an existing position.
         /// </summary>

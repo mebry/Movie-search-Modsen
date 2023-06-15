@@ -11,8 +11,7 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// Creates a new film genre.
         /// </summary>
         /// <param name="filmGenre">The film genre to create.</param>
-        /// <returns>The created film genre.</returns>
-        FilmGenre Create(FilmGenre filmGenre);
+        void Create(FilmGenre filmGenre);
 
         /// <summary>
         /// Deletes a film genre by film ID and genre ID.

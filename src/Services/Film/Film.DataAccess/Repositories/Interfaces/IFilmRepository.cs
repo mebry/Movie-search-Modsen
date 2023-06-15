@@ -15,6 +15,14 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// <param name="filterQueryString">The query string for filtering films.</param>
         /// <param name="orderByQueryString">The query string for ordering films.</param>
         /// <returns>A task representing the asynchronous operation that returns the collection of film models.</returns>
-        Task<IEnumerable<FilmModel>> GetFilms(int pageNumber, int pageSize, string filterQueryString, string orderByQueryString);
+        Task<IEnumerable<FilmModel>> GetFilmsAsync(int pageNumber, int pageSize, string filterQueryString, string orderByQueryString);
+
+        /// <summary>
+        /// Retrieves a film model entity by title and release date asynchronously.
+        /// </summary>
+        /// <param name="title">The title of the film.</param>
+        /// <param name="releaseDate">The release date of the film.</param>
+        /// <returns> The task result contains the film model entity if found; otherwise, null.</returns>
+        Task<FilmModel> GetByTitleAndReleaseDateAsync(string title, DateOnly releaseDate);
     }
 }

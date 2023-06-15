@@ -12,8 +12,7 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// Creates a new entity.
         /// </summary>
         /// <param name="entity">The entity to create.</param>
-        /// <returns>The created entity.</returns>
-        T Create(T entity);
+        void Create(T entity);
 
         /// <summary>
         /// Retrieves an entity by its Id asynchronously.

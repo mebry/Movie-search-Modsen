@@ -11,8 +11,7 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// Creates a new staff person.
         /// </summary>
         /// <param name="staffPerson">The staff person to create.</param>
-        /// <returns>The created staff person.</returns>
-        StaffPerson Create(StaffPerson staffPerson);
+        void Create(StaffPerson staffPerson);
 
         /// <summary>
         /// Updates an existing staff person.
