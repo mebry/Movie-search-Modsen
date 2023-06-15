@@ -9,7 +9,9 @@ namespace Reviews.DataAccess.Contexts
         public virtual DbSet<Critic> Critics { get; set; }
         public virtual DbSet<Review> Reviews { get; set; }
         public virtual DbSet<TypeOfReview> TypesOfReview { get; set; }
-        public ReviewsDbContext(DbContextOptions<ReviewsDbContext> options) : base(options)
+
+        public ReviewsDbContext(DbContextOptions<ReviewsDbContext> options)
+            : base(options)
         {
         }
 

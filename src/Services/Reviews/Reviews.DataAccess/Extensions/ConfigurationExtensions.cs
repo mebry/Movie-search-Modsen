@@ -14,13 +14,15 @@ namespace Reviews.DataAccess.Extensions
             service.AddConfigurationMSSQLServer(configuration);
             service.AddRepositoriesService();
         }
+
         private static void AddConfigurationMSSQLServer(this IServiceCollection service, IConfiguration configuration)
         {
             service.AddDbContext<ReviewsDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("Reviews.DataAccess")));
         }
-        public static void AddRepositoriesService(this IServiceCollection service)
+
+        private static void AddRepositoriesService(this IServiceCollection service)
         {
             service.AddScoped<ICriticRepository, CriticRepository>();
             service.AddScoped<IReviewRepository, ReviewRepository>();
