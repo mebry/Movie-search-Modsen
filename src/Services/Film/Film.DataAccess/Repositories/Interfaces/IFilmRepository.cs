@@ -24,5 +24,14 @@ namespace Film.DataAccess.Repositories.Interfaces
         /// <param name="releaseDate">The release date of the film.</param>
         /// <returns> The task result contains the film model entity if found; otherwise, null.</returns>
         Task<FilmModel> GetByTitleAndReleaseDateAsync(string title, DateOnly releaseDate);
+
+        /// <summary>
+        /// Checks if a film with the given title and release date exists.
+        /// </summary>
+        /// <param name="title">The title of the film.</param>
+        /// <param name="releaseDate">The release date of the film.</param>
+        /// <returns>A task that represents the asynchronous operation.
+        /// The task result contains a boolean value indicating whether the film exists or not.</returns>
+        Task<bool> FilmExistsAsync(string title, DateOnly releaseDate);
     }
 }

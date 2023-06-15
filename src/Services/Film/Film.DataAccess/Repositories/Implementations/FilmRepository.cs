@@ -37,6 +37,18 @@ namespace Film.DataAccess.Repositories.Implementations
             _context.Films.Remove(film);
         }
 
+        // <summary>
+        /// Checks if a film with the given title and release date exists.
+        /// </summary>
+        /// <param name="title">The title of the film.</param>
+        /// <param name="releaseDate">The release date of the film.</param>
+        /// <returns>A task that represents the asynchronous operation.
+        /// The task result contains a boolean value indicating whether the film exists or not.</returns>
+        public async Task<bool> FilmExistsAsync(string title, DateOnly releaseDate)
+        {
+            return await _context.Films.AnyAsync(x => x.Title == title && x.ReleaseDate == releaseDate);
+        }
+
         /// <summary>
         /// Retrieves a film entity by its Id asynchronously.
         /// </summary>
