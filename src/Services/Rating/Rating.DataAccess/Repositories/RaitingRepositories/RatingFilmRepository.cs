@@ -13,6 +13,12 @@ namespace Rating.DataAccess.Repositories.RaitingRepositories
             _context = context;
         }
 
+        public async Task<double> CalculateAverageRatingByFilmId(Guid id)
+             => await _context.Ratings
+            .AsNoTracking()
+            .Where(a => a.Id == id)
+            .AverageAsync(r => r.Score);
+
         public void Create(RatingFilm entity)
             => _context.Add(entity);
 

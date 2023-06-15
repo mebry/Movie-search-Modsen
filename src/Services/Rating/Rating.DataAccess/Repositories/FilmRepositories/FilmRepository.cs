@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Rating.DataAccess.Contexts;
 using Rating.DataAccess.Entities;
-using System.Linq.Expressions;
 
 namespace Rating.DataAccess.Repositories.FilmRepositories
 {
