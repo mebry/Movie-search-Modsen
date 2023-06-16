@@ -10,6 +10,9 @@
 5. MS SQLServer
 6. AutoMapper, Mapster
 7. Docker
+8. IdentityServer4
+9. Ocelot Gateway
+    
 
 Описание проекта: 
 
