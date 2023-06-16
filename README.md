@@ -14,6 +14,7 @@ Technologies Used:
 7. Docker
 8. IdentityServer4
 9. Ocelot Gateway
+10. Hangfire
 
 Project Description:
 
