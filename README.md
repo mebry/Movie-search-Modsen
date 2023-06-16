@@ -1,36 +1,50 @@
-Тема проекта - Кинопоиск
+Project Topic - Kinopoisk
 
-Архитектура: микросервисная
+Overall application architecture: Microservice-based
 
-Применяемые технологии:
-1. Microsoft Identity
-2. Entity Framework
+Each service is implemented using the N-Layer architecture
+
+Technologies Used:
+1. FluentValidation
+2. Entity Framework + Fluent API
 3. ASP.Net Core Web Api
 4. RabbitMQ
 5. MS SQLServer
 6. AutoMapper, Mapster
 7. Docker
+8. IdentityServer4
+9. Ocelot Gateway
+10. Hangfire
 
-Описание проекта: 
+Project Description:
 
-1. Просмотр информации о фильме, включая жанры, возрастные ограничения, рейтинг
-2. Оценка фильма
-3. Возможность добавления рецензии
-4. Коллекции фильмов
-5. Отслеживание по сиквелам, приквелам
-6. Различные фильтрации
-7. Авторизация, аутентификация
-8. Ролевая политика 
+1. Viewing film information, including genres, age restrictions, and ratings.
+2. Pagination of films, filtering, and sorting based on different parameters passed as parameters.
+3. Tracking sequels and prequels.
+4. Working with staff for films.
+5. Film rating.
+6. Ability to add reviews.
+7. Film collections.
+8. Authorization and authentication.
+9. Role-based policy.
+10. Statistics.
+11. Ability to create new films, edit and delete.
+12. Ability to modify or remove ratings as per user discretion.
+13. Ability to add new staff and edit their information.
 
-Микросервисы:
+Microservices:
 
-1. Фильмы
-2. Коллекции
-3. Ревью
-4. Рейтинги
-5. Сотрудники
-6. Статистика(таблица не приведена)
-7. Авторизация(на схеме, отображается только часть, а именно - Users)
+1. Films
+2. Collections
+3. Reviews
+4. Ratings
+5. Employees
+6. Statistics
+7. Authorization
 
+Simplified version of databases for microservices. 
+Statistics is not shown in this diagram. 
+Also, not all replication for databases is provided.
+Countries is an enumeration stored in Shared.
 ![image](https://github.com/mebry/Movie-search-Modsen/assets/91991278/d74ade6b-16e6-4769-91a1-42f98528d97a)
 

@@ -14,7 +14,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
     {
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<FilmService> _logger;
-        private IValidator<Film> _validator;
+        private readonly IValidator<Film> _validator;
 
         public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<Film> validator)
         {
@@ -111,6 +111,42 @@ namespace Rating.BusinessLogic.Services.FilmServices
             await _filmRepository.SaveAsync();
 
             return model;
+        }
+
+        public async Task<bool> DecrementCountOfScores(Guid filmId)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(filmId);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The decrement attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            existingFilm.CountOfScores--;
+
+            _filmRepository.Update(existingFilm);
+
+            return true;
+        }
+
+        public async Task<bool> IncrementCountOfScores(Guid filmId)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(filmId);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The increment attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            existingFilm.CountOfScores++;
+
+            _filmRepository.Update(existingFilm);
+
+            return true;
         }
     }
 }

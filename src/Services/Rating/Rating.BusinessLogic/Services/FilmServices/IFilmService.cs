@@ -8,5 +8,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
         public Task<FilmDTO?> GetByIdAsync(Guid id);
         public Task<FilmDTO> DeleteAsync(Guid id);
         public Task<FilmDTO> UpdateAsync(FilmDTO model);
+        public Task<bool> DecrementCountOfScores(Guid filmId);
+        public Task<bool> IncrementCountOfScores(Guid filmId);
     }
 }

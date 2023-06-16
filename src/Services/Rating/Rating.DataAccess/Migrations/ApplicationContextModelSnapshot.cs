@@ -28,7 +28,7 @@ namespace Rating.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<double>("AverageRaiting")
+                    b.Property<double>("AverageRating")
                         .HasMaxLength(10)
                         .HasColumnType("float");
 
