@@ -1,7 +1,10 @@
 ﻿using Authentication.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Authentication.BusinessLogic.DTOs;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Authentication.BusinessLogic.DTOs.RequestDTOs;
+using FluentValidation.Results;
+using FluentValidation;
+using Authentication.API.Extensions;
 
 namespace Authentication.API.Controllers
 {
@@ -11,10 +14,12 @@ namespace Authentication.API.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly IValidator<UserRequestDto> _validator;
 
-        public UserController(IUserService userService)
+        public UserController(IValidator<UserRequestDto> validator, IUserService userService)
         {
             _userService = userService;
+            _validator = validator;
         }   
 
         [HttpGet]
@@ -37,8 +42,14 @@ namespace Authentication.API.Controllers
         [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
-        public async Task<IActionResult> CreateUserAsync(UserForCreationDto userForCreationDto)
+        public async Task<IActionResult> CreateUserAsync(UserRequestDto userForCreationDto)
         {
+            ValidationResult result = await _validator.ValidateAsync(userForCreationDto);
+            if (!result.IsValid)
+            {
+                result.AddToModelState(ModelState);
+                return BadRequest(ModelState);
+            }
             var createdUser = await _userService.CreateUserAsync(userForCreationDto);
             return CreatedAtRoute("UserById", new { userId = createdUser.Id }, createdUser);
 

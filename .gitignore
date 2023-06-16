@@ -283,6 +283,7 @@ src/**/inf.yaml
 
 .angular/
 /src/Services/Identity/Identity.API/keys/*.json
+/src/Services/Identity/Identity.API/keys/*.json
 
 # Ignores logs file
 internallog.txt
