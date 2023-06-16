@@ -12,14 +12,11 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
     {
         Task CreateCollectionAsync(Collection collection);
 
-        Task DeleteCollectionAsync(Collection collection);
+        Task DeleteCollection(Collection collection);
 
-        Task UpdateCollectionAsync(Collection collection);
+        Task UpdateCollection(Collection collection);
 
         Task<IEnumerable<Collection>> GetAllCollectionsAsync(bool trackChanges);
-
-        Task<IEnumerable<Collection>> GetCollectionsByConditionAsync(Expression<Func<Collection, bool>> condition, bool trackChanges))
-
         Task<Collection> GetCollectionAsync(Guid id, bool trackChanges);
     }
 }
