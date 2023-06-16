@@ -11,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
+using FluentValidation;
+using Microsoft.AspNetCore.Identity;
+using Authentication.BusinessLogic.Validators.RequestValidators;
 
 namespace Authentication.BusinessLogic.Extensions
 {
@@ -22,12 +25,18 @@ namespace Authentication.BusinessLogic.Extensions
             services.ConfigureServices();
             services.ConfigureServiceValidators();
             services.AddMappings();
+            services.ConfigureFluentValidators();
         }
 
         private static void ConfigureServiceValidators(this IServiceCollection services)
         {
             services.AddScoped<IUserCheckService, UserCheckService>();
             services.AddScoped<IRoleCheckService, RoleCheckService>();
+        }
+
+        private static void ConfigureFluentValidators(this IServiceCollection services)
+        {
+            services.AddValidatorsFromAssemblyContaining<UserRequestValidator>();
         }
 
         private static void ConfigureServices(this IServiceCollection services)
