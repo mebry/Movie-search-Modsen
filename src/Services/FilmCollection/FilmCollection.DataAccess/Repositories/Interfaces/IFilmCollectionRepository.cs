@@ -9,7 +9,7 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
 {
     public interface IFilmCollectionRepository
     {
-        void CreateFilmCollection(FilmCollection.DataAccess.Models.FilmCollection filmCollection);
-        void DeleteFilmCollection(FilmCollection.DataAccess.Models.FilmCollection filmCollection);
+        Task CreateFilmCollectionAsync(FilmCollection.DataAccess.Models.FilmCollection filmCollection);
+        Task DeleteFilmCollectionAsync(FilmCollection.DataAccess.Models.FilmCollection filmCollection);
     }
 }

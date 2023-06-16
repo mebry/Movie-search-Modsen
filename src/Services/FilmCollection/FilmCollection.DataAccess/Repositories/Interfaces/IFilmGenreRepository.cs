@@ -10,8 +10,8 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
 {
     public interface IFilmGenreRepository
     {
-        void CreateFilmGenre(FilmGenre filmGenre);
+        Task CreateFilmGenreAsync(FilmGenre filmGenre);
 
-        void DeleteFilmGenre(FilmGenre filmGenre);
+        Task DeleteFilmGenreAsync(FilmGenre filmGenre);
     }
 }

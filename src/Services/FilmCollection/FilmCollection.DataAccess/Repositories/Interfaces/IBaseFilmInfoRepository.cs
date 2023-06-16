@@ -15,5 +15,6 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
         Task UpdateBaseFilmInfoAsync(BaseFilmInfo baseFilmInfo);
         Task<BaseFilmInfo> GetBaseFilmInfoByIdAsync(Guid id, bool trackCahnges);
         Task<IEnumerable<BaseFilmInfo>> GetBaseFilmInfosAsync(bool trackCahnges);
+        Task<BaseFilmInfo> GetBaseFilmInfoByTitleAndReleaseDate(string title, DateOnly releaseDate, bool trackChanges);
     }
 }

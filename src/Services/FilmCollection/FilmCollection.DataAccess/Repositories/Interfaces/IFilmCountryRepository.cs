@@ -9,7 +9,7 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
 {
     public interface IFilmCountryRepository
     {
-        void CreateFilmCountry(FilmCountry filmCountry);
-        void DeleteFilmCountry(FilmCountry filmCountry);
+        Task CreateFilmCountryAsync(FilmCountry filmCountry);
+        Task DeleteFilmCountryAsync(FilmCountry filmCountry);
     }
 }

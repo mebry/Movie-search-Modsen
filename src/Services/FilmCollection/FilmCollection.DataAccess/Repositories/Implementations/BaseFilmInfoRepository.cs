@@ -37,6 +37,11 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
             return await GetByConditionAsync(b => b.Id.Equals(id), trackCahnges).SingleOrDefaultAsync();
         }
 
+        public async Task<BaseFilmInfo> GetBaseFilmInfoByTitleAndReleaseDate(string title, DateOnly releaseDate, bool trackChanges)
+        {
+            return await GetByConditionAsync(b => b.ReleaseDate == releaseDate && b.Title == title, trackChanges).FirstOrDefaultAsync();
+        }
+
         public async Task<IEnumerable<BaseFilmInfo>> GetBaseFilmInfosAsync(bool trackCahnges)
         {
             return await GetAllAsync(trackCahnges).ToListAsync();
