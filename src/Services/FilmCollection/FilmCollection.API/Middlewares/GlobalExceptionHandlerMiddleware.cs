@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Diagnostics;
 
 namespace FilmCollection.API.Middlewares
 {
-    public static class GlogalExceptionHandlerMiddleware
+    public static class GlobalExceptionHandlerMiddleware
     {
         public static void ConfigureExceptionHandler(this WebApplication app)
         {
