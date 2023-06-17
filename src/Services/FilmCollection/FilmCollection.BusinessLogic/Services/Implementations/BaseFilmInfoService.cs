@@ -1,7 +1,7 @@
 ﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
 using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 using FilmCollection.BusinessLogic.Services.Interfaces;
-using FilmCollection.BusinessLogic.ServiceValidators.Interfaces;
+using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.DataAccess.Repositories.Interfaces;
 using MapsterMapper;

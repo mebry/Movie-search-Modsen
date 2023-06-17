@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using FilmCollection.BusinessLogic.Services.Interfaces;
 using FilmCollection.DataAccess.Repositories.Interfaces;
 using MapsterMapper;
-using FilmCollection.BusinessLogic.ServiceValidators.Interfaces;
 using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
 using FilmCollection.DataAccess.Models;
+using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 
 namespace FilmCollection.BusinessLogic.Services.Implementations
 {
