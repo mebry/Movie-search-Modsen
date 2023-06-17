@@ -37,6 +37,11 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
             return await GetAllAsync(trackChanges).ToListAsync();
         }
 
+        public async Task<Genre> GetGenreByNameAsync(string name, bool trackChanges)
+        {
+            return await GetByConditionAsync(g => String.Compare(name, g.Name, StringComparison.OrdinalIgnoreCase) == 0, trackChanges).SingleOrDefaultAsync();
+        }
+
         public async Task<Genre> GetGenreByIdAsync(Guid id, bool trackChanges)
         {
             return await GetByConditionAsync(g => g.Id.Equals(id), trackChanges).SingleOrDefaultAsync();
