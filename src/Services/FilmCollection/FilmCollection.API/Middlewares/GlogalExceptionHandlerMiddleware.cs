@@ -1,4 +1,5 @@
-﻿using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
+﻿using FilmCollection.BusinessLogic.Exceptions;
+using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
 using FilmCollection.BusinessLogic.Exceptions.NotFoundException;
 using Microsoft.AspNetCore.Diagnostics;
 
@@ -6,8 +7,7 @@ namespace FilmCollection.API.Middlewares
 {
     public static class GlogalExceptionHandlerMiddleware
     {
-        public static void ConfigureExceptionHandler(this WebApplication app,
-           ILogger logger)
+        public static void ConfigureExceptionHandler(this WebApplication app)
         {
             app.UseExceptionHandler(apiError =>
             {
@@ -20,12 +20,11 @@ namespace FilmCollection.API.Middlewares
                         context.Response.StatusCode = contextFeature.Error switch
                         {
                             NotFoundException => StatusCodes.Status404NotFound,
-                            BadRequestException => StatusCodes.Status400BadRequest,
                             AlreadyExistsException => StatusCodes.Status409Conflict,
                             _ => StatusCodes.Status500InternalServerError
                         };
 
-                        logger.LogError($"Something went wrong: {contextFeature.Error}");
+                        app.Logger.LogError($"Something went wrong: {contextFeature.Error}");
 
                         await context.Response.WriteAsync(new ErrorDetails()
                         {
