@@ -1,6 +1,7 @@
 ﻿using FilmCollection.DataAccess.Contexts;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.DataAccess.Repositories.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,11 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
         {
             Create(filmGenre);
             await _filmCollectionContext.SaveChangesAsync();    
+        }
+
+        public async Task<FilmGenre> GetFilmGenreAsync(Guid baseFilmInfoId, Guid genreId, bool trackChanges)
+        {
+            return await GetByConditionAsync(fm => fm.GenreId.Equals(genreId) && fm.BaseFilmInfoId.Equals(baseFilmInfoId), trackChanges).SingleOrDefaultAsync();
         }
 
         public async Task DeleteFilmGenreAsync(FilmGenre filmGenre)
