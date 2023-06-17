@@ -25,12 +25,12 @@ namespace FilmCollection.BusinessLogic.ServiceValidators.Implementations
             var baseFilmInfo = await _baseFilmInfoRepository.GetBaseFilmInfoByIdAsync(id, trackChanges);
             if (baseFilmInfo == null)
             {
-                throw new BaseFilmInfoNotFoundException();
+                throw new BaseFilmInfoNotFoundException(id);
             }
             return baseFilmInfo;
         }
 
-        public async Task CheckIfBaseFilmInfoExists(Guid id)
+        public async Task CheckIfBaseFilmInfoExistsAsync(Guid id)
         {
             await CheckIfBaseFilmInfoExistsAndGetAsync(id,false);
         }

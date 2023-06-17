@@ -42,6 +42,11 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
             return await GetByConditionAsync(c => c.Equals(id),trackChanges).SingleOrDefaultAsync();
         }
 
+        public async Task<Collection> GetCollectionByTitleAndDescriptionAsync(string title, string description, bool trackChanges)
+        {
+            return await GetByConditionAsync(c => c.Title == title && c.Description == description, trackChanges).SingleOrDefaultAsync();
+        }
+
         public async Task UpdateCollectionAsync(Collection collection)
         {
             Update(collection);

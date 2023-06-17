@@ -1,0 +1,47 @@
+﻿using FilmCollection.BusinessLogic.ServiceValidators.Interfaces;
+using FilmCollection.DataAccess.Models;
+using FilmCollection.DataAccess.Repositories.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using FilmCollection.BusinessLogic.Exceptions.NotFoundException;
+using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
+
+namespace FilmCollection.BusinessLogic.ServiceValidators.Implementations
+{
+    internal class CollectionServiceValidator : ICollectionServiceValidator
+    {
+        private readonly ICollectionRepository _collectionRepository;
+
+        public CollectionServiceValidator(ICollectionRepository collectionRepository)
+        {
+            _collectionRepository = collectionRepository;
+        }
+
+        public async Task<Collection> CheckIfCollectionExistsAndGetAsync(Guid id, bool trackChanges)
+        {
+            var collection = await _collectionRepository.GetCollectionAsync(id, trackChanges);
+            if(collection == null) 
+            {
+                throw new CollectionNotFoundException(id);
+            }
+            return collection;  
+        }
+
+        public async Task CheckIfCollectionExistsAsync(Guid id)
+        {
+            await CheckIfCollectionExistsAndGetAsync(id, false);
+        }
+
+        public async Task CheckIfCollectionWithGivenTitleAndDescriptionDoesntExistsAsync(string title, string description)
+        {
+            var collection = await _collectionRepository.GetCollectionByTitleAndDescriptionAsync(title, description,false);
+            if(collection != null)
+            {
+                throw new CollectionAlreadyExistsException();
+            }
+        }
+    }
+}

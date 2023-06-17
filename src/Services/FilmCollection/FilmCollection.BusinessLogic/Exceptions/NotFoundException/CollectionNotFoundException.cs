@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.Exceptions.NotFoundException
 {
-    public class BaseFilmInfoNotFoundException : NotFoundException
+    public class CollectionNotFoundException : NotFoundException
     {
-        public BaseFilmInfoNotFoundException(Guid id)
-            :base($"Information about film with ${id} id doesn't exists")
+        public CollectionNotFoundException(Guid id) 
+            : base($"Collection with ${id} id doesn't exists") 
         {
-            
+        
         }
     }
 }

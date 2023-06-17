@@ -10,7 +10,7 @@ namespace FilmCollection.BusinessLogic.ServiceValidators.Interfaces
 {
     public interface IBaseFilmInfoServiceValidator
     {
-        Task CheckIfBaseFilmInfoExists(Guid id);
+        Task CheckIfBaseFilmInfoExistsAsync(Guid id);
         Task<BaseFilmInfo> CheckIfBaseFilmInfoExistsAndGetAsync(Guid id, bool trackChanges);
 
         Task CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(DateOnly releaseDate, string title);
