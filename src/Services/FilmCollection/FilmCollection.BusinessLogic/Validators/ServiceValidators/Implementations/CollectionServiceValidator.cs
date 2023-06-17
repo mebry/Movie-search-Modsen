@@ -43,5 +43,12 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Implementati
                 throw new CollectionAlreadyExistsException();
             }
         }
+
+        public async Task CheckIfCollectionWithGivenTitleDoesntExistsAsync(string title)
+        {
+            var collection = await _collectionRepository.GetCollectionByTitleAsync(title, false);
+            if (collection != null)
+                throw new CollectionAlreadyExistsException();
+        }
     }
 }

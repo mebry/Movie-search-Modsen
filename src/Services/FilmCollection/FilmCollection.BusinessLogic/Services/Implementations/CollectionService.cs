@@ -28,7 +28,7 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
 
         public async Task<CollectionResponseDto> CreateCollectionAsync(CollectionRequestDto collectionRequestDto)
         {
-            await _collectionServiceValidator.CheckIfCollectionWithGivenTitleAndDescriptionDoesntExistsAsync(collectionRequestDto.Title, collectionRequestDto.Description);
+            await _collectionServiceValidator.CheckIfCollectionWithGivenTitleDoesntExistsAsync(collectionRequestDto.Title);
             var mappedCollection = _mapper.Map<Collection>(collectionRequestDto);
             mappedCollection.Id = new Guid();
             await _collectionRepository.CreateCollectionAsync(mappedCollection);
@@ -43,6 +43,7 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
 
         public async Task UpdateCollectionAsync(Guid id, CollectionRequestDto collectionRequestDto)
         {
+            await _collectionServiceValidator.CheckIfCollectionWithGivenTitleDoesntExistsAsync(collectionRequestDto.Title);
             await _collectionServiceValidator.CheckIfCollectionExistsAsync(id);
             var mappedCollection = _mapper.Map<Collection>(collectionRequestDto);
             mappedCollection.Id = id;

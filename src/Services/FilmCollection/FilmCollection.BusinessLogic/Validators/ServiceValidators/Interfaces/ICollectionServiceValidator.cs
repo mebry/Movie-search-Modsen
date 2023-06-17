@@ -12,5 +12,6 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces
         Task CheckIfCollectionExistsAsync(Guid id);
         Task<Collection> CheckIfCollectionExistsAndGetAsync(Guid id, bool trackChanges);
         Task CheckIfCollectionWithGivenTitleAndDescriptionDoesntExistsAsync(string title, string description);
+        Task CheckIfCollectionWithGivenTitleDoesntExistsAsync(string title);
     }
 }
