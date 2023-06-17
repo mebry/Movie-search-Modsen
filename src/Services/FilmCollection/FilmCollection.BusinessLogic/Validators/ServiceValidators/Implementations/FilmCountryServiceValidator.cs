@@ -1,4 +1,4 @@
-﻿using FilmCollection.BusinessLogic.ServiceValidators.Interfaces;
+﻿using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.DataAccess.Repositories.Interfaces;
 using Shared.Enums;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
 using FilmCollection.BusinessLogic.Exceptions.NotFoundException;
 
-namespace FilmCollection.BusinessLogic.ServiceValidators.Implementations
+namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Implementations
 {
     internal class FilmCountryServiceValidator : IFilmCountryServiceValidator
     {

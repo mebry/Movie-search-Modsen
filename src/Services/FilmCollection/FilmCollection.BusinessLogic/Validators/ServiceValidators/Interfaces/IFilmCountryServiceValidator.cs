@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilmCollection.BusinessLogic.ServiceValidators.Interfaces
+namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces
 {
     public interface IFilmCountryServiceValidator
     {
