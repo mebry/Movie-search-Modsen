@@ -56,6 +56,7 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
 
         public async Task UpdateBaseFilmInfoAsync(Guid id, BaseFilmInfoRequestDto request)
         {
+            await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(request.ReleaseDate, request.Title);
             await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoExistsAsync(id);
             var mappedBaseFilmInfo = _mapper.Map<BaseFilmInfo>(request);
             mappedBaseFilmInfo.Id = id;
