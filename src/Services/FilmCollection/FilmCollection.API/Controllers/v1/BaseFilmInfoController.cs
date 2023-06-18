@@ -5,7 +5,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FilmCollection.API.Controllers
+namespace FilmCollection.API.Controllers.v1
 {
     [Route("api/v1/films")]
     [ApiController]
@@ -51,7 +51,7 @@ namespace FilmCollection.API.Controllers
             {
                 result.AddToModelState(ModelState);
                 _logger.LogError("Invalid data was provided when trying to create base information about film");
-                return BadRequest(modelState:ModelState);
+                return BadRequest(modelState: ModelState);
             }
             var createdBaseFilmInfo = await _baseFilmInfoService.CreateBaseFilmInfoAsync(baseFilmInfoRequestDto);
             return CreatedAtRoute("FilmById", new { filmId = createdBaseFilmInfo.Id }, createdBaseFilmInfo);

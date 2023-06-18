@@ -4,7 +4,7 @@ using FilmCollection.BusinessLogic.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
-namespace FilmCollection.API.Controllers
+namespace FilmCollection.API.Controllers.v1
 {
     [Route("api/v1/collections")]
     [ApiController]
@@ -31,7 +31,7 @@ namespace FilmCollection.API.Controllers
             return Ok(collections);
         }
 
-        [HttpGet("{collectionId}", Name ="CollectionById")]
+        [HttpGet("{collectionId}", Name = "CollectionById")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> GetCollectionAsync(Guid collectionId)
