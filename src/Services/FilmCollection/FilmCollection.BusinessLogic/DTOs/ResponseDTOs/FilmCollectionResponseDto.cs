@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.DTOs.ResponseDTOs
 {
-    public class FilmCollectionRequestDto
+    public class FilmCollectionResponseDto
     {
         public Guid CollectionId { get; set; }
         public Guid BaseFilmInfoId { get; set; }
