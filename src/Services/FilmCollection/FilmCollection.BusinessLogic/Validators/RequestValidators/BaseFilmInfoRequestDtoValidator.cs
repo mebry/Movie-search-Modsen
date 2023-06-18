@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.Validators.RequestValidators
 {
-    internal class BaseFilmInfoRequestDtoValidator : AbstractValidator<BaseFilmInfoRequestDto>
+    public class BaseFilmInfoRequestDtoValidator : AbstractValidator<BaseFilmInfoRequestDto>
     {
         public BaseFilmInfoRequestDtoValidator() 
         {

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.Validators.RequestValidators
 {
-    internal class FilmCountryRequestDtoValidator : AbstractValidator<FilmCountry>
+    public class FilmCountryRequestDtoValidator : AbstractValidator<FilmCountry>
     {
         public FilmCountryRequestDtoValidator()
         {
