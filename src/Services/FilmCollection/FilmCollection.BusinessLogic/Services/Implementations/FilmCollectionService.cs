@@ -1,4 +1,5 @@
 ﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
+using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 using FilmCollection.BusinessLogic.Services.Interfaces;
 using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FilmCollection.DataAccess.Models;
@@ -33,12 +34,20 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             _collectionServiceValidator = collectionServiceValidator;  
         }
 
-        public async Task CreateFilmCollectionAssociationAsync(FilmCollectionRequestDto filmCollectionRequestDto)
+        public async Task<FilmCollectionResponseDto> CreateFilmCollectionAssociationAsync(FilmCollectionRequestDto filmCollectionRequestDto)
         {
             await _filmCollectonServiceValidator.CheckIfAssociationBetweenFilmInfoAndCollectionNotExistsAsync(filmCollectionRequestDto.BaseFilmInfoId, filmCollectionRequestDto.CollectionId);
             await _collectionServiceValidator.CheckIfCollectionExistsAsync(filmCollectionRequestDto.CollectionId);
             await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoExistsAsync(filmCollectionRequestDto.BaseFilmInfoId);
-            await _filmCollectionRepository.CreateFilmCollectionAsync(_mapper.Map<FilmCollection.DataAccess.Models.FilmCollection>(filmCollectionRequestDto));
+            var associationToCreate = _mapper.Map<FilmCollection.DataAccess.Models.FilmCollection>(filmCollectionRequestDto);
+            await _filmCollectionRepository.CreateFilmCollectionAsync(associationToCreate);
+            return _mapper.Map<FilmCollectionResponseDto>(associationToCreate);
+        }
+
+        public async Task<FilmCollectionResponseDto> GetFilmCollectionAsscoationAsync(Guid filmId, Guid collectionId)
+        {
+            var associationToReturn = await _filmCollectonServiceValidator.CheckIfAsocciationBetweenFilmInfoAndCollectionExistsAndGetAsync(filmId, collectionId, false);
+            return _mapper.Map<FilmCollectionResponseDto>(associationToReturn);
         }
 
         public async Task DeleteFilmCollectionAssociationAsync(FilmCollectionRequestDto filmCollectionRequestDto)
