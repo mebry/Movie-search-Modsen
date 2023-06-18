@@ -51,9 +51,9 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             return _mapper.Map<FilmGenreResponseDto>(association);
         }
 
-        public async Task DeleteFilmGenreAsync(FilmGenreRequestDto filmGenreRequestDto)
+        public async Task DeleteFilmGenreAsync(Guid filmId, Guid genreId)
         {
-            var filmGenreToDelete = await _filmGenreServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndGenreExistsAndGetAsync(filmGenreRequestDto.GenreId, filmGenreRequestDto.BaseFilmInfoId, true);
+            var filmGenreToDelete = await _filmGenreServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndGenreExistsAndGetAsync(genreId, filmId, true);
             await _filmGenreRepository.DeleteFilmGenreAsync(filmGenreToDelete);
         }
 

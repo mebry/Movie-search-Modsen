@@ -50,9 +50,9 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             return _mapper.Map<FilmCollectionResponseDto>(associationToReturn);
         }
 
-        public async Task DeleteFilmCollectionAssociationAsync(FilmCollectionRequestDto filmCollectionRequestDto)
+        public async Task DeleteFilmCollectionAssociationAsync(Guid collectionId, Guid filmId)
         {
-            var association = await _filmCollectonServiceValidator.CheckIfAsocciationBetweenFilmInfoAndCollectionExistsAndGetAsync(filmCollectionRequestDto.BaseFilmInfoId, filmCollectionRequestDto.CollectionId, true);
+            var association = await _filmCollectonServiceValidator.CheckIfAsocciationBetweenFilmInfoAndCollectionExistsAndGetAsync(filmId, collectionId, true);
             await _filmCollectionRepository.DeleteFilmCollectionAsync(association);
         }
 

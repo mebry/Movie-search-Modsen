@@ -47,10 +47,10 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             return _mapper.Map<FilmCountryResponseDto>(associationToReturn);
         }
 
-        public async Task DeleteFilmCountry(FilmCountryRequestDto filmCountryRequest)
+        public async Task DeleteFilmCountry(Guid filmId, Countries countryId)
         {
-            var association = _filmCountryServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndCountryExistsAndGetAsync(filmCountryRequest.CountryId, filmCountryRequest.BaseFilmInfoId, true);
-            await _filmCountryRepository.DeleteFilmCountryAsync(_mapper.Map<FilmCountry>(filmCountryRequest));
+            var association = _filmCountryServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndCountryExistsAndGetAsync(countryId, filmId, true);
+            await _filmCountryRepository.DeleteFilmCountryAsync(_mapper.Map<FilmCountry>(association));
         }
         
 

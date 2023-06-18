@@ -11,7 +11,7 @@ namespace FilmCollection.BusinessLogic.Services.Interfaces
     public interface IFilmGenreService
     {
         Task<FilmGenreResponseDto> CreateFilmGenreAsync(FilmGenreRequestDto filmGenreRequest);
-        Task DeleteFilmGenreAsync(FilmGenreRequestDto filmGenreRequestDto);
+        Task DeleteFilmGenreAsync(Guid filmId, Guid genreId);
         Task<FilmGenreResponseDto> GetFilmGenreAsync(Guid filmId, Guid genreId);
     }
 }
