@@ -1,4 +1,5 @@
 ﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
+using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,8 @@ namespace FilmCollection.BusinessLogic.Services.Interfaces
 {
     public interface IFilmGenreService
     {
-        Task CreateFilmGenreAsync(FilmGenreRequestDto filmGenreRequest);
+        Task<FilmGenreResponseDto> CreateFilmGenreAsync(FilmGenreRequestDto filmGenreRequest);
         Task DeleteFilmGenreAsync(FilmGenreRequestDto filmGenreRequestDto);
+        Task<FilmGenreResponseDto> GetFilmGenreAsync(Guid filmId, Guid genreId);
     }
 }
