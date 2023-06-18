@@ -50,7 +50,7 @@ namespace FilmCollection.API.Controllers.v1
             return CreatedAtRoute("GetGenreById", new { genreId = createdGenre.Id }, createdGenre);
         }
 
-        [HttpDelete("genreId")]
+        [HttpDelete("{genreId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         public async Task<IActionResult> DeleteGenreAsync(Guid genreId)
