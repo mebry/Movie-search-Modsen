@@ -4,6 +4,7 @@ using FilmCollection.BusinessLogic.Validators.RequestValidators;
 using FilmCollection.BusinessLogic.Validators.ServiceValidators.Implementations;
 using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FluentValidation;
+using Mapster;
 using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -51,6 +52,8 @@ namespace FilmCollection.BusinessLogic.Extensions
 
         private static void ConfigureMappings(this IServiceCollection services)
         {
+            var config = TypeAdapterConfig.GlobalSettings;
+            services.AddSingleton(config);
             services.AddScoped<IMapper, ServiceMapper>(); 
         }
     }
