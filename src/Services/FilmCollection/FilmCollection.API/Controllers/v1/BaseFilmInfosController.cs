@@ -7,20 +7,16 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmCollection.API.Controllers.v1
 {
-    [Route("api/v1/films")]
-    [ApiController]
-    [ApiExplorerSettings(GroupName = "v1")]
-    public class BaseFilmInfoController : ControllerBase
+    public class BaseFilmInfosController : BaseApiController
     {
         private readonly IBaseFilmInfoService _baseFilmInfoService;
         private readonly IValidator<BaseFilmInfoRequestDto> _validator;
-        private readonly ILogger _logger;
 
-        public BaseFilmInfoController(IBaseFilmInfoService baseFilmInfoService, IValidator<BaseFilmInfoRequestDto> validator, ILogger logger)
+        public BaseFilmInfosController(IBaseFilmInfoService baseFilmInfoService, IValidator<BaseFilmInfoRequestDto> validator, ILogger<BaseApiController> logger)
+            : base(logger)
         {
             _baseFilmInfoService = baseFilmInfoService;
             _validator = validator;
-            _logger = logger;
         }
 
         [HttpGet]
@@ -48,11 +44,7 @@ namespace FilmCollection.API.Controllers.v1
         {
             var result = await _validator.ValidateAsync(baseFilmInfoRequestDto);
             if (!result.IsValid)
-            {
-                result.AddToModelState(ModelState);
-                _logger.LogError("Invalid data was provided when trying to create base information about film");
-                return BadRequest(modelState: ModelState);
-            }
+                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to create base information about film");
             var createdBaseFilmInfo = await _baseFilmInfoService.CreateBaseFilmInfoAsync(baseFilmInfoRequestDto);
             return CreatedAtRoute("FilmById", new { filmId = createdBaseFilmInfo.Id }, createdBaseFilmInfo);
         }
@@ -66,12 +58,15 @@ namespace FilmCollection.API.Controllers.v1
             return NoContent();
         }
 
-        [HttpPut("{filmdId}")]
+        [HttpPut("{filmId}")]
         [ProducesResponseType(204)]
         [ProducesResponseType(404)]
         [ProducesResponseType(409)]
         public async Task<IActionResult> UpdateFilmInfoAsync(Guid filmId, BaseFilmInfoRequestDto baseFilmInfoRequestDto)
         {
+            var result = await _validator.ValidateAsync(baseFilmInfoRequestDto);
+            if (!result.IsValid)
+                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to update base information about film");
             await _baseFilmInfoService.UpdateBaseFilmInfoAsync(filmId, baseFilmInfoRequestDto);
             return NoContent();
         }

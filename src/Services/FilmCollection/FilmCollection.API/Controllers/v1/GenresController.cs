@@ -6,16 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmCollection.API.Controllers.v1
 {
-    [Route("api/v1/genres")]
-    [ApiController]
-    [ApiExplorerSettings(GroupName = "v1")]
-    public class GenreController : ControllerBase
+    public class GenresController : BaseApiController
     {
         private readonly IGenreService _genreService;
         private readonly IValidator<GenreRequestDto> _validator;
         private readonly ILogger _logger;
 
-        public GenreController(IGenreService genreService, IValidator<GenreRequestDto> validator, ILogger logger)
+        public GenresController(IGenreService genreService, IValidator<GenreRequestDto> validator, ILogger logger)
+            : base(logger)
         {
             _genreService = genreService;
             _validator = validator;
@@ -39,7 +37,7 @@ namespace FilmCollection.API.Controllers.v1
             return Ok(genreToReturn);
         }
 
-        [HttpPut]
+        [HttpPost]
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(409)]
@@ -47,11 +45,7 @@ namespace FilmCollection.API.Controllers.v1
         {
             var result = await _validator.ValidateAsync(genreRequest);
             if (!result.IsValid)
-            {
-                result.AddToModelState(ModelState);
-                _logger.LogError("Invalid data was provided when trying to create a genre");
-                return BadRequest(modelState: ModelState);
-            }
+                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to create a genre");
             var createdGenre = await _genreService.CreateGenreAsync(genreRequest);
             return CreatedAtRoute("GetGenreById", new { genreId = createdGenre.Id }, createdGenre);
         }
@@ -64,8 +58,5 @@ namespace FilmCollection.API.Controllers.v1
             await _genreService.DeleteGenreAsync(genreId);
             return NoContent();
         }
-
-
-        
     }
 }

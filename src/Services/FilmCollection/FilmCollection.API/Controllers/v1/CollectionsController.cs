@@ -6,16 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmCollection.API.Controllers.v1
 {
-    [Route("api/v1/collections")]
-    [ApiController]
-    [ApiExplorerSettings(GroupName = "v1")]
-    public class CollectionController : ControllerBase
+    public class CollectionsController : BaseApiController
     {
         private readonly ICollectionService _collectionService;
         private readonly IValidator<CollectionRequestDto> _validator;
         private readonly ILogger _logger;
 
-        public CollectionController(ICollectionService collectionService, IValidator<CollectionRequestDto> validator, ILogger logger)
+        public CollectionsController(ICollectionService collectionService, IValidator<CollectionRequestDto> validator, ILogger<BaseApiController> logger)
+            : base(logger)
         {
             _collectionService = collectionService;
             _validator = validator;
@@ -48,11 +46,7 @@ namespace FilmCollection.API.Controllers.v1
         {
             var result = await _validator.ValidateAsync(collectionRequestDto);
             if (!result.IsValid)
-            {
-                result.AddToModelState(ModelState);
-                _logger.LogError("Invalid data was provided when trying to create a collection");
-                return BadRequest(modelState: ModelState);
-            }
+                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to create a collection");
             var createdCollection = await _collectionService.CreateCollectionAsync(collectionRequestDto);
             return CreatedAtRoute("CollectionById", new { collectionId = createdCollection.Id }, createdCollection);
         }
@@ -72,6 +66,9 @@ namespace FilmCollection.API.Controllers.v1
         [ProducesResponseType(404)]
         public async Task<IActionResult> UpdateCollectionAsync(Guid collectionId, CollectionRequestDto collectionRequestDto)
         {
+            var result = await _validator.ValidateAsync(collectionRequestDto);
+            if (!result.IsValid)
+                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to update a collection");
             await _collectionService.UpdateCollectionAsync(collectionId, collectionRequestDto);
             return NoContent();
         }
