@@ -9,7 +9,7 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces
 {
     public interface IFilmGenreServiceValidator
     {
-        Task CheckIfAssociationBetweenBaseFilmInfoAndGenreDoesntExistsAndGetAsync(Guid genreId, Guid baseFilmInfoId);
+        Task CheckIfAssociationBetweenBaseFilmInfoAndGenreDoesntExistsAsync(Guid genreId, Guid baseFilmInfoId);
         Task<FilmGenre> CheckIfAssociationBetweenBaseFilmInfoAndGenreExistsAndGetAsync(Guid genreId, Guid baseFilmInfoId, bool trackChanges);
     }
 }

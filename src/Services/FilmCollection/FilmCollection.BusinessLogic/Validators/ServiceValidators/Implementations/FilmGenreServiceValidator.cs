@@ -30,7 +30,7 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Implementati
             return association;
         }
 
-        public async Task CheckIfAssociationBetweenBaseFilmInfoAndGenreDoesntExistsAndGetAsync(Guid genreId, Guid baseFilmInfoId)
+        public async Task CheckIfAssociationBetweenBaseFilmInfoAndGenreDoesntExistsAsync(Guid genreId, Guid baseFilmInfoId)
         {
             var association = await _filmGenreRepository.GetFilmGenreAsync(baseFilmInfoId, genreId, false);
             if (association != null)
