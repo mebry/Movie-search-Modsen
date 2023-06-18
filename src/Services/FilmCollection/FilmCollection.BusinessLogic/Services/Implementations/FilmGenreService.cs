@@ -35,12 +35,20 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             _baseFilmInfoServiceValidator = baseFilmInfoServiceValidator;
         }   
 
-        public async Task CreateFilmGenreAsync(FilmGenreRequestDto filmGenreRequest)
+        public async Task<FilmGenreResponseDto> CreateFilmGenreAsync(FilmGenreRequestDto filmGenreRequest)
         {
-            await _filmGenreServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndGenreDoesntExistsAndGetAsync(filmGenreRequest.GenreId, filmGenreRequest.BaseFilmInfoId);
+            await _filmGenreServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndGenreDoesntExistsAsync(filmGenreRequest.GenreId, filmGenreRequest.BaseFilmInfoId);
             await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoExistsAsync(filmGenreRequest.BaseFilmInfoId);
             await _genreServiceValidator.CheckIfGenreExistsAsync(filmGenreRequest.GenreId);
-            await _filmGenreRepository.CreateFilmGenreAsync(_mapper.Map<FilmGenre>(filmGenreRequest));
+            var filmGenreToCreate = _mapper.Map<FilmGenre>(filmGenreRequest);
+            await _filmGenreRepository.CreateFilmGenreAsync(filmGenreToCreate);
+            return _mapper.Map<FilmGenreResponseDto>(filmGenreToCreate);
+        }
+
+        public async Task<FilmGenreResponseDto> GetFilmGenreAsync(Guid filmId, Guid genreId)
+        {
+            var association = await _filmGenreServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndGenreExistsAndGetAsync(genreId, filmId, false);
+            return _mapper.Map<FilmGenreResponseDto>(association);
         }
 
         public async Task DeleteFilmGenreAsync(FilmGenreRequestDto filmGenreRequestDto)
