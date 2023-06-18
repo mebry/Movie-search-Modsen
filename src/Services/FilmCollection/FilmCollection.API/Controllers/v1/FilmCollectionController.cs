@@ -21,16 +21,36 @@ namespace FilmCollection.API.Controllers.v1
             _validator = validator;
         }
 
+        [HttpGet("{collectionId}/{filmId}", Name = "GetFilmCollectionById")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> GetFilmCollectionAssociationAsync(Guid filmId, Guid collectionId)
+        {
+            var associationToReturn = await _filmCollectionService.GetFilmCollectionAsscoationAsync(filmId, collectionId);
+            return Ok(associationToReturn);
+        }
+
         [HttpPost]
-        public async Task<IActionResult> CreateFilmCollection(FilmCollectionRequestDto filmCollectionRequest)
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(409)]
+        public async Task<IActionResult> CreateFilmCollectionAsync(FilmCollectionRequestDto filmCollectionRequest)
         {
             var result = await _validator.ValidateAsync(filmCollectionRequest);
             if (!result.IsValid)
                 ProcessInvalidValidationResult(result, "Invalid data was provided when trying to create a FilmCollection association");
             var createdFilmCollection = await _filmCollectionService.CreateFilmCollectionAssociationAsync(filmCollectionRequest);
-            return;
+            return CreatedAtRoute("GetFilmCollectionById", new {filmId = createdFilmCollection.BaseFilmInfoId, collectionId = createdFilmCollection.CollectionId}, createdFilmCollection);
         }
 
+        [HttpDelete("{collectionId}/{filmId}")]
+        [ProducesResponseType(204)]
+        [ProducesResponseType(404)]
+        public async Task<IActionResult> DeleteFilmCollectionAsync(Guid collectionId, Guid filmId)
+        {
+            await _filmCollectionService.DeleteFilmCollectionAssociationAsync(collectionId, filmId);
+            return NoContent();
+        }
         
 
     }
