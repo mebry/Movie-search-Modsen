@@ -69,6 +69,7 @@ namespace Shared.Middlewares
         /// <returns>The corresponding HTTP status code.</returns>
         private static HttpStatusCode GetStatusCode(string exceptionName) => exceptionName switch
         {
+            nameof(ValidationProblemException) => HttpStatusCode.BadRequest,
             nameof(BadRequestException) => HttpStatusCode.BadRequest,
             nameof(NotFoundException) => HttpStatusCode.NotFound,
             nameof(AlreadyExistsException) => HttpStatusCode.Conflict,
