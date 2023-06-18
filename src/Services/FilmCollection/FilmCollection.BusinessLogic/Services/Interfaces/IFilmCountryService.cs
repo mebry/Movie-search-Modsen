@@ -1,5 +1,6 @@
 ﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
 using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
+using Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,5 +13,6 @@ namespace FilmCollection.BusinessLogic.Services.Interfaces
     {
         Task<FilmCountryResponseDto> CreateFilmCountry(FilmCountryRequestDto filmCountryRequest);
         Task DeleteFilmCountry(FilmCountryRequestDto filmCountryRequest);
+        Task<FilmCountryResponseDto> GetFilmCountryAsync(Guid filmId, Countries countryId);
     }
 }

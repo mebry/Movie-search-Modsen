@@ -10,6 +10,7 @@ using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
+using Shared.Enums;
 
 namespace FilmCollection.BusinessLogic.Services.Implementations
 {
@@ -38,6 +39,12 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             var mappedFilmCountry = _mapper.Map<FilmCountry>(filmCountryRequest);
             await _filmCountryRepository.CreateFilmCountryAsync(mappedFilmCountry);
             return _mapper.Map<FilmCountryResponseDto>(mappedFilmCountry);
+        }
+
+        public async Task<FilmCountryResponseDto> GetFilmCountryAsync(Guid filmId, Countries countryId)
+        {
+            var associationToReturn = _filmCountryServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndCountryExistsAndGetAsync(countryId, filmId, false);
+            return _mapper.Map<FilmCountryResponseDto>(associationToReturn);
         }
 
         public async Task DeleteFilmCountry(FilmCountryRequestDto filmCountryRequest)
