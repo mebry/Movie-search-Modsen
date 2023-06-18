@@ -5,12 +5,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmCollection.API.Controllers.v1
 {
-    public class FilmCollectionController : BaseApiController
+    public class FilmCollectionsController : BaseApiController
     {
         private readonly IFilmCollectionService _filmCollectionService;
         private readonly IValidator<FilmCollectionRequestDto> _validator;
 
-        public FilmCollectionController(
+        public FilmCollectionsController(
             ILogger<BaseApiController> logger,
             IFilmCollectionService filmCollectionService,
             IValidator<FilmCollectionRequestDto> validator
