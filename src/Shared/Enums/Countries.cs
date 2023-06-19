@@ -4,7 +4,7 @@ namespace Shared.Enums
 {
 
     /// <summary>
-    /// States and Territories of the US
+    /// List of countries
     /// </summary>
     public enum Countries
     {
