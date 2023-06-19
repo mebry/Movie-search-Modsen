@@ -1,7 +1,7 @@
-using AspWebApi.Middlewares;
 using Hangfire;
 using Rating.BusinessLogic.Extensions;
 using Rating.BusinessLogic.Services.EventDecisionServices;
+using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +18,7 @@ builder.Services.AddHangfireServer();
 
 var app = builder.Build();
 
-app.UseMiddleware<GlobalErrorHandlingMiddleware>();
+app.UseMiddleware<ExceptionMiddleware>();
 
 if(app.Environment.IsDevelopment())
 {
