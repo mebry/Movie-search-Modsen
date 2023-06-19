@@ -1,4 +1,6 @@
-﻿namespace Film.BusinessLogic.Exceptions.NotFound
+﻿using Shared.Exceptions;
+
+namespace Film.BusinessLogic.Exceptions.NotFound
 {
     /// <summary>
     /// Represents an exception that is thrown when an age restriction is not found.
