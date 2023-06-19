@@ -21,8 +21,4 @@
     <ProjectReference Include="..\FilmCollection.BusinessLogic\FilmCollection.BusinessLogic.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
 </Project>
