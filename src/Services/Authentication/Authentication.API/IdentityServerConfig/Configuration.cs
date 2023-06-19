@@ -37,12 +37,15 @@ namespace Authentication.API.IdentityServerConfig
                     ClientId = IdentityServerConstants.CLIENT_ID,
                     ClientSecrets = { new Secret(IdentityServerConstants.CLIENT_SECRET.ToSha256())},
                     AllowAccessTokensViaBrowser = true,
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+                    AllowOfflineAccess = true,
                     AllowedScopes = {
                         IdentityServerConstants.RATING_API_RESOURCE_NAME,
                         IdentityServerConstants.ROLE_IDENTITY_RECOURCE_NAME,
                         "Ratings",
-                        IdentityServer4.IdentityServerConstants.LocalApi.ScopeName
+                        IdentityServer4.IdentityServerConstants.LocalApi.ScopeName,
+                        IdentityServer4.IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServer4.IdentityServerConstants.StandardScopes.Profile
                     }
                 }
             };

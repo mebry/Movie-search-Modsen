@@ -1,5 +1,4 @@
-﻿using Authentication.BusinessLogic.DTOs;
-using Authentication.BusinessLogic.Services.Interfaces;
+﻿using Authentication.BusinessLogic.Services.Interfaces;
 using Authentication.BusinessLogic.ServiceValidators.Interfaces;
 using Authentication.BusinessLogic.Exceptions.AlreadyExistsException;
 using Authentication.BusinessLogic.Exceptions.BadRequestException;
@@ -13,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MapsterMapper;
+using Authentication.BusinessLogic.DTOs.RequestDTOs;
+using Authentication.BusinessLogic.DTOs.ResponseDTOs;
 
 namespace Authentication.BusinessLogic.Services.Implementations
 {
@@ -44,7 +45,7 @@ namespace Authentication.BusinessLogic.Services.Implementations
             await _userManager.AddToRoleAsync(user, role.Name);
         }
 
-        public async Task<UserDto> CreateUserAsync(UserForCreationDto user)
+        public async Task<UserResponseDto> CreateUserAsync(UserRequestDto user)
         {
             var mappedUser = _mapper.Map<User>(user);
             var result = await _userManager.CreateAsync(mappedUser, user.Password);
@@ -52,7 +53,7 @@ namespace Authentication.BusinessLogic.Services.Implementations
             {
                 throw new UserInvalidCredentialsBadRequestException(result.Errors.ToList()[0].Description);
             }
-            var userToReturn = _mapper.Map<UserDto>(mappedUser);
+            var userToReturn = _mapper.Map<UserResponseDto>(mappedUser);
             return userToReturn;
         }
 
@@ -62,17 +63,17 @@ namespace Authentication.BusinessLogic.Services.Implementations
             await _userManager.DeleteAsync(user);
         }
 
-        public async Task<IEnumerable<UserDto>> GetAllUsersAsync()
+        public async Task<IEnumerable<UserResponseDto>> GetAllUsersAsync()
         {
             var allUsers = await _userManager.Users.AsNoTracking().ToListAsync();
-            var mappedUsers = _mapper.Map<IEnumerable<UserDto>>(allUsers);
+            var mappedUsers = _mapper.Map<IEnumerable<UserResponseDto>>(allUsers);
             return mappedUsers;
         }
 
-        public async Task<UserDto> GetUserByIdAsync(string id)
+        public async Task<UserResponseDto> GetUserByIdAsync(string id)
         {
             var user = await _userCheckService.CheckIfUserExistsAndGetByIdAsync(id);
-            return _mapper.Map<UserDto>(user);
+            return _mapper.Map<UserResponseDto>(user);
         }
     }
 }

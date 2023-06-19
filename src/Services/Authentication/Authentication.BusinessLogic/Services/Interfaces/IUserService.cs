@@ -1,4 +1,5 @@
-﻿using Authentication.BusinessLogic.DTOs;
+﻿using Authentication.BusinessLogic.DTOs.RequestDTOs;
+using Authentication.BusinessLogic.DTOs.ResponseDTOs;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 using System;
 using System.Collections.Generic;
@@ -10,11 +11,11 @@ namespace Authentication.BusinessLogic.Services.Interfaces
 {
     public interface IUserService
     {
-        Task<UserDto> CreateUserAsync(UserForCreationDto user);
+        Task<UserResponseDto> CreateUserAsync(UserRequestDto user);
 
-        Task<IEnumerable<UserDto>> GetAllUsersAsync();
+        Task<IEnumerable<UserResponseDto>> GetAllUsersAsync();
 
-        Task<UserDto> GetUserByIdAsync(string id);
+        Task<UserResponseDto> GetUserByIdAsync(string id);
 
         Task AddUserToRoleAsync(string userId, string roleId);
 

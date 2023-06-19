@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Authentication.BusinessLogic.DTOs
+namespace Authentication.BusinessLogic.DTOs.RequestDTOs
 {
-    public class UserForCreationDto
+    public class UserRequestDto
     {
         public string Name { get; set; }
         public string Surname { get; set; }

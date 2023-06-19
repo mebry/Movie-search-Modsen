@@ -1,4 +1,5 @@
-﻿using Authentication.BusinessLogic.DTOs;
+﻿using Authentication.BusinessLogic.DTOs.RequestDTOs;
+using Authentication.BusinessLogic.DTOs.ResponseDTOs;
 using DataAccess.Models;
 using Mapster;
 using System;
@@ -13,10 +14,10 @@ namespace Authentication.BusinessLogic.Mappings
     {
         public void Register(TypeAdapterConfig config)
         {
-            config.NewConfig<User, UserDto>()
+            config.NewConfig<User, UserResponseDto>()
                 .Map(dest => dest.Username, src => src.UserName);
 
-            config.NewConfig<UserForCreationDto, User>()
+            config.NewConfig<UserRequestDto, User>()
                 .Map(dest => dest.UserName, src => src.Username);
         }
     }
