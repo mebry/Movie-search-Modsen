@@ -1,34 +1,16 @@
-using FilmCollection.API.Middlewares;
-using Microsoft.AspNetCore.HttpOverrides;
-using FilmCollection.BusinessLogic.Extensions;
-using FilmCollection.DataAccess.Extensions;
-using FilmCollection.API.Extensions;
-
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.ConfigureDataAccess(builder.Configuration);
-builder.Services.ConfigureBusinessLogic();
-builder.Services.ConfigureAPI();
+// Add services to the container.
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
-app.ConfigureExceptionHandler();
+// Configure the HTTP request pipeline.
 
-if (app.Environment.IsProduction())
-    app.UseHsts();
-
-app.UseSwagger();
-app.UseSwaggerUI(s =>
-{
-    s.SwaggerEndpoint("/swagger/v1/swagger.json", "FilmCollection API v1");
-});
 app.UseHttpsRedirection();
-app.UseForwardedHeaders(new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.All
-});
 
-app.UseCors("CorsPolicy");
+app.UseAuthorization();
 
 app.MapControllers();
 
