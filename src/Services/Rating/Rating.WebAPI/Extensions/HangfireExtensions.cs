@@ -5,7 +5,7 @@ namespace Rating.API.Extensions
 {
     public static class HangfireExtensions
     {
-        public static void ConfigureHagfire(this IServiceCollection services, ConfigurationManager config)
+        public static void ConfigureHagfire(this IServiceCollection services, IConfiguration config)
         {
             services.AddHangfire(configuration => configuration
                 .UseSimpleAssemblyNameTypeSerializer()
@@ -15,7 +15,7 @@ namespace Rating.API.Extensions
             services.AddHangfireServer();
         }
 
-        public static IApplicationBuilder UseHangfireRecurringJobs(this IApplicationBuilder app)
+        public static IApplicationBuilder UseHangfireRecurringJobs(this IApplicationBuilder app, IConfiguration config)
         {
             var jobScheduler = app.ApplicationServices.GetService<IRecurringJobManager>();
 
@@ -25,12 +25,12 @@ namespace Rating.API.Extensions
             jobScheduler.AddOrUpdate(
                 "everyHour",
                 () => eventDecisionService!.DecisionToSendCountOfScoresShortChangEventAsync(),
-                "* 12 * * Mon");
+                "0/5 * * * * ?");
 
             jobScheduler.AddOrUpdate(
                 "everyMonth",
                 () => eventDecisionService!.DecisionToSendCountOfScoresLongChangEventAsync(),
-                "0 0 12 1 * ?");
+                 "0/5 * * * * ?");
 
             return app;
         }

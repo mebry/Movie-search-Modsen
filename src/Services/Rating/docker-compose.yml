@@ -6,3 +6,12 @@ services:
     build:
       context: .
       dockerfile: Rating.API\Dockerfile
+  sqlserver: 
+    container_name: SqlServer
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1433:1433
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=Passw0rd
+    restart: unless-stopped

@@ -7,7 +7,6 @@ using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Rating.DataAccess.Validators;
-using System;
 
 namespace Rating.DataAccess.Extensions
 {
