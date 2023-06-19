@@ -10,11 +10,11 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
 {
     public interface IBaseFilmInfoRepository
     {
-        Task AddBaseFilmInfo(BaseFilmInfo baseFilmInfo);
-        Task DeleteBaseFilmInfo(BaseFilmInfo baseFilmInfo);
-        Task UpdateBaseFilmInfo(BaseFilmInfo baseFilmInfo);
+        Task AddBaseFilmInfoAsync(BaseFilmInfo baseFilmInfo);
+        Task DeleteBaseFilmInfoAsync(BaseFilmInfo baseFilmInfo);
+        Task UpdateBaseFilmInfoAsync(BaseFilmInfo baseFilmInfo);
         Task<BaseFilmInfo> GetBaseFilmInfoByIdAsync(Guid id, bool trackCahnges);
         Task<IEnumerable<BaseFilmInfo>> GetBaseFilmInfosAsync(bool trackCahnges);
-        Task<IEnumerable<BaseFilmInfo>> GetBaseFilmInfosByConditionAsync(Expression<Func<BaseFilmInfo, bool>> expression, bool trackChanges);
+        Task<BaseFilmInfo> GetBaseFilmInfoByTitleAndReleaseDate(string title, DateOnly releaseDate, bool trackChanges);
     }
 }
