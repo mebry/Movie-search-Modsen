@@ -1,4 +1,5 @@
 using Hangfire;
+using Rating.API.Extensions;
 using Rating.BusinessLogic.Extensions;
 using Rating.BusinessLogic.Services.EventDecisionServices;
 using Shared.Middlewares;
@@ -10,11 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddBusinessLogicService(builder.Configuration);
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddHangfire(configuration => configuration
-    .UseSimpleAssemblyNameTypeSerializer()
-    .UseRecommendedSerializerSettings()
-    .UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddHangfireServer();
+builder.Services.ConfigureHagfire(builder.Configuration);
 
 var app = builder.Build();
 
@@ -35,14 +32,16 @@ app.MapControllers();
 app.UseHangfireDashboard();
 app.MapHangfireDashboard();
 
-RecurringJob.AddOrUpdate<IEventDecisionService>(
-    "everyhour",
-    x => x.DecisionToSendCountOfScoresShortChangEventAsync(),
-     "0 0 * ? * * *");
+app.UseHangfireRecurringJobs();
 
-RecurringJob.AddOrUpdate<IEventDecisionService>(
-    "everymonth",
-    x => x.DecisionToSendCountOfScoresLongChangEventAsync(),
-    "0 0 12 1 * ?");
+//RecurringJob.AddOrUpdate<IEventDecisionService>(
+//    "everyHour",
+//    service => service.DecisionToSendCountOfScoresShortChangEventAsync(),
+//     "0 0 * ? * * *");
+
+//RecurringJob.AddOrUpdate<IEventDecisionService>(
+//    "everyMonth",
+//    service => service.DecisionToSendCountOfScoresLongChangEventAsync(),
+//    "0 0 12 1 * ?");
 
 app.Run();
