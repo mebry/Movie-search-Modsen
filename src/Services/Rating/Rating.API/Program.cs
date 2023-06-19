@@ -34,14 +34,4 @@ app.MapHangfireDashboard();
 
 app.UseHangfireRecurringJobs();
 
-//RecurringJob.AddOrUpdate<IEventDecisionService>(
-//    "everyHour",
-//    service => service.DecisionToSendCountOfScoresShortChangEventAsync(),
-//     "0 0 * ? * * *");
-
-//RecurringJob.AddOrUpdate<IEventDecisionService>(
-//    "everyMonth",
-//    service => service.DecisionToSendCountOfScoresLongChangEventAsync(),
-//    "0 0 12 1 * ?");
-
 app.Run();
