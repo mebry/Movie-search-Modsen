@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  rating.api:
+    image: ${DOCKER_REGISTRY-}ratingapi
+    build:
+      context: .
+      dockerfile: Rating.API\Dockerfile
