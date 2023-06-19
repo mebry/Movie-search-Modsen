@@ -1,0 +1,152 @@
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Mapster;
+using Microsoft.Extensions.Logging;
+using Rating.BusinessLogic.DTOs;
+using Rating.BusinessLogic.Exceptions;
+using Rating.BusinessLogic.Extensions;
+using Rating.DataAccess.Entities;
+using Rating.DataAccess.Repositories.FilmRepositories;
+
+namespace Rating.BusinessLogic.Services.FilmServices
+{
+    internal class FilmService : IFilmService
+    {
+        private readonly IFilmRepository _filmRepository;
+        private readonly ILogger<FilmService> _logger;
+        private readonly IValidator<Film> _validator;
+
+        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<Film> validator)
+        {
+            _filmRepository = filmRepository;
+            _logger = logger;
+            _validator = validator;
+        }
+
+        public async Task<FilmDTO> CreateAsync(Guid id)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(id);
+
+            if(existingFilm is not null)
+            {
+                _logger.LogError("The creation attempt failed. This id is already in use");
+
+                throw new AlreadyExistException("This id is already used");
+            }
+
+            var filmDto = new FilmDTO()
+            {
+                Id = id
+            };
+
+            var mapperModel = filmDto.Adapt<Film>();
+
+            ValidationResult result = await _validator.ValidateAsync(mapperModel);
+
+            if(!result.IsValid)
+            {
+                var errorMessages = result.ResultErrorMessage();
+
+                throw new ValidationProblemException(errorMessages);
+            }
+
+            _filmRepository.Create(mapperModel);
+
+            await _filmRepository.SaveAsync();
+
+            return filmDto;
+        }
+
+        public async Task<FilmDTO> DeleteAsync(Guid id)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(id);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The deletion attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            _filmRepository.Delete(existingFilm);
+
+            await _filmRepository.SaveAsync();
+
+            var mapperModel = existingFilm.Adapt<FilmDTO>();
+
+            return mapperModel;
+        }
+
+        public async Task<FilmDTO?> GetByIdAsync(Guid id)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(id);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The deletion attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            var mappingModel = existingFilm.Adapt<FilmDTO>();
+
+            return mappingModel;
+        }
+
+        public async Task<FilmDTO> UpdateAsync(FilmDTO model)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(model.Id);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The updating attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            var mapperModel = model.Adapt<Film>();
+
+            _filmRepository.Update(mapperModel);
+
+            await _filmRepository.SaveAsync();
+
+            return model;
+        }
+
+        public async Task<bool> DecrementCountOfScores(Guid filmId)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(filmId);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The decrement attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            existingFilm.CountOfScores--;
+
+            _filmRepository.Update(existingFilm);
+
+            return true;
+        }
+
+        public async Task<bool> IncrementCountOfScores(Guid filmId)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(filmId);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The increment attempt failed. This id is missing");
+
+                throw new NotFoundException("This id is missing");
+            }
+
+            existingFilm.CountOfScores++;
+
+            _filmRepository.Update(existingFilm);
+
+            return true;
+        }
+    }
+}

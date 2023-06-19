@@ -8,11 +8,11 @@ namespace Staff.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<StaffPerson> builder)
         {
-            builder.Property(x => x.StaffName)
+            builder.Property(x => x.Name)
                 .HasMaxLength(50)
                 .IsRequired();
 
-            builder.Property(x => x.StaffSurname)
+            builder.Property(x => x.Surname)
                 .HasMaxLength(50)
                 .IsRequired();
 
