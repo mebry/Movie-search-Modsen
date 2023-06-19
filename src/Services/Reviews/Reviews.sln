@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33712.159
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reviews.DataAccess", "Reviews.DataAccess\Reviews.DataAccess.csproj", "{D00F326A-AE3E-4688-9F0C-21948DA95348}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reviews.DataAccess", "Reviews.DataAccess\Reviews.DataAccess.csproj", "{D00F326A-AE3E-4688-9F0C-21948DA95348}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reviews.BusinessLogic", "Reviews.BusinessLogic\Reviews.BusinessLogic.csproj", "{B35ADD2D-F061-4F3B-B9EB-D7A801C92E99}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Reviews.BusinessLogic", "Reviews.BusinessLogic\Reviews.BusinessLogic.csproj", "{B35ADD2D-F061-4F3B-B9EB-D7A801C92E99}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "..\..\Shared\Shared.csproj", "{4DAC3244-A6F9-4AB2-91D8-1A3462B70467}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Reviews.API", "Reviews.API\Reviews.API.csproj", "{E3DE6E72-94A3-4E16-AEA9-5CA4210355D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{B35ADD2D-F061-4F3B-B9EB-D7A801C92E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B35ADD2D-F061-4F3B-B9EB-D7A801C92E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B35ADD2D-F061-4F3B-B9EB-D7A801C92E99}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DAC3244-A6F9-4AB2-91D8-1A3462B70467}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DAC3244-A6F9-4AB2-91D8-1A3462B70467}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DAC3244-A6F9-4AB2-91D8-1A3462B70467}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DAC3244-A6F9-4AB2-91D8-1A3462B70467}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3DE6E72-94A3-4E16-AEA9-5CA4210355D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3DE6E72-94A3-4E16-AEA9-5CA4210355D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3DE6E72-94A3-4E16-AEA9-5CA4210355D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3DE6E72-94A3-4E16-AEA9-5CA4210355D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
