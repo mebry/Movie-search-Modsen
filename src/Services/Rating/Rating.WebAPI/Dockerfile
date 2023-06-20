@@ -5,13 +5,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Rating.WebAPI/Rating.WebAPI.csproj", "Rating.WebAPI/"]
-COPY ["Rating.BusinessLogic/Rating.BusinessLogic.csproj", "Rating.BusinessLogic/"]
-COPY ["Rating.DataAccess/Rating.DataAccess.csproj", "Rating.DataAccess/"]
+COPY ["Services/Rating/Rating.WebAPI/Rating.WebAPI.csproj", "Services/Rating/Rating.WebAPI/"]
+COPY ["Services/Rating/Rating.BusinessLogic/Rating.BusinessLogic.csproj", "Services/Rating/Rating.BusinessLogic/"]
+COPY ["Services/Rating/Rating.DataAccess/Rating.DataAccess.csproj", "Services/Rating/Rating.DataAccess/"]
 COPY ["Shared/Shared.csproj", "Shared/"]
-RUN dotnet restore "Rating.WebAPI/Rating.WebAPI.csproj"
-COPY . .
-WORKDIR "/src/Rating.WebAPI"
+RUN dotnet restore "Services/Rating/Rating.WebAPI/Rating.WebAPI.csproj"
+COPY ./Services/Rating/ ./Services/Rating/
+COPY ./Shared/ ./Shared
+WORKDIR "/src/Services/Rating/Rating.WebAPI"
 RUN dotnet build "Rating.WebAPI.csproj" -c Release -o /app/build
 
 FROM build AS publish
