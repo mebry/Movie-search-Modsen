@@ -160,7 +160,7 @@ namespace Film.BusinessLogic.Services.Implementations
             }
             var mappedModel = ageRestriction.Adapt<AgeRestriction>();
 
-            mappedModel.Id = Guid.NewGuid();
+            mappedModel.Id = id;
 
             _ageRestrictionRepository.Update(mappedModel);
 

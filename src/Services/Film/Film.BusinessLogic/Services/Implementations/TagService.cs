@@ -160,7 +160,7 @@ namespace Film.BusinessLogic.Services.Implementations
             }
             var mappedModel = tag.Adapt<Tag>();
 
-            mappedModel.Id = Guid.NewGuid();
+            mappedModel.Id = id;
 
             _tagRepository.Update(mappedModel);
 

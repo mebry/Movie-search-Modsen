@@ -161,7 +161,7 @@ namespace Film.BusinessLogic.Services.Implementations
 
             var mappedModel = genre.Adapt<Genre>();
 
-            mappedModel.Id = Guid.NewGuid();
+            mappedModel.Id = id;
 
             _genreRepository.Update(mappedModel);
 

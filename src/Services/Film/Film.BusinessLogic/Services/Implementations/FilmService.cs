@@ -111,9 +111,9 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException("The page size must be greater than 0");
             }
 
-            var foundTags = await _filmRepository.GetFilmsAsync(pageNumber, pageSize, filterQueryString, orderByQueryString);
+            var foundFilms = await _filmRepository.GetFilmsAsync(pageNumber, pageSize, filterQueryString, orderByQueryString);
 
-            return foundTags.Adapt<List<FilmResponseDTO>>();
+            return foundFilms.Adapt<List<FilmResponseDTO>>();
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Film.BusinessLogic.Services.Implementations
             }
             var mappedModel = tag.Adapt<FilmModel>();
 
-            mappedModel.Id = Guid.NewGuid();
+            mappedModel.Id = id;
 
             _filmRepository.Update(mappedModel);
 
