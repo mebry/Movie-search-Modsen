@@ -47,9 +47,9 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException(validationResult.GetErrorMessages());
             }
 
-            var foundFilm = _filmRepository.FilmExistsAsync(film.Title, film.ReleaseDate);
+            var foundFilm = await _filmRepository.FilmExistsAsync(film.Title, film.ReleaseDate);
 
-            if (foundFilm is not null)
+            if (foundFilm)
             {
                 _logger.LogError("The model could not be created because such a model already exists");
                 throw new FilmAlreadyExistsException();

@@ -46,7 +46,7 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException(validationResult.GetErrorMessages());
             }
 
-            var foundGenre = _genreRepository.GetGenreByNameAsync(genre.Name);
+            var foundGenre = await _genreRepository.GetGenreByNameAsync(genre.Name);
 
             if (foundGenre is not null)
             {

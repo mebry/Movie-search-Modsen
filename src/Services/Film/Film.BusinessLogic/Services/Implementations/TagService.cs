@@ -46,7 +46,7 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException(validationResult.GetErrorMessages());
             }
 
-            var foundTag = _tagRepository.GetTagByNameAsync(tag.Name);
+            var foundTag = await _tagRepository.GetTagByNameAsync(tag.Name);
 
             if (foundTag is not null)
             {
