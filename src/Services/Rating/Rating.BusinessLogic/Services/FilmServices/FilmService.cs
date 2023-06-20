@@ -3,10 +3,10 @@ using FluentValidation.Results;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using Rating.BusinessLogic.DTOs;
-using Rating.BusinessLogic.Exceptions;
 using Rating.BusinessLogic.Extensions;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
+using Shared.Exceptions;
 
 namespace Rating.BusinessLogic.Services.FilmServices
 {
@@ -31,7 +31,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
             {
                 _logger.LogError("The creation attempt failed. This id is already in use");
 
-                throw new AlreadyExistException("This id is already used");
+                throw new AlreadyExistsException("This id is already used");
             }
 
             var filmDto = new FilmDTO()

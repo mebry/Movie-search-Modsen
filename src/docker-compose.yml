@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+ rabbitmq:
+    container_name: RabbitMQ
+    image: rabbitmq:3-management-alpine
+    ports:
+      - 5672:5672
+      - 15672:15672
+    restart: unless-stopped
+
+ sqlserver: 
+    container_name: SqlServer
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+      - 1433:1433
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=Passw0rd
+    restart: unless-stopped
+ rating:
+    container_name: Rating
+    build:
+      context: "."
+      dockerfile: /Services/Rating/Rating.WebAPI/Dockerfile
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    ports: 
+     - 9001:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    restart: unless-stopped
