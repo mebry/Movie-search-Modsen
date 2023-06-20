@@ -1,12 +1,12 @@
 ﻿using Mapster;
 using Microsoft.Extensions.Logging;
 using Rating.BusinessLogic.DTOs;
-using Rating.BusinessLogic.Exceptions;
 using Rating.BusinessLogic.Services.AlgorithmServices;
 using Rating.BusinessLogic.Services.EventDispatchServices;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
+using Shared.Exceptions;
 
 namespace Rating.BusinessLogic.Services.EventDecisionServices
 {

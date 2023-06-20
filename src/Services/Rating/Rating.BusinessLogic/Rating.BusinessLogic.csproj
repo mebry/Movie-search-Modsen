@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Rating.DataAccess\Rating.DataAccess.csproj" />
   </ItemGroup>
 
