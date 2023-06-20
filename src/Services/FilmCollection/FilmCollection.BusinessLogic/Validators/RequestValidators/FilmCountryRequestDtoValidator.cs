@@ -1,4 +1,5 @@
-﻿using FilmCollection.DataAccess.Models;
+﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
+using FilmCollection.DataAccess.Models;
 using FluentValidation;
 using Shared.Enums;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.Validators.RequestValidators
 {
-    public class FilmCountryRequestDtoValidator : AbstractValidator<FilmCountry>
+    public class FilmCountryRequestDtoValidator : AbstractValidator<FilmCountryRequestDto>
     {
         public FilmCountryRequestDtoValidator()
         {
