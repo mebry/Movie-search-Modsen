@@ -17,7 +17,7 @@ services:
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Passw0rd
-    restart: unless-stoppedcd
+    restart: unless-stopped
  rating:
     container_name: Rating
     build:
