@@ -12,20 +12,13 @@ namespace Rating.DataAccess.Extensions
 {
     public static class ServiceProviderExtensions
     {
-        public static void AddDataAccessService(this IServiceCollection service, IConfiguration configuration)
+        public static void AddDataAccessService(this IServiceCollection service)
         {
-            service.AddConfigurationMSSQLServer(configuration);
+            service.AddDbContext<ApplicationContext>();
             service.AddRepositoriesService();
 
             service.AddScoped<IValidator<Film>, FilmValidator>();
             service.AddScoped<IValidator<RatingFilm>, RatingFilmValidator>();
-        }
-
-        private static void AddConfigurationMSSQLServer(this IServiceCollection service, IConfiguration configuration)
-        {
-            service.AddDbContext<ApplicationContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Rating.DataAccess")));
         }
 
         private static void AddRepositoriesService(this IServiceCollection service)
