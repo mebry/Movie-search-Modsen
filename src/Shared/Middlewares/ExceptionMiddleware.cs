@@ -1,5 +1,4 @@
 ﻿using Shared.Exceptions;
-using System.Net.Http;
 using System.Net;
 using System.Text.Json;
 using Microsoft.AspNetCore.Http;
@@ -46,9 +45,7 @@ namespace Shared.Middlewares
         /// <returns>A task representing the asynchronous operation.</returns>
         private Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
-            var exceptionType = exception.GetType();
-
-            HttpStatusCode status = GetStatusCode(exceptionType.Name);
+            HttpStatusCode status = GetStatusCode(exception);
             string message = exception.Message;
             string? stackTrace = exception.StackTrace;
 
@@ -56,25 +53,27 @@ namespace Shared.Middlewares
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)status;
 
-            //Add the logger
-            _logger.LogError(exception, message);
+            if (status == HttpStatusCode.InternalServerError)
+            {
+                _logger.LogError(exception, message);
+            }
 
             return context.Response.WriteAsync(exceptionResult);
         }
 
         /// <summary>
-        /// Gets the HTTP status code based on the exception name.
+        /// Gets the HTTP status code based on the exception.
         /// </summary>
-        /// <param name="exceptionName">The name of the exception.</param>
+        /// <param name="exception">The exception.</param>
         /// <returns>The corresponding HTTP status code.</returns>
-        private static HttpStatusCode GetStatusCode(string exceptionName) => exceptionName switch
+        private static HttpStatusCode GetStatusCode(Exception exception) => exception switch
         {
-            nameof(ValidationProblemException) => HttpStatusCode.BadRequest,
-            nameof(BadRequestException) => HttpStatusCode.BadRequest,
-            nameof(NotFoundException) => HttpStatusCode.NotFound,
-            nameof(AlreadyExistsException) => HttpStatusCode.Conflict,
-            nameof(NotImplementedException) => HttpStatusCode.NotImplemented,
-            nameof(UnauthorizedAccessException) => HttpStatusCode.Unauthorized,
+            ValidationProblemException => HttpStatusCode.BadRequest,
+            BadRequestException => HttpStatusCode.BadRequest,
+            NotFoundException => HttpStatusCode.NotFound,
+            AlreadyExistsException => HttpStatusCode.Conflict,
+            NotImplementedException => HttpStatusCode.NotImplemented,
+            UnauthorizedAccessException => HttpStatusCode.Unauthorized,
             _ => HttpStatusCode.InternalServerError,
         };
     }
