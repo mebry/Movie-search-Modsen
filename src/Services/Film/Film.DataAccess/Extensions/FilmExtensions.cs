@@ -53,7 +53,7 @@ namespace Film.DataAccess.Extensions
         /// <returns>The IQueryable of FilmModel entities with the related data included.</returns>
         public static IQueryable<FilmModel> IncludeRelatedData(this IQueryable<FilmModel> filmModels)
         {
-            return filmModels.Include(f=>f.AverageRating)
+            return filmModels.Include(f=>f.AgeRestriction)
                 .Include(f=>f.FilmCountries)
                 .Include(f => f.FilmGenres)
                     .ThenInclude(sp => sp.Genre)
