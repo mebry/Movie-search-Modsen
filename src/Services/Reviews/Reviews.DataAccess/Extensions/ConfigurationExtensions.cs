@@ -11,16 +11,16 @@ namespace Reviews.DataAccess.Extensions
     {
         public static void AddDataAccessService(this IServiceCollection service, IConfiguration configuration)
         {
-            service.AddConfigurationMSSQLServer(configuration);
+            //service.AddConfigurationMSSQLServer(configuration);
             service.AddRepositoriesService();
         }
 
-        private static void AddConfigurationMSSQLServer(this IServiceCollection service, IConfiguration configuration)
-        {
-            service.AddDbContext<ReviewsDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
-                    b => b.MigrationsAssembly("Reviews.DataAccess")));
-        }
+        //private static void AddConfigurationMSSQLServer(this IServiceCollection service, IConfiguration configuration)
+        //{
+        //    service.AddDbContext<ReviewsDbContext>(options =>
+        //        options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+        //            b => b.MigrationsAssembly("Reviews.DataAccess")));
+        //}
 
         private static void AddRepositoriesService(this IServiceCollection service)
         {
