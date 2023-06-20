@@ -1,7 +1,6 @@
 ﻿using Film.BusinessLogic.DTOs.RequestDTOs;
 using Film.BusinessLogic.DTOs.ResponseDTOs;
 using Film.BusinessLogic.Exceptions.AlreadyExists;
-using Film.BusinessLogic.Exceptions.BadRequests;
 using Film.BusinessLogic.Exceptions.NotFound;
 using Film.BusinessLogic.Extensions;
 using Film.BusinessLogic.Services.Interfaces;
@@ -10,6 +9,7 @@ using Film.DataAccess.Repositories.Interfaces;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.Logging;
+using Shared.Exceptions;
 
 namespace Film.BusinessLogic.Services.Implementations
 {

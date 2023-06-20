@@ -1,7 +1,7 @@
 ﻿using Film.BusinessLogic.DTOs.RequestDTOs;
 using Film.BusinessLogic.DTOs.ResponseDTOs;
 using Film.BusinessLogic.Exceptions.AlreadyExists;
-using Film.BusinessLogic.Exceptions.BadRequests;
+using Shared.Exceptions;
 using Film.BusinessLogic.Exceptions.NotFound;
 using Film.BusinessLogic.Extensions;
 using Film.BusinessLogic.Services.Interfaces;
