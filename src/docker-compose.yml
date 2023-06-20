@@ -18,6 +18,7 @@ services:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=Passw0rd
     restart: unless-stopped
+
  rating:
     container_name: Rating
     build:
@@ -28,6 +29,19 @@ services:
       - rabbitmq
     ports: 
      - 9001:80
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+    restart: unless-stopped
+
+reviews:
+    container_name: Review
+    build:
+      context: "."
+      dockerfile: /Services/Reviews/Reviews.API/Dockerfile
+    depends_on:
+      - sqlserver
+    ports: 
+     - 8001:80
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
     restart: unless-stopped
