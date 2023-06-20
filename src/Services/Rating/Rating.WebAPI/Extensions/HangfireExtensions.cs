@@ -25,12 +25,12 @@ namespace Rating.API.Extensions
             jobScheduler.AddOrUpdate(
                 "everyHour",
                 () => eventDecisionService!.DecisionToSendCountOfScoresShortChangEventAsync(),
-                "0/5 * * * * ?");
+                config["Hangfire:UpdateEveryHour:Schedule"]);
 
             jobScheduler.AddOrUpdate(
                 "everyMonth",
                 () => eventDecisionService!.DecisionToSendCountOfScoresLongChangEventAsync(),
-                 "0/5 * * * * ?");
+                 config["Hangfire:UpdateEveryMonth:Schedule"]);
 
             return app;
         }
