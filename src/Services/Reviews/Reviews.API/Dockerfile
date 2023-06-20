@@ -1,8 +1,3 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
-
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
 EXPOSE 80
@@ -10,10 +5,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Reviews.API/Reviews.API.csproj", "Reviews.API/"]
-RUN dotnet restore "Reviews.API/Reviews.API.csproj"
-COPY . .
-WORKDIR "/src/Reviews.API"
+COPY ["Services/Reviews/Reviews.API/Reviews.API.csproj", "Services/Reviews/Reviews.API/"]
+COPY ["Services/Reviews/Reviews.BusinessLogic/Reviews.BusinessLogic.csproj", "Services/Reviews/Reviews.BusinessLogic/"]
+COPY ["Services/Reviews/Reviews.DataAccess/Reviews.DataAccess.csproj", "Services/Reviews/Reviews.DataAccess/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "Services/Reviews/Reviews.API/Reviews.API.csproj"
+COPY ./Services/Reviews/ ./Services/Reviews/
+COPY ./Shared/ ./Shared
+WORKDIR "/src/Services/Reviews/Reviews.API"
 RUN dotnet build "Reviews.API.csproj" -c Release -o /app/build
 
 FROM build AS publish

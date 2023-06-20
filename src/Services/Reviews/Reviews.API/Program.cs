@@ -1,14 +1,13 @@
 using Reviews.BusinessLogic.Extensions;
+using Reviews.DataAccess.Contexts;
+using Reviews.DataAccess.Extensions;
 using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddBusinessLogicService(builder.Configuration);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddDbContext<ReviewsDbContext>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -16,7 +15,7 @@ var app = builder.Build();
 
 app.UseMiddleware<ExceptionMiddleware>();
 
-// Configure the HTTP request pipeline.
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -28,5 +27,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.ApplyMigrations();
 
 app.Run();
