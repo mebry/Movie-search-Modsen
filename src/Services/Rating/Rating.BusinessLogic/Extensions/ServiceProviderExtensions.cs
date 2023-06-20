@@ -11,10 +11,9 @@ namespace Rating.BusinessLogic.Extensions
 {
     public static class ServiceProviderExtensions
     {
-        public static void AddBusinessLogicService(this IServiceCollection services, IConfiguration configuration)
+        public static void AddBusinessLogicService(this IServiceCollection services)
         {
-            services.AddDataAccessService(configuration);
-
+            services.AddDataAccessService();
             services.AddServices();
         }
 
