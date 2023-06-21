@@ -1,4 +1,5 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 
 namespace FilmCollection.API.Extensions
 {
@@ -8,6 +9,10 @@ namespace FilmCollection.API.Extensions
         {
             services.ConfigureCors();
             services.AddControllers();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
             services.ConfigureSwagger();
         }
 
@@ -18,7 +23,8 @@ namespace FilmCollection.API.Extensions
                 options.AddPolicy("CorsPolicy", builder =>
                 builder.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .WithExposedHeaders("X-Pagination"));
             });
         }
 
@@ -26,7 +32,7 @@ namespace FilmCollection.API.Extensions
         {
             services.AddSwaggerGen(s =>
             {
-                s.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service", Version = "v1" });
+                s.SwaggerDoc("v1", new OpenApiInfo { Title = "FilmCollection Service", Version = "v1" });
             });
         }
     }
