@@ -11,7 +11,7 @@ namespace Rating.WebAPI.Extensions
         {
             services.AddMassTransit(x =>
             {
-                var assembly = Assembly.GetAssembly(typeof(UpdateAverageRatingMessage));
+                //var assembly = Assembly.GetAssembly(typeof(UpdateAverageRatingMessage));
                 var host = config["RabbitMQ:Host"];
                 var virtualHost = config["RabbitMQ:VirtualHost"];
                 var username = config["RabbitMQ:Username"];
@@ -26,7 +26,7 @@ namespace Rating.WebAPI.Extensions
                     o.UseBusOutbox();
                 });
 
-                x.AddConsumers(assembly);
+                //x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
