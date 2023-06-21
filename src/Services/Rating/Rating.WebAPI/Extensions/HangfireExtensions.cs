@@ -1,7 +1,7 @@
 ﻿using Hangfire;
 using Rating.BusinessLogic.Services.EventDecisionServices;
 
-namespace Rating.API.Extensions
+namespace Rating.WebAPI.Extensions
 {
     public static class HangfireExtensions
     {
