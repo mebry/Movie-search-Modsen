@@ -60,7 +60,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
                 return false;
 
             var filmDto = existingFilm.Adapt<FilmDTO>();
-            _eventDispatchService.SendNewAverageRatingAsync(filmDto);
+            await _eventDispatchService.SendNewAverageRatingAsync(filmDto);
 
             return true;
         }
@@ -89,7 +89,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
 
             var eventFilms = await PreparingToSendCountOfScoresAsync(films);
 
-            _eventDispatchService.SendNewCountOfScoresAsync(eventFilms);
+            await _eventDispatchService.SendNewCountOfScoresAsync(eventFilms);
 
             return true;
         }
