@@ -39,7 +39,7 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
 
         public async Task<Collection> GetCollectionAsync(Guid id, bool trackChanges)
         {
-            return await GetByConditionAsync(c => c.Equals(id),trackChanges).SingleOrDefaultAsync();
+            return await GetByConditionAsync(c => c.Id.Equals(id),trackChanges).SingleOrDefaultAsync();
         }
 
         public async Task<Collection> GetCollectionByTitleAndDescriptionAsync(string title, string description, bool trackChanges)
