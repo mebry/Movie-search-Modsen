@@ -4,7 +4,7 @@ namespace FilmCollection.Shared.RequestParameters
 {
     public abstract class RequestParameters
     {
-        public int MaxPageSize { get; init; } = RequestParametersConstants.DEFAULT_MAX_PAGE_SIZE;
+        private int MaxPageSize { get; init; } = RequestParametersConstants.DEFAULT_MAX_PAGE_SIZE;
 
         public int PageNumber { get; set; } = RequestParametersConstants.DEFAULT_PAGE_NUMBER;
 

@@ -12,6 +12,6 @@ namespace FilmCollection.BusinessLogic.DTOs.ResponseDTOs
         public double AverageRating { get; set; }
         public int NumberOfRatings { get; set; }
         public IEnumerable<GenreResponseDto> Genres { get; set; }
-        public IEnumerable<Countries> Countries { get; set; }
+        public IEnumerable<CountryResponseDto> Countries { get; set; }
     }
 }
