@@ -43,7 +43,7 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
 
         public async Task<FilmCountryResponseDto> GetFilmCountryAsync(Guid filmId, Countries countryId)
         {
-            var associationToReturn = _filmCountryServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndCountryExistsAndGetAsync(countryId, filmId, false);
+            var associationToReturn = await _filmCountryServiceValidator.CheckIfAssociationBetweenBaseFilmInfoAndCountryExistsAndGetAsync(countryId, filmId, false);
             return _mapper.Map<FilmCountryResponseDto>(associationToReturn);
         }
 
