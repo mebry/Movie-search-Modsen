@@ -18,11 +18,11 @@ namespace Rating.BusinessLogic.Services.RatingServices
         private readonly IFilmService _filmService;
         private readonly IRatingFilmRepository _ratingRepository;
         private readonly ILogger<RatingService> _logger;
-        private readonly IValidator<RatingFilm> _validator;
+        private readonly IValidator<RequestRatingDTO> _validator;
         private readonly IEventDecisionService _eventDecisionService;
 
         public RatingService(IFilmService filmService, IRatingFilmRepository ratingRepository,
-            ILogger<RatingService> logger, IValidator<RatingFilm> validator, IEventDecisionService eventDecisionService)
+            ILogger<RatingService> logger, IValidator<RequestRatingDTO> validator, IEventDecisionService eventDecisionService)
         {
             _filmService = filmService;
             _ratingRepository = ratingRepository;
@@ -33,11 +33,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
         public async Task<ResponseRatingDTO> CreateAsync(RequestRatingDTO model)
         {
-            var mapperModel = model.Adapt<RatingFilm>();
-
-            mapperModel.Id = Guid.NewGuid();
-
-            ValidationResult result = await _validator.ValidateAsync(mapperModel);
+            ValidationResult result = await _validator.ValidateAsync(model);
 
             if(!result.IsValid)
             {
@@ -45,6 +41,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
                 throw new ValidationProblemException(errorMessages);
             }
+
+            var mapperModel = model.Adapt<RatingFilm>();
+            mapperModel.Id = Guid.NewGuid();
 
             _ratingRepository.Create(mapperModel);
 
@@ -113,7 +112,6 @@ namespace Rating.BusinessLogic.Services.RatingServices
             }
 
             var mapperModel = model.Adapt<RatingFilm>();
-
             mapperModel.Id = id;
 
             await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Update);

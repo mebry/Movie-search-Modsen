@@ -31,8 +31,8 @@ app.MapControllers();
 app.UseHangfireDashboard();
 app.MapHangfireDashboard();
 
-app.UseHangfireRecurringJobs(builder.Configuration);
-
 app.ApplyMigrations();
+
+app.UseHangfireRecurringJobs(builder.Configuration);
 
 app.Run();

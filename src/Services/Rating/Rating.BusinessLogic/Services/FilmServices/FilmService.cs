@@ -14,9 +14,9 @@ namespace Rating.BusinessLogic.Services.FilmServices
     {
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<FilmService> _logger;
-        private readonly IValidator<Film> _validator;
+        private readonly IValidator<FilmDTO> _validator;
 
-        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<Film> validator)
+        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<FilmDTO> validator)
         {
             _filmRepository = filmRepository;
             _logger = logger;
@@ -39,9 +39,7 @@ namespace Rating.BusinessLogic.Services.FilmServices
                 Id = id
             };
 
-            var mapperModel = filmDto.Adapt<Film>();
-
-            ValidationResult result = await _validator.ValidateAsync(mapperModel);
+            ValidationResult result = await _validator.ValidateAsync(filmDto);
 
             if(!result.IsValid)
             {
@@ -49,6 +47,8 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
                 throw new ValidationProblemException(errorMessages);
             }
+
+            var mapperModel = filmDto.Adapt<Film>();
 
             _filmRepository.Create(mapperModel);
 
