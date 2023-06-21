@@ -11,9 +11,9 @@
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Gets or sets the ID of the age restriction for the film.
+        /// Gets or sets the age restriction for the film.
         /// </summary>
-        public Guid AgeRestrictionId { get; set; }
+        public AgeRestrictionResponseDTO AgeRestriction { get; set; }
 
         /// <summary>
         /// Gets or sets the title of the film.
@@ -54,5 +54,25 @@
         /// Gets or sets the duration of the film.
         /// </summary>
         public TimeSpan Duration { get; set; }
+
+        /// <summary>
+        /// The list of countries associated with the film.
+        /// </summary>
+        public List<CountryResponseDTO> Countries { get; set; } = new();
+
+        /// <summary>
+        /// The list of genres associated with the film.
+        /// </summary>
+        public List<GenreResponseDTO> Genres { get; set; } = new();
+
+        /// <summary>
+        /// The list of tags associated with the film.
+        /// </summary>
+        public List<TagResponseDTO> Tags { get; set; } = new();
+
+        /// <summary>
+        /// The list of staff person positions associated with the film.
+        /// </summary>
+        public List<StaffPersonResponseDTO> StaffPersons { get; set; } = new();
     }
 }
