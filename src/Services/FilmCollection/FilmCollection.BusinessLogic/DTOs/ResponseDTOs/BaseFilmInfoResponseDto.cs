@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FilmCollection.DataAccess.Repositories.Interfaces;
+using Shared.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,5 +17,7 @@ namespace FilmCollection.BusinessLogic.DTOs.ResponseDTOs
         public TimeSpan Duration { get; set; }
         public double AverageRating { get; set; }
         public int NumberOfRatings { get; set; }
+        public IEnumerable<GenreResponseDto> Genres { get; set; }
+        public IEnumerable<Countries> Countries { get; set; }
     }
 }
