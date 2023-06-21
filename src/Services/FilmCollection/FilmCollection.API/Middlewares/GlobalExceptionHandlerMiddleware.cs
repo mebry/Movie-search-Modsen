@@ -2,6 +2,7 @@
 using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
 using FilmCollection.BusinessLogic.Exceptions.NotFoundException;
 using Microsoft.AspNetCore.Diagnostics;
+using SharedExceptions = Shared.Exceptions;
 
 namespace FilmCollection.API.Middlewares
 {
@@ -19,8 +20,8 @@ namespace FilmCollection.API.Middlewares
                     {
                         context.Response.StatusCode = contextFeature.Error switch
                         {
-                            NotFoundException => StatusCodes.Status404NotFound,
-                            AlreadyExistsException => StatusCodes.Status409Conflict,
+                            SharedExceptions.NotFoundException => StatusCodes.Status404NotFound,
+                            SharedExceptions.AlreadyExistsException => StatusCodes.Status409Conflict,
                             _ => StatusCodes.Status500InternalServerError
                         };
 
