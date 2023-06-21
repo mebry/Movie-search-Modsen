@@ -1,11 +1,6 @@
 ﻿using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.DataAccess.Repositories.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FilmCollection.BusinessLogic.Exceptions.NotFoundException;
 using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
 

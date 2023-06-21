@@ -1,9 +1,4 @@
 ﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 
 namespace FilmCollection.BusinessLogic.Services.Interfaces

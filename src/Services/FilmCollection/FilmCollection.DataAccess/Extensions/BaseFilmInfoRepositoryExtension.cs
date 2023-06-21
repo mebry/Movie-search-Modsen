@@ -1,12 +1,5 @@
 ﻿using FilmCollection.DataAccess.Extensions.Utilities;
 using FilmCollection.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq.Dynamic.Core;
 using Shared.Enums;
 using Microsoft.EntityFrameworkCore;

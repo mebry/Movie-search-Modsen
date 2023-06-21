@@ -1,13 +1,6 @@
-﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
-using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
+﻿using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
 using FilmCollection.DataAccess.Models;
 using Mapster;
-using Shared.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.Mappings
 {

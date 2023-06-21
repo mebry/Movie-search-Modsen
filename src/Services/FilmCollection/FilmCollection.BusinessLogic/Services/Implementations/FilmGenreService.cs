@@ -5,11 +5,6 @@ using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.DataAccess.Repositories.Interfaces;
 using MapsterMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.Services.Implementations
 {

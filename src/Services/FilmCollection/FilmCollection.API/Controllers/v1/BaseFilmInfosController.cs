@@ -1,9 +1,5 @@
-﻿using FilmCollection.API.Extensions;
-using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
-using FilmCollection.BusinessLogic.Services.Interfaces;
+﻿using FilmCollection.BusinessLogic.Services.Interfaces;
 using FilmCollection.Shared.RequestParameters;
-using FluentValidation;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json;
 

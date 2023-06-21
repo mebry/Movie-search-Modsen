@@ -1,6 +1,4 @@
 ﻿using FilmCollection.BusinessLogic.Exceptions;
-using FilmCollection.BusinessLogic.Exceptions.AlreadyExistsException;
-using FilmCollection.BusinessLogic.Exceptions.NotFoundException;
 using Microsoft.AspNetCore.Diagnostics;
 using SharedExceptions = Shared.Exceptions;
 

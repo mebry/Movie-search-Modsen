@@ -1,6 +1,4 @@
-﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
-using FilmCollection.BusinessLogic.Services.Interfaces;
-using FluentValidation;
+﻿using FilmCollection.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
 

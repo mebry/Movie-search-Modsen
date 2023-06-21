@@ -1,10 +1,4 @@
-﻿using FilmCollection.DataAccess.Models;
-using Shared.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Shared.Enums;
 using SharedExceptions = Shared.Exceptions;
 
 namespace FilmCollection.BusinessLogic.Exceptions.NotFoundException

@@ -1,9 +1,4 @@
 ﻿using FilmCollection.Shared.Constants.RequestParametersConstants;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FilmCollection.Shared.RequestParameters
 {
