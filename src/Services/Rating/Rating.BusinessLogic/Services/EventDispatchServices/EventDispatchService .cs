@@ -1,17 +1,31 @@
-﻿using Rating.BusinessLogic.DTOs;
+﻿using Mapster;
+using MassTransit;
+using Rating.BusinessLogic.DTOs;
+using Shared.Messages;
 
 namespace Rating.BusinessLogic.Services.EventDispatchServices
 {
     internal class EventDispatchService : IEventDispatchService
     {
-        public bool SendNewAverageRating(FilmDTO films)
+        private readonly IPublishEndpoint _publishEndpoint;
+
+        public EventDispatchService(IPublishEndpoint publishEndpoint)
         {
-            throw new NotImplementedException();
+            _publishEndpoint = publishEndpoint;
         }
 
-        public bool SendNewCountOfScores(IEnumerable<FilmDTO> films)
+        public async Task SendNewAverageRatingAsync(FilmDTO film)
         {
-            throw new NotImplementedException();
+            var message = film.Adapt<UpdateAverageRatingMessage>();
+
+            await _publishEndpoint.Publish(message);
+        }
+
+        public async Task SendNewCountOfScoresAsync(IEnumerable<FilmDTO> film)
+        {
+            var message = film.Adapt<IEnumerable<UpdateCountOfScoresMessage>>();
+
+            await _publishEndpoint.Publish(message);
         }
     }
 }

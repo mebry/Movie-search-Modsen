@@ -1,7 +1,7 @@
 using Hangfire;
-using Rating.API.Extensions;
 using Rating.BusinessLogic.Extensions;
 using Rating.DataAccess.Extensions;
+using Rating.WebAPI.Extensions;
 using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddBusinessLogicService();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureHagfire(builder.Configuration);
+builder.Services.ConfigureMassTransit(builder.Configuration);
 
 var app = builder.Build();
 

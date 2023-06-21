@@ -4,8 +4,7 @@ namespace Rating.BusinessLogic.Services.EventDispatchServices
 {
     public interface IEventDispatchService
     {
-        // TODO: тут будут другие входные параметры
-        public bool SendNewAverageRating(FilmDTO films);
-        public bool SendNewCountOfScores(IEnumerable<FilmDTO> films);
+        public Task SendNewAverageRatingAsync(FilmDTO film);
+        public Task SendNewCountOfScoresAsync(IEnumerable<FilmDTO> film);
     }
 }
