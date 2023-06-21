@@ -22,12 +22,15 @@ namespace Film.BusinessLogic.Services.Implementations
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<FilmService> _logger;
         private readonly IValidator<FilmRequestDTO> _validator;
+        private readonly TypeAdapterConfig _typeAdapterConfig;
 
-        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<FilmRequestDTO> validator)
+        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<FilmRequestDTO> validator,
+            TypeAdapterConfig typeAdapterConfig)
         {
             _filmRepository = filmRepository;
             _logger = logger;
             _validator = validator;
+            _typeAdapterConfig = typeAdapterConfig;
         }
 
         /// <summary>
@@ -47,9 +50,9 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException(validationResult.GetErrorMessages());
             }
 
-            var foundFilm = _filmRepository.FilmExistsAsync(film.Title, film.ReleaseDate);
+            var foundFilm = await _filmRepository.FilmExistsAsync(film.Title, film.ReleaseDate);
 
-            if (foundFilm is not null)
+            if (foundFilm)
             {
                 _logger.LogError("The model could not be created because such a model already exists");
                 throw new FilmAlreadyExistsException();
@@ -111,9 +114,9 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException("The page size must be greater than 0");
             }
 
-            var foundTags = await _filmRepository.GetFilmsAsync(pageNumber, pageSize, filterQueryString, orderByQueryString);
+            var foundFilms = await _filmRepository.GetFilmsAsync(pageNumber, pageSize, filterQueryString, orderByQueryString);
 
-            return foundTags.Adapt<List<FilmResponseDTO>>();
+            return foundFilms.Adapt<List<FilmResponseDTO>>(_typeAdapterConfig);
         }
 
         /// <summary>
@@ -132,7 +135,7 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new FilmNotFoundException(id);
             }
 
-            return foundFilm.Adapt<FilmResponseDTO>();
+            return foundFilm.Adapt<FilmResponseDTO>(_typeAdapterConfig);
         }
 
         /// <summary>
@@ -162,7 +165,7 @@ namespace Film.BusinessLogic.Services.Implementations
             }
             var mappedModel = tag.Adapt<FilmModel>();
 
-            mappedModel.Id = Guid.NewGuid();
+            mappedModel.Id = id;
 
             _filmRepository.Update(mappedModel);
 

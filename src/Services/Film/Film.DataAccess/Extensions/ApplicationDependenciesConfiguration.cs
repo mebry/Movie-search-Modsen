@@ -26,7 +26,7 @@ namespace Film.DataAccess.Extensions
                 .AddScoped<IFilmRepository, FilmRepository>()
                 .AddScoped<IFilmTagRepository, FilmTagRepository>()
                 .AddScoped<IGenreRepository, GenreRepository>()
-                .AddScoped<IPositionRepository, IPositionRepository>()
+                .AddScoped<IPositionRepository, PositionRepository>()
                 .AddScoped<IStaffPersonPositionRepository, StaffPersonPositionRepository>()
                 .AddScoped<IStaffPersonRepository, StaffPersonRepository>()
                 .AddScoped<ITagRepository, TagRepository>();

@@ -19,5 +19,15 @@
         /// The surname of the staff person.
         /// </summary>
         public string Surname { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The URL of the staff person's image.
+        /// </summary>
+        public string ImageUrl { get; set; } = string.Empty;
+
+        /// <summary>
+        /// The list of positions associated with this person.
+        /// </summary>
+        public List<PositionPersonDTO> Positions { get; set; } = new();
     }
 }
