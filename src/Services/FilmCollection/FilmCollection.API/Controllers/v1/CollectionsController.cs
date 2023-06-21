@@ -22,7 +22,7 @@ namespace FilmCollection.API.Controllers.v1
 
 
         [HttpGet]
-        [ProducesResponseType(200)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAllCollectionsAsync()
         {
             var collections = await _collectionService.GetAllCollections();
@@ -30,8 +30,8 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpGet("{collectionId}", Name = "CollectionById")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCollectionAsync(Guid collectionId)
         {
             var collectionToReturn = await _collectionService.GetCollectionAsync(collectionId);
@@ -39,9 +39,9 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(409)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateCollectionAsync(CollectionRequestDto collectionRequestDto)
         {
             var result = await _validator.ValidateAsync(collectionRequestDto);
@@ -52,8 +52,8 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpDelete("{collectionId}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteCollectionAsync(Guid collectionId)
         {
             await _collectionService.DeleteCollectionAsync(collectionId);
@@ -61,9 +61,9 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpPut("{collectionId}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> UpdateCollectionAsync(Guid collectionId, CollectionRequestDto collectionRequestDto)
         {
             var result = await _validator.ValidateAsync(collectionRequestDto);

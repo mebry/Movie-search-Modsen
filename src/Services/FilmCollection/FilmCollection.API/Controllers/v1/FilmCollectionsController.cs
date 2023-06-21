@@ -22,8 +22,8 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpGet("{collectionId}/{filmId}", Name = "GetFilmCollectionById")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetFilmCollectionAssociationAsync(Guid filmId, Guid collectionId)
         {
             var associationToReturn = await _filmCollectionService.GetFilmCollectionAsscoationAsync(filmId, collectionId);
@@ -31,9 +31,9 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(409)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<IActionResult> CreateFilmCollectionAsync(FilmCollectionRequestDto filmCollectionRequest)
         {
             var result = await _validator.ValidateAsync(filmCollectionRequest);
@@ -44,8 +44,8 @@ namespace FilmCollection.API.Controllers.v1
         }
 
         [HttpDelete("{collectionId}/{filmId}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteFilmCollectionAsync(Guid collectionId, Guid filmId)
         {
             await _filmCollectionService.DeleteFilmCollectionAssociationAsync(collectionId, filmId);
