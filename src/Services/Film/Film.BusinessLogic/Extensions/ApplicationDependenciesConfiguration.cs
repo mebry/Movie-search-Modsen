@@ -3,7 +3,10 @@ using Film.BusinessLogic.ModelValidators.RequestDTOs;
 using Film.BusinessLogic.Services.Implementations;
 using Film.BusinessLogic.Services.Interfaces;
 using FluentValidation;
+using Mapster;
+using MapsterMapper;
 using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
 namespace Film.BusinessLogic.Extensions
 {
@@ -22,16 +25,16 @@ namespace Film.BusinessLogic.Extensions
 
         public static IServiceCollection ConfigureValidators(this IServiceCollection services)
         {
-            return services.AddScoped<IValidator<AgeRestrictionRequestDTO>, AgeRestrictionRequestDTOValidator>()
-                .AddScoped<IValidator<FilmCountryRequestDTO>, FilmCountryRequestDTOValidator>()
-                .AddScoped<IValidator<FilmGenreRequestDTO>, FilmGenreRequestDTOValidator>()
-                .AddScoped<IValidator<FilmRequestDTO>, FilmRequestDTOValidator>()
-                .AddScoped<IValidator<FilmTagRequestDTO>, FilmTagRequestDTOValidator>()
-                .AddScoped<IValidator<GenreRequestDTO>, GenreRequestDTOValidator>()
-                .AddScoped<IValidator<PositionRequestDTO>, PositionRequestDTOValidator>()
-                .AddScoped<IValidator<StaffPersonPositionRequestDTO>, StaffPersonPositionRequestDTOValidator>()
-                .AddScoped<IValidator<StaffPersonRequestDTO>, StaffPersonRequestDTOValidator>()
-                .AddScoped<IValidator<TagRequestDTO>, TagRequestDTOValidator>();
+            return services.AddValidatorsFromAssemblyContaining<TagRequestDTOValidator>();
+        }
+
+        public static IServiceCollection ConfigureMappers(this IServiceCollection services)
+        {
+            var config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config);
+
+            return services;
         }
     }
 }

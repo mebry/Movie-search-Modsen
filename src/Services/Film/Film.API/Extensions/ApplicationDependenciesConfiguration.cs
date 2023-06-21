@@ -17,6 +17,7 @@ namespace Film.API.Extensions
             builder.Services.AddFilmDatabase(builder.Configuration)
             .AddRepositories()
             .ConfigureValidators()
+            .ConfigureMappers()
             .ConfigureBusinessLogicServices()
             .Configure<ApiBehaviorOptions>(options =>
             {
