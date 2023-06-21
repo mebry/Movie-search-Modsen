@@ -1,4 +1,6 @@
 ﻿using FilmCollection.DataAccess.Models;
+using FilmCollection.Shared.RequestFeatures;
+using FilmCollection.Shared.RequestParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +17,7 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
         Task UpdateBaseFilmInfoAsync(BaseFilmInfo baseFilmInfo);
         Task<BaseFilmInfo> GetBaseFilmInfoByIdAsync(Guid id, bool trackCahnges);
         Task<IEnumerable<BaseFilmInfo>> GetBaseFilmInfosAsync(bool trackCahnges);
-        Task<BaseFilmInfo> GetBaseFilmInfoByTitleAndReleaseDate(string title, DateOnly releaseDate, bool trackChanges);
+        Task<BaseFilmInfo> GetBaseFilmInfoByTitleAndReleaseDateAsync(string title, DateOnly releaseDate, bool trackChanges);
+        Task<PagedList<BaseFilmInfo>> GetFilteredBaseFilmInfosAsync(FilmParameters filmParameters, bool trackChanges);
     }
 }
