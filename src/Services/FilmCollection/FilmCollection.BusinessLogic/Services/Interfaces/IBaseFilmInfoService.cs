@@ -1,5 +1,7 @@
 ﻿using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
 using FilmCollection.BusinessLogic.DTOs.ResponseDTOs;
+using FilmCollection.Shared.RequestFeatures;
+using FilmCollection.Shared.RequestParameters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +15,7 @@ namespace FilmCollection.BusinessLogic.Services.Interfaces
         Task<BaseFilmInfoResponseDto> CreateBaseFilmInfoAsync(BaseFilmInfoRequestDto request);
         Task UpdateBaseFilmInfoAsync(Guid id, BaseFilmInfoRequestDto request);
         Task DeleteBaseFilInfoAsync(Guid id);  
-        Task<IEnumerable<BaseFilmInfoResponseDto>> GetAllBaseFilmInfosAsync();
         Task<BaseFilmInfoResponseDto> GetBaseFilmInfoAsync(Guid id);
-
+        Task<(IEnumerable<BaseFilmInfoResponseDto> baseFilmInfos, MetaData metaData)> GetBaseFilmInfosAsync(FilmParameters filmParameters);
     }
 }

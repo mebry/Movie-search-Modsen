@@ -4,6 +4,8 @@ using FilmCollection.BusinessLogic.Services.Interfaces;
 using FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces;
 using FilmCollection.DataAccess.Models;
 using FilmCollection.DataAccess.Repositories.Interfaces;
+using FilmCollection.Shared.RequestFeatures;
+using FilmCollection.Shared.RequestParameters;
 using MapsterMapper;
 using System;
 using System.Collections.Generic;
@@ -43,9 +45,11 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
             await _baseFilmInfoRepository.DeleteBaseFilmInfoAsync(validatedBaseFilmInfo);
         }
 
-        public async Task<IEnumerable<BaseFilmInfoResponseDto>> GetAllBaseFilmInfosAsync()
+        public async Task<(IEnumerable<BaseFilmInfoResponseDto> baseFilmInfos, MetaData metaData)> GetBaseFilmInfosAsync(FilmParameters filmParameters)
         {
-            return _mapper.Map<IEnumerable<BaseFilmInfoResponseDto>>(await _baseFilmInfoRepository.GetBaseFilmInfosAsync(false));
+            var filmInfosWithData = await _baseFilmInfoRepository.GetFilteredBaseFilmInfosAsync(filmParameters,false);
+            var filmInfosToReturn = _mapper.Map<IEnumerable<BaseFilmInfoResponseDto>>(filmInfosWithData);
+            return (baseFilmInfos: filmInfosToReturn, metaData: filmInfosWithData.MetaData);
         }
 
         public async Task<BaseFilmInfoResponseDto> GetBaseFilmInfoAsync(Guid id)
@@ -56,8 +60,8 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
 
         public async Task UpdateBaseFilmInfoAsync(Guid id, BaseFilmInfoRequestDto request)
         {
-            await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(request.ReleaseDate, request.Title);
             await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoExistsAsync(id);
+            await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(request.ReleaseDate, request.Title, id);
             var mappedBaseFilmInfo = _mapper.Map<BaseFilmInfo>(request);
             mappedBaseFilmInfo.Id = id;
             await _baseFilmInfoRepository.UpdateBaseFilmInfoAsync(mappedBaseFilmInfo);
