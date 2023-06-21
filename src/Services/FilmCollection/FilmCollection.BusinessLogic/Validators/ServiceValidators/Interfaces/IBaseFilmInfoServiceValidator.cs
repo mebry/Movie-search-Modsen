@@ -14,5 +14,6 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Interfaces
         Task<BaseFilmInfo> CheckIfBaseFilmInfoExistsAndGetAsync(Guid id, bool trackChanges);
 
         Task CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(DateOnly releaseDate, string title);
+        Task CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(DateOnly releaseDate, string title, Guid filmId);
     }
 }

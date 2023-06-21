@@ -37,9 +37,18 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Implementati
 
         public async Task CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(DateOnly releaseDate, string title)
         {
-            var baseFilmInfo = await _baseFilmInfoRepository.GetBaseFilmInfoByTitleAndReleaseDate(title, releaseDate, false);
+            var baseFilmInfo = await _baseFilmInfoRepository.GetBaseFilmInfoByTitleAndReleaseDateAsync(title, releaseDate, false);
             if(baseFilmInfo != null) 
             { 
+                throw new BaseFilmInfoAlreadyExistsException();
+            }
+        }
+
+        public async Task CheckIfBaseFilmInfoNotExistsWithGivingTitleAndReleaseDateAsync(DateOnly releaseDate, string title, Guid filmId)
+        {
+            var baseFilmInfo = await _baseFilmInfoRepository.GetBaseFilmInfoByTitleAndReleaseDateAsync(title, releaseDate, false);
+            if (baseFilmInfo != null && !baseFilmInfo.Id.Equals(filmId))
+            {
                 throw new BaseFilmInfoAlreadyExistsException();
             }
         }
