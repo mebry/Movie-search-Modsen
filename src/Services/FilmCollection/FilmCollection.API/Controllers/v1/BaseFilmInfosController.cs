@@ -1,74 +1,41 @@
 ﻿using FilmCollection.API.Extensions;
 using FilmCollection.BusinessLogic.DTOs.RequestDTOs;
 using FilmCollection.BusinessLogic.Services.Interfaces;
+using FilmCollection.Shared.RequestParameters;
 using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace FilmCollection.API.Controllers.v1
 {
     public class BaseFilmInfosController : BaseApiController
     {
         private readonly IBaseFilmInfoService _baseFilmInfoService;
-        private readonly IValidator<BaseFilmInfoRequestDto> _validator;
 
-        public BaseFilmInfosController(IBaseFilmInfoService baseFilmInfoService, IValidator<BaseFilmInfoRequestDto> validator, ILogger<BaseApiController> logger)
+        public BaseFilmInfosController(IBaseFilmInfoService baseFilmInfoService, ILogger<BaseApiController> logger)
             : base(logger)
         {
             _baseFilmInfoService = baseFilmInfoService;
-            _validator = validator;
         }
 
         [HttpGet]
-        [ProducesResponseType(200)]
-        public async Task<IActionResult> GetAllFilmInfosAsync()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetFilmInfosAsync([FromQuery] FilmParameters filmParameters)
         {
-            var baseFilmInfosToReturn = await _baseFilmInfoService.GetAllBaseFilmInfosAsync();
-            return Ok(baseFilmInfosToReturn);
+            var pagedResult = await _baseFilmInfoService.GetBaseFilmInfosAsync(filmParameters);
+            Response.Headers.Add("X-Pagination",
+                JsonSerializer.Serialize(pagedResult.metaData));
+            return Ok(pagedResult.baseFilmInfos);
         }
 
         [HttpGet("{filmId}", Name = "FilmById")]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(404)]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetFilmInfoAsync(Guid filmId)
         {
             var baseFilmInfoToReturn = await _baseFilmInfoService.GetBaseFilmInfoAsync(filmId);
             return Ok(baseFilmInfoToReturn);
-        }
-
-        [HttpPost]
-        [ProducesResponseType(201)]
-        [ProducesResponseType(400)]
-        [ProducesResponseType(409)]
-        public async Task<IActionResult> CreateFilmInfo(BaseFilmInfoRequestDto baseFilmInfoRequestDto)
-        {
-            var result = await _validator.ValidateAsync(baseFilmInfoRequestDto);
-            if (!result.IsValid)
-                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to create base information about film");
-            var createdBaseFilmInfo = await _baseFilmInfoService.CreateBaseFilmInfoAsync(baseFilmInfoRequestDto);
-            return CreatedAtRoute("FilmById", new { filmId = createdBaseFilmInfo.Id }, createdBaseFilmInfo);
-        }
-
-        [HttpDelete("{filmId}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        public async Task<IActionResult> DeleteFilmInfoAsync(Guid filmId)
-        {
-            await _baseFilmInfoService.DeleteBaseFilInfoAsync(filmId);
-            return NoContent();
-        }
-
-        [HttpPut("{filmId}")]
-        [ProducesResponseType(204)]
-        [ProducesResponseType(404)]
-        [ProducesResponseType(409)]
-        public async Task<IActionResult> UpdateFilmInfoAsync(Guid filmId, BaseFilmInfoRequestDto baseFilmInfoRequestDto)
-        {
-            var result = await _validator.ValidateAsync(baseFilmInfoRequestDto);
-            if (!result.IsValid)
-                ProcessInvalidValidationResult(result, "Invalid data was provided when trying to update base information about film");
-            await _baseFilmInfoService.UpdateBaseFilmInfoAsync(filmId, baseFilmInfoRequestDto);
-            return NoContent();
         }
     }
 }
