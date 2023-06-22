@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Staff.DataAccess.Entities;
 using System.Reflection;
@@ -19,7 +20,7 @@ namespace Staff.DataAccess.Contexts
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
+            if(!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
             }
@@ -28,6 +29,9 @@ namespace Staff.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
