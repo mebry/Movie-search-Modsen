@@ -112,41 +112,5 @@ namespace Rating.BusinessLogic.Services.FilmServices
 
             return model;
         }
-
-        public async Task<bool> DecrementCountOfScores(Guid filmId)
-        {
-            var existingFilm = await _filmRepository.GetByIdAsync(filmId);
-
-            if(existingFilm is null)
-            {
-                _logger.LogError("The decrement attempt failed. This id is missing");
-
-                throw new NotFoundException("This id is missing");
-            }
-
-            existingFilm.CountOfScores--;
-
-            _filmRepository.Update(existingFilm);
-
-            return true;
-        }
-
-        public async Task<bool> IncrementCountOfScores(Guid filmId)
-        {
-            var existingFilm = await _filmRepository.GetByIdAsync(filmId);
-
-            if(existingFilm is null)
-            {
-                _logger.LogError("The increment attempt failed. This id is missing");
-
-                throw new NotFoundException("This id is missing");
-            }
-
-            existingFilm.CountOfScores++;
-
-            _filmRepository.Update(existingFilm);
-
-            return true;
-        }
     }
 }

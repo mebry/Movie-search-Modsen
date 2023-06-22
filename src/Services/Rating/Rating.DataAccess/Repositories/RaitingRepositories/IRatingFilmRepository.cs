@@ -5,6 +5,6 @@ namespace Rating.DataAccess.Repositories.RaitingRepositories
 {
     public interface IRatingFilmRepository : IRepository<RatingFilm>
     {
-        public Task<double> CalculateAverageRatingByFilmId(Guid id);
+        public Task<double> CalculateAverageRatingByFilmId(Guid filmId);
     }
 }
