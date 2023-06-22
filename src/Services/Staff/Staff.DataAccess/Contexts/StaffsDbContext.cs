@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Staff.DataAccess.Entities;
 using System.Reflection;
+using MassTransit;
 
 namespace Staff.DataAccess.Contexts
 {
