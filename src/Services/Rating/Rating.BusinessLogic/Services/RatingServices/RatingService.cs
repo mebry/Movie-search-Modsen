@@ -43,14 +43,22 @@ namespace Rating.BusinessLogic.Services.RatingServices
                 throw new ValidationProblemException(errorMessages);
             }
 
+            var isThere = await _ratingRepository.IsThereUserIdForFilmId(model.FilmId, model.UserId);
+
+            if(isThere)
+            {
+                _logger.LogError("The user has already rated this film");
+
+                throw new AlreadyExistsException("The user has already rated this film");
+            }
+
             var mapperModel = model.Adapt<RatingFilm>();
             mapperModel.Id = Guid.NewGuid();
 
             _ratingRepository.Create(mapperModel);
 
-            var film = await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Create);
-
-            //await _filmService.IncrementCountOfScores((Guid)mapperModel.FilmId!);
+            var film = await _eventDecisionService
+                .DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Create);
 
             film.CountOfScores++;
 
@@ -83,8 +91,6 @@ namespace Rating.BusinessLogic.Services.RatingServices
             film.CountOfScores--;
 
             _filmRepository.Update(film);
-
-            //await _filmService.DecrementCountOfScores((Guid)existingRating.FilmId!);
 
             await _ratingRepository.SaveAsync();
 

@@ -30,6 +30,11 @@ namespace Rating.DataAccess.Repositories.RaitingRepositories
             .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == entityId);
 
+        public async Task<bool> IsThereUserIdForFilmId(Guid filmId, Guid userId)
+             => await _context.Ratings
+            .Where(r => r.FilmId == filmId)
+            .AnyAsync(r => r.UserId == userId);
+
         public async Task SaveAsync()
             => await _context.SaveChangesAsync();
 
