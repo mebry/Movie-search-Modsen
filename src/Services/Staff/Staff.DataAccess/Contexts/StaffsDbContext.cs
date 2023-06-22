@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Staff.DataAccess.Entities;
 using System.Reflection;
+using MassTransit;
 
 namespace Staff.DataAccess.Contexts
 {
@@ -28,6 +29,9 @@ namespace Staff.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
