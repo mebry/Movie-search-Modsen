@@ -21,7 +21,7 @@ namespace Staff.API.Controllers
         /// <param name="staffPersonId">The ID of the staff person</param>
         /// <param name="positionId">The ID of the position</param>
         /// <returns>Returns films associated with the staff person and position</returns>
-        [HttpGet("{id}")]
+        [HttpGet("films/{id}")]
         public async Task<ActionResult<IEnumerable<ResponseFilmDTO>>> GetFilmsByStaffPersonAndPositionAsync(Guid staffPersonId, Guid positionId)
         {
             var result = await _staffPersonPositionService.GetFilmsByStaffPersonAndPositionAsync(staffPersonId, positionId);
@@ -34,7 +34,7 @@ namespace Staff.API.Controllers
         /// </summary>
         /// <param name="staffPersonId">The ID of the staff person</param>
         /// <returns>Returns positions associated with the staff person</returns>
-        [HttpGet("{id}")]
+        [HttpGet("position/{id}")]
         public async Task<ActionResult<IEnumerable<ResponsePositionDTO>>> GetPositionsByStaffPersonIdAsync(Guid staffPersonId)
         {
             var result = await _staffPersonPositionService.GetPositionsByStaffPersonIdAsync(staffPersonId);
