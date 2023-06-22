@@ -37,7 +37,7 @@ namespace Staff.API.Extensions
                         h.Password(password);
                     });
 
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdate"], x =>
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdate"]!, x =>
                     {
                         x.Bind<UpdateAverageRatingMessage>();
                         x.ConfigureConsumer<UpdateAverageRatingMessageConsumer>(context);

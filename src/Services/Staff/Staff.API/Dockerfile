@@ -1,7 +1,3 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
-#Depending on the operating system of the host machines(s) that will build or run the containers, the image specified in the FROM statement may need to be changed.
-#For more information, please see https://aka.ms/containercompat
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
@@ -10,10 +6,14 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Staff.API/Staff.API.csproj", "Staff.API/"]
-RUN dotnet restore "Staff.API/Staff.API.csproj"
-COPY . .
-WORKDIR "/src/Staff.API"
+COPY ["Services/Staffs/Staff.API/Staff.API.csproj", "Services/Staffs/Staff.API/"]
+COPY ["Services/Staffs/Staff.BusinessLogic/Staff.BusinessLogic.csproj", "Services/Staffs/Staff.BusinessLogic/"]
+COPY ["Services/Staffs/Staff.DataAccess/Staff.DataAccess.csproj", "Services/Staffs/Staff.DataAccess/"]
+COPY ["Shared/Shared.csproj", "Shared/"]
+RUN dotnet restore "Services/Staffs/Staff.API/Staff.API.csproj"
+COPY ./Services/Staffs/ ./Services/Staffs
+COPY ./Shared/ ./Shared
+WORKDIR "/src/Services/Staffs/Staff.API"
 RUN dotnet build "Staff.API.csproj" -c Release -o /app/build
 
 FROM build AS publish
