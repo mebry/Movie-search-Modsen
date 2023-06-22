@@ -8,7 +8,7 @@ namespace FilmCollection.DataAccess.Contexts
     {
         public DbSet<BaseFilmInfo> BaseFilmInfos { get; set; }
         public DbSet<Collection> Collections { get; set; }
-        public DbSet<FilmCollection.DataAccess.Models.FilmCollection> filmCollections { get; set; } 
+        public DbSet<Models.FilmCollection> filmCollections { get; set; } 
         public DbSet<FilmCountry> FilmCountries { get; set; }
         public DbSet<FilmGenre> FilmGenres { get; set; }
         public DbSet<Genre> Genres { get; set; }    
