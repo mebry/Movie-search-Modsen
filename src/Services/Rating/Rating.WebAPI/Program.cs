@@ -29,10 +29,10 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.ApplyMigrations();
+
 app.UseHangfireDashboard();
 app.MapHangfireDashboard();
-
-app.ApplyMigrations();
 
 app.UseHangfireRecurringJobs(builder.Configuration);
 
