@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using Shared.Messages;
+using Shared.Messages.FilmMessages;
 using Staff.BusinessLogic.MassTransit.Consumers;
 using Staff.DataAccess.Contexts;
 using System.Reflection;
@@ -47,6 +48,11 @@ namespace Staff.API.Extensions
                     {
                         x.Bind<UpdateCountOfScoresMessage>();
                         x.ConfigureConsumer<UpdateCountOfScoresMessageConsumer>(context);
+                    });
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmCreated"]!, x =>
+                    {
+                        x.Bind<CreatedFilmMessage>();
+                        x.ConfigureConsumer<CreatedFilmMessageConsumer>(context);
                     });
 
                 });
