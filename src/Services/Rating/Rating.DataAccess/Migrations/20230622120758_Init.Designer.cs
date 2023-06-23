@@ -3,21 +3,24 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Staff.DataAccess.Contexts;
+using Rating.DataAccess.Contexts;
 
 #nullable disable
 
-namespace Staff.DataAccess.Migrations
+namespace Rating.DataAccess.Migrations
 {
-    [DbContext(typeof(StaffsDbContext))]
-    partial class StaffsDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(ApplicationContext))]
+    [Migration("20230622120758_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.7")
+                .HasAnnotation("ProductVersion", "7.0.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -190,178 +193,62 @@ namespace Staff.DataAccess.Migrations
                     b.ToTable("OutboxState");
                 });
 
-            modelBuilder.Entity("Staff.DataAccess.Entities.Film", b =>
+            modelBuilder.Entity("Rating.DataAccess.Entities.Film", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("AverageRating")
+                        .HasMaxLength(10)
                         .HasColumnType("float");
 
-                    b.Property<int>("CountOfScores")
-                        .HasColumnType("int");
+                    b.Property<long>("CountOfScores")
+                        .HasColumnType("bigint");
 
-                    b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<long>("OldCountOfScores")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.ToTable("Films");
                 });
 
-            modelBuilder.Entity("Staff.DataAccess.Entities.Position", b =>
+            modelBuilder.Entity("Rating.DataAccess.Entities.RatingFilm", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Positions");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("20ccd699-f04f-49e1-8cbd-d4bdc6364a26"),
-                            Name = "Actor"
-                        },
-                        new
-                        {
-                            Id = new Guid("a659a4f3-0731-482f-8bf3-0caf9af180b6"),
-                            Name = "Regisseur"
-                        },
-                        new
-                        {
-                            Id = new Guid("ad72a3d5-6f31-4dbd-b739-45ca5bebfd2a"),
-                            Name = "Producer"
-                        },
-                        new
-                        {
-                            Id = new Guid("ee27217d-21d3-4fde-bf21-cd7fcc6ddb4f"),
-                            Name = "Operator"
-                        },
-                        new
-                        {
-                            Id = new Guid("dba2d0ce-6744-4c38-967c-18d2055699f5"),
-                            Name = "Composer"
-                        },
-                        new
-                        {
-                            Id = new Guid("1c550a7b-60ff-4c78-a345-6833e94e6672"),
-                            Name = "Artist"
-                        },
-                        new
-                        {
-                            Id = new Guid("c42666c4-dc1d-4dd8-997f-ac0e78dc51dc"),
-                            Name = "Montage"
-                        });
-                });
-
-            modelBuilder.Entity("Staff.DataAccess.Entities.StaffPerson", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<Guid?>("FilmId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Country")
+                    b.Property<int>("Score")
+                        .HasMaxLength(10)
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateOfBirthday")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImgUrl")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.ToTable("Staff");
-                });
-
-            modelBuilder.Entity("Staff.DataAccess.Entities.StaffPersonPosition", b =>
-                {
-                    b.Property<Guid>("StaffPersonId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PositionId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("FilmId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("StaffPersonId", "PositionId", "FilmId");
 
                     b.HasIndex("FilmId");
 
-                    b.HasIndex("PositionId");
-
-                    b.ToTable("StaffPersonPositions");
+                    b.ToTable("Ratings");
                 });
 
-            modelBuilder.Entity("Staff.DataAccess.Entities.StaffPersonPosition", b =>
+            modelBuilder.Entity("Rating.DataAccess.Entities.RatingFilm", b =>
                 {
-                    b.HasOne("Staff.DataAccess.Entities.Film", "Film")
-                        .WithMany("StaffPersonPositions")
-                        .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Staff.DataAccess.Entities.Position", "Position")
-                        .WithMany("StaffPersonPositions")
-                        .HasForeignKey("PositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Staff.DataAccess.Entities.StaffPerson", "StaffPerson")
-                        .WithMany("StaffPersonPositions")
-                        .HasForeignKey("StaffPersonId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                    b.HasOne("Rating.DataAccess.Entities.Film", "Film")
+                        .WithMany("RatingFilms")
+                        .HasForeignKey("FilmId");
 
                     b.Navigation("Film");
-
-                    b.Navigation("Position");
-
-                    b.Navigation("StaffPerson");
                 });
 
-            modelBuilder.Entity("Staff.DataAccess.Entities.Film", b =>
+            modelBuilder.Entity("Rating.DataAccess.Entities.Film", b =>
                 {
-                    b.Navigation("StaffPersonPositions");
-                });
-
-            modelBuilder.Entity("Staff.DataAccess.Entities.Position", b =>
-                {
-                    b.Navigation("StaffPersonPositions");
-                });
-
-            modelBuilder.Entity("Staff.DataAccess.Entities.StaffPerson", b =>
-                {
-                    b.Navigation("StaffPersonPositions");
+                    b.Navigation("RatingFilms");
                 });
 #pragma warning restore 612, 618
         }

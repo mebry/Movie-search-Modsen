@@ -1,7 +1,5 @@
 ﻿using MassTransit;
 using Rating.DataAccess.Contexts;
-using Shared.Messages;
-using System.Reflection;
 
 namespace Rating.WebAPI.Extensions
 {

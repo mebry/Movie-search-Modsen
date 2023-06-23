@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Staff.DataAccess.Contexts;
 
@@ -11,9 +12,11 @@ using Staff.DataAccess.Contexts;
 namespace Staff.DataAccess.Migrations
 {
     [DbContext(typeof(StaffsDbContext))]
-    partial class StaffsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230622122415_createmigr")]
+    partial class createmigr
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

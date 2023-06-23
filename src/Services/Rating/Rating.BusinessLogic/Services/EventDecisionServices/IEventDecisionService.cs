@@ -1,4 +1,5 @@
 ﻿using Rating.BusinessLogic.DTOs;
+using Rating.DataAccess.Entities;
 
 namespace Rating.BusinessLogic.Services.EventDecisionServices
 {
@@ -9,20 +10,20 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public Task<bool> DecisionToSendAveragRatingChangEventAsync(RequestRatingDTO rating, int change);
+        public Task<Film> DecisionToSendAverageRatingChangeEventAsync(RequestRatingDTO rating, int change);
 
         /// <summary>
         /// The service decides whether to send an event for changes to CountOfScore. This method checks for changes every few hours.
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public Task<bool> DecisionToSendCountOfScoresShortChangEventAsync();
+        public Task<bool> DecisionToSendCountOfScoresShortChangeEventAsync();
 
         /// <summary>
         /// The service decides whether to send an event for changes to CountOfScore. This method checks for changes every month.
         /// </summary>
         /// <param name="rating"></param>
         /// <returns></returns>
-        public Task<bool> DecisionToSendCountOfScoresLongChangEventAsync();
+        public Task<bool> DecisionToSendCountOfScoresLongChangeEventAsync();
     }
 }

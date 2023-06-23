@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FilmCollection.DataAccess.Repositories.Implementations
 {
-    internal class CollectionRepository : RepositoryBase<Collection>, ICollectionRepository
+    internal class CollectionRepository : RepositoryBase<CollectionModel>, ICollectionRepository
     {
         private readonly FilmCollectionContext _filmCollectionContext;
 
@@ -15,39 +15,39 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
             _filmCollectionContext = filmCollectionContext;
         }
 
-        public async Task CreateCollectionAsync(Collection collection)
+        public async Task CreateCollectionAsync(CollectionModel collection)
         {
             Create(collection);
             await _filmCollectionContext.SaveChangesAsync();
         }
 
-        public async Task DeleteCollectionAsync(Collection collection)
+        public async Task DeleteCollectionAsync(CollectionModel collection)
         {
             Delete(collection);
             await _filmCollectionContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Collection>> GetAllCollectionsAsync(bool trackChanges)
+        public async Task<IEnumerable<CollectionModel>> GetAllCollectionsAsync(bool trackChanges)
         {
             return await GetAllAsync(trackChanges).ToListAsync();
         }
 
-        public async Task<Collection> GetCollectionAsync(Guid id, bool trackChanges)
+        public async Task<CollectionModel> GetCollectionAsync(Guid id, bool trackChanges)
         {
             return await GetByConditionAsync(c => c.Id.Equals(id),trackChanges).SingleOrDefaultAsync();
         }
 
-        public async Task<Collection> GetCollectionByTitleAndDescriptionAsync(string title, string description, bool trackChanges)
+        public async Task<CollectionModel> GetCollectionByTitleAndDescriptionAsync(string title, string description, bool trackChanges)
         {
             return await GetByConditionAsync(c => c.Title == title && c.Description == description, trackChanges).SingleOrDefaultAsync();
         }
 
-        public async Task<Collection> GetCollectionByTitleAsync(string title, bool trackChanges)
+        public async Task<CollectionModel> GetCollectionByTitleAsync(string title, bool trackChanges)
         {
             return await GetByConditionAsync(c => c.Title == title, trackChanges).FirstOrDefaultAsync();
         }
 
-        public async Task UpdateCollectionAsync(Collection collection)
+        public async Task UpdateCollectionAsync(CollectionModel collection)
         {
             Update(collection);
             await _filmCollectionContext.SaveChangesAsync();

@@ -18,6 +18,7 @@ namespace Rating.BusinessLogic.Extensions
             services.AddDataAccessService();
             services.AddServices();
             services.AddValidators();
+            services.RegisterMapsterConfiguration();
         }
 
         private static void AddServices(this IServiceCollection services)

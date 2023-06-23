@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureDataAccess(builder.Configuration);
 builder.Services.ConfigureBusinessLogic();
-builder.Services.ConfigureAPI();
+builder.Services.ConfigureAPI(builder.Configuration);
 
 var app = builder.Build();
 
@@ -31,5 +31,7 @@ app.UseForwardedHeaders(new ForwardedHeadersOptions
 app.UseCors("CorsPolicy");
 
 app.MapControllers();
+
+await app.ApplyMigrationAsync();
 
 app.Run();
