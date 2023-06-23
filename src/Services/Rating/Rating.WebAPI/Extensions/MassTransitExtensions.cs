@@ -1,5 +1,8 @@
 ﻿using MassTransit;
+using Rating.BusinessLogic.MassTransit.Consumers;
 using Rating.DataAccess.Contexts;
+using Shared.Messages;
+using System.Reflection;
 
 namespace Rating.WebAPI.Extensions
 {
@@ -9,7 +12,7 @@ namespace Rating.WebAPI.Extensions
         {
             services.AddMassTransit(x =>
             {
-                //var assembly = Assembly.GetAssembly(typeof(UpdateAverageRatingMessage));
+                var assembly = Assembly.GetAssembly(typeof(CreateFilmMessageConsumer));
                 var host = config["RabbitMQ:Host"];
                 var virtualHost = config["RabbitMQ:VirtualHost"];
                 var username = config["RabbitMQ:Username"];
@@ -24,7 +27,7 @@ namespace Rating.WebAPI.Extensions
                     o.UseBusOutbox();
                 });
 
-                //x.AddConsumers(assembly);
+                x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -32,6 +35,12 @@ namespace Rating.WebAPI.Extensions
                     {
                         h.Username(username);
                         h.Password(password);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmCreate"]!, x =>
+                    {
+                        x.Bind<UpdateAverageRatingMessage>();
+                        x.ConfigureConsumer<CreateFilmMessageConsumer>(context);
                     });
                 });
             });
