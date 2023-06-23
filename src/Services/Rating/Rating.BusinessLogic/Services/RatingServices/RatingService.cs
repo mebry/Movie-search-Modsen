@@ -42,7 +42,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
                 throw new ValidationProblemException(errorMessages);
             }
 
-            var exists = await _ratingRepository.IsThereUserIdForFilmId(model.FilmId, model.UserId);
+            var exists = await _ratingRepository.IsThereUserIdForFilmIdAsync(model.FilmId, model.UserId);
 
             if(exists)
             {
