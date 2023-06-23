@@ -8,6 +8,7 @@ using Rating.BusinessLogic.Extensions;
 using Rating.BusinessLogic.Services.EventDecisionServices;
 using Rating.BusinessLogic.Services.FilmServices;
 using Rating.DataAccess.Entities;
+using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Shared.Exceptions;
 
@@ -15,16 +16,16 @@ namespace Rating.BusinessLogic.Services.RatingServices
 {
     internal class RatingService : IRatingService
     {
-        private readonly IFilmService _filmService;
+        private readonly IFilmRepository _filmRepository;
         private readonly IRatingFilmRepository _ratingRepository;
         private readonly ILogger<RatingService> _logger;
         private readonly IValidator<RequestRatingDTO> _validator;
         private readonly IEventDecisionService _eventDecisionService;
 
-        public RatingService(IFilmService filmService, IRatingFilmRepository ratingRepository,
+        public RatingService(IFilmRepository filmRepository, IRatingFilmRepository ratingRepository,
             ILogger<RatingService> logger, IValidator<RequestRatingDTO> validator, IEventDecisionService eventDecisionService)
         {
-            _filmService = filmService;
+            _filmRepository = filmRepository;
             _ratingRepository = ratingRepository;
             _logger = logger;
             _validator = validator;
@@ -42,14 +43,26 @@ namespace Rating.BusinessLogic.Services.RatingServices
                 throw new ValidationProblemException(errorMessages);
             }
 
+            var isThere = await _ratingRepository.IsThereUserIdForFilmId(model.FilmId, model.UserId);
+
+            if(isThere)
+            {
+                _logger.LogError("The user has already rated this film");
+
+                throw new AlreadyExistsException("The user has already rated this film");
+            }
+
             var mapperModel = model.Adapt<RatingFilm>();
             mapperModel.Id = Guid.NewGuid();
 
             _ratingRepository.Create(mapperModel);
 
-            await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Create);
+            var film = await _eventDecisionService
+                .DecisionToSendAverageRatingChangeEventAsync(model, (int)Changes.Create);
 
-            await _filmService.IncrementCountOfScores((Guid)mapperModel.FilmId!);
+            film.CountOfScores++;
+
+            _filmRepository.Update(film);
 
             await _ratingRepository.SaveAsync();
 
@@ -73,9 +86,11 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             var requestRatingDto = existingRating.Adapt<RequestRatingDTO>();
 
-            await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(requestRatingDto, (int)Changes.Delete);
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(requestRatingDto, (int)Changes.Delete);
 
-            await _filmService.DecrementCountOfScores((Guid)existingRating.FilmId!);
+            film.CountOfScores--;
+
+            _filmRepository.Update(film);
 
             await _ratingRepository.SaveAsync();
 
@@ -114,9 +129,10 @@ namespace Rating.BusinessLogic.Services.RatingServices
             var mapperModel = model.Adapt<RatingFilm>();
             mapperModel.Id = id;
 
-            await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Update);
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(model, (int)Changes.Update);
 
             _ratingRepository.Update(mapperModel);
+            _filmRepository.Update(film);
 
             await _ratingRepository.SaveAsync();
 
