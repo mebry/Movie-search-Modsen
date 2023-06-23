@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Models;
 using MassTransit;
+using FilmCollection.DataAccess.Contexts;
+using System.Reflection;
+using FilmCollection.BusinessLogic.MassTransit.Consumers;
 
 namespace FilmCollection.API.Extensions
 {
@@ -34,10 +37,22 @@ namespace FilmCollection.API.Extensions
         {
             services.AddMassTransit(x =>
             {
+                var assembly = Assembly.GetAssembly(typeof(UpdateAverageRatingMessageConsumer));
                 var host = configuration["RabbitMq:Host"];
                 var virtualHost = configuration["RabbitMq:VirtualHost"];
                 var username = configuration["RabbitMq:Username"];
                 var password = configuration["RabbitMq:Password"];
+
+                x.AddEntityFrameworkOutbox<FilmCollectionContext>(o =>
+                {
+                    o.UseSqlServer();
+
+                    o.QueryDelay = TimeSpan.FromSeconds(1);
+
+                    o.UseBusOutbox();
+                });
+
+                x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
