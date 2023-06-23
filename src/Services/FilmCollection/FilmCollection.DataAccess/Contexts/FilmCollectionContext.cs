@@ -1,10 +1,11 @@
 ﻿using FilmCollection.DataAccess.Models;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace FilmCollection.DataAccess.Contexts
 {
-    internal class FilmCollectionContext : DbContext
+    public class FilmCollectionContext : DbContext
     {
         public DbSet<BaseFilmInfo> BaseFilmInfos { get; set; }
         public DbSet<CollectionModel> CollectionModels { get; set; }
@@ -22,7 +23,9 @@ namespace FilmCollection.DataAccess.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
