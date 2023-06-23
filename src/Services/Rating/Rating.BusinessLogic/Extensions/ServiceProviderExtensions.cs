@@ -23,7 +23,7 @@ namespace Rating.BusinessLogic.Extensions
         private static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IRatingService, RatingService>();
-            services.AddScoped<IEventDispatchService, EventDispatchService>();
+            services.AddScoped<ISendMessageManager, SendMessageManager>();
             services.AddScoped<IEventDecisionService, EventDecisionService>();
             services.AddScoped<IAlgorithmsForEventDecisionService, AlgorithmsForEventDecisionService>();
         }
