@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FilmCollection.DataAccess.Migrations
 {
     [DbContext(typeof(FilmCollectionContext))]
-    [Migration("20230620130845_newFeatures")]
-    partial class newFeatures
+    [Migration("20230623092712_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,7 +66,7 @@ namespace FilmCollection.DataAccess.Migrations
                     b.ToTable("BaseFilmInfos");
                 });
 
-            modelBuilder.Entity("FilmCollection.DataAccess.Models.Collection", b =>
+            modelBuilder.Entity("FilmCollection.DataAccess.Models.CollectionModel", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,22 +84,22 @@ namespace FilmCollection.DataAccess.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Collections");
+                    b.ToTable("CollectionModels");
                 });
 
             modelBuilder.Entity("FilmCollection.DataAccess.Models.FilmCollection", b =>
                 {
-                    b.Property<Guid>("CollectionId")
+                    b.Property<Guid>("CollectionModelId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("BaseFilmInfoId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("CollectionId", "BaseFilmInfoId");
+                    b.HasKey("CollectionModelId", "BaseFilmInfoId");
 
                     b.HasIndex("BaseFilmInfoId");
 
-                    b.ToTable("filmCollections");
+                    b.ToTable("FilmCollections");
                 });
 
             modelBuilder.Entity("FilmCollection.DataAccess.Models.FilmCountry", b =>
@@ -156,15 +156,15 @@ namespace FilmCollection.DataAccess.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("FilmCollection.DataAccess.Models.Collection", "Collection")
+                    b.HasOne("FilmCollection.DataAccess.Models.CollectionModel", "CollectionModel")
                         .WithMany("FilmCollections")
-                        .HasForeignKey("CollectionId")
+                        .HasForeignKey("CollectionModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BaseFilmInfo");
 
-                    b.Navigation("Collection");
+                    b.Navigation("CollectionModel");
                 });
 
             modelBuilder.Entity("FilmCollection.DataAccess.Models.FilmCountry", b =>
@@ -206,7 +206,7 @@ namespace FilmCollection.DataAccess.Migrations
                     b.Navigation("FilmGenres");
                 });
 
-            modelBuilder.Entity("FilmCollection.DataAccess.Models.Collection", b =>
+            modelBuilder.Entity("FilmCollection.DataAccess.Models.CollectionModel", b =>
                 {
                     b.Navigation("FilmCollections");
                 });

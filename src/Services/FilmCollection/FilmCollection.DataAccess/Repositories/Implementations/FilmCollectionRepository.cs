@@ -23,7 +23,7 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
 
         public async Task<FilmCollection.DataAccess.Models.FilmCollection> GetFilmCollectionAsync(Guid collectionId, Guid filmBaseInfoId, bool trackChanges)
         {
-            return await GetByConditionAsync(fc => fc.CollectionId.Equals(collectionId) && fc.BaseFilmInfoId.Equals(filmBaseInfoId), trackChanges).SingleOrDefaultAsync();
+            return await GetByConditionAsync(fc => fc.CollectionModelId.Equals(collectionId) && fc.BaseFilmInfoId.Equals(filmBaseInfoId), trackChanges).SingleOrDefaultAsync();
         }
 
         public async Task DeleteFilmCollectionAsync(Models.FilmCollection filmCollection)

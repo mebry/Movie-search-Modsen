@@ -42,13 +42,13 @@ namespace FilmCollection.DataAccess.Extensions
         {
             if(Guid.Empty == collectionId)
                 return baseFilmInfos;
-            return baseFilmInfos.Where(film => film.FilmCollections.Any(fm => fm.CollectionId == collectionId));
+            return baseFilmInfos.Where(film => film.FilmCollections.Any(fm => fm.CollectionModelId == collectionId));
         }
 
         public static IQueryable<BaseFilmInfo> IncludeAllRelatedData(this IQueryable<BaseFilmInfo> baseFilmInfos)
         {
             return baseFilmInfos.Include(b => b.FilmCollections)
-                                    .ThenInclude(fc => fc.Collection)
+                                    .ThenInclude(fc => fc.CollectionModel)
                                 .Include(b => b.FilmGenres)
                                     .ThenInclude(fm => fm.Genre)
                                 .Include(b => b.FilmCountries);

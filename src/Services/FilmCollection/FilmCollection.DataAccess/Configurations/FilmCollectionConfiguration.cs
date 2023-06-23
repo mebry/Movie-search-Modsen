@@ -9,13 +9,13 @@ namespace FilmCollection.DataAccess.Configurations
         {
             builder.HasKey(fc => new
             {
-                fc.CollectionId,
+                fc.CollectionModelId,
                 fc.BaseFilmInfoId
             });
 
-            builder.HasOne(fc => fc.Collection)
+            builder.HasOne(fc => fc.CollectionModel)
                 .WithMany(c => c.FilmCollections)
-                .HasForeignKey(fc => fc.CollectionId);
+                .HasForeignKey(fc => fc.CollectionModelId);
 
             builder.HasOne(fc => fc.BaseFilmInfo)
                 .WithMany(b => b.FilmCollections)

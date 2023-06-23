@@ -1,17 +1,18 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace FilmCollection.DataAccess.Migrations
 {
     /// <inheritdoc />
-    public partial class InitializeDB : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BaseFilmInfo",
+                name: "BaseFilmInfos",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -24,11 +25,11 @@ namespace FilmCollection.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BaseFilmInfo", x => x.Id);
+                    table.PrimaryKey("PK_BaseFilmInfos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Collection",
+                name: "CollectionModels",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -37,11 +38,11 @@ namespace FilmCollection.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Collection", x => x.Id);
+                    table.PrimaryKey("PK_CollectionModels", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Genre",
+                name: "Genres",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -49,11 +50,11 @@ namespace FilmCollection.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genre", x => x.Id);
+                    table.PrimaryKey("PK_Genres", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FilmCountry",
+                name: "FilmCountries",
                 columns: table => new
                 {
                     BaseFilmInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -61,41 +62,41 @@ namespace FilmCollection.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilmCountry", x => new { x.CountryId, x.BaseFilmInfoId });
+                    table.PrimaryKey("PK_FilmCountries", x => new { x.CountryId, x.BaseFilmInfoId });
                     table.ForeignKey(
-                        name: "FK_FilmCountry_BaseFilmInfo_BaseFilmInfoId",
+                        name: "FK_FilmCountries_BaseFilmInfos_BaseFilmInfoId",
                         column: x => x.BaseFilmInfoId,
-                        principalTable: "BaseFilmInfo",
+                        principalTable: "BaseFilmInfos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FilmCollection",
+                name: "FilmCollections",
                 columns: table => new
                 {
-                    CollectionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CollectionModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     BaseFilmInfoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilmCollection", x => new { x.CollectionId, x.BaseFilmInfoId });
+                    table.PrimaryKey("PK_FilmCollections", x => new { x.CollectionModelId, x.BaseFilmInfoId });
                     table.ForeignKey(
-                        name: "FK_FilmCollection_BaseFilmInfo_BaseFilmInfoId",
+                        name: "FK_FilmCollections_BaseFilmInfos_BaseFilmInfoId",
                         column: x => x.BaseFilmInfoId,
-                        principalTable: "BaseFilmInfo",
+                        principalTable: "BaseFilmInfos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FilmCollection_Collection_CollectionId",
-                        column: x => x.CollectionId,
-                        principalTable: "Collection",
+                        name: "FK_FilmCollections_CollectionModels_CollectionModelId",
+                        column: x => x.CollectionModelId,
+                        principalTable: "CollectionModels",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "FilmGenre",
+                name: "FilmGenres",
                 columns: table => new
                 {
                     GenreId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -103,56 +104,56 @@ namespace FilmCollection.DataAccess.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FilmGenre", x => new { x.GenreId, x.BaseFilmInfoId });
+                    table.PrimaryKey("PK_FilmGenres", x => new { x.GenreId, x.BaseFilmInfoId });
                     table.ForeignKey(
-                        name: "FK_FilmGenre_BaseFilmInfo_BaseFilmInfoId",
+                        name: "FK_FilmGenres_BaseFilmInfos_BaseFilmInfoId",
                         column: x => x.BaseFilmInfoId,
-                        principalTable: "BaseFilmInfo",
+                        principalTable: "BaseFilmInfos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FilmGenre_Genre_GenreId",
+                        name: "FK_FilmGenres_Genres_GenreId",
                         column: x => x.GenreId,
-                        principalTable: "Genre",
+                        principalTable: "Genres",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseFilmInfo_AverageRating",
-                table: "BaseFilmInfo",
+                name: "IX_BaseFilmInfos_AverageRating",
+                table: "BaseFilmInfos",
                 column: "AverageRating",
                 filter: "[AverageRating] > 0");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseFilmInfo_NumberOfRatings",
-                table: "BaseFilmInfo",
+                name: "IX_BaseFilmInfos_NumberOfRatings",
+                table: "BaseFilmInfos",
                 column: "NumberOfRatings",
                 filter: "[NumberOfRatings] > 0");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseFilmInfo_ReleaseDate",
-                table: "BaseFilmInfo",
+                name: "IX_BaseFilmInfos_ReleaseDate",
+                table: "BaseFilmInfos",
                 column: "ReleaseDate");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BaseFilmInfo_Title",
-                table: "BaseFilmInfo",
+                name: "IX_BaseFilmInfos_Title",
+                table: "BaseFilmInfos",
                 column: "Title");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FilmCollection_BaseFilmInfoId",
-                table: "FilmCollection",
+                name: "IX_FilmCollections_BaseFilmInfoId",
+                table: "FilmCollections",
                 column: "BaseFilmInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FilmCountry_BaseFilmInfoId",
-                table: "FilmCountry",
+                name: "IX_FilmCountries_BaseFilmInfoId",
+                table: "FilmCountries",
                 column: "BaseFilmInfoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FilmGenre_BaseFilmInfoId",
-                table: "FilmGenre",
+                name: "IX_FilmGenres_BaseFilmInfoId",
+                table: "FilmGenres",
                 column: "BaseFilmInfoId");
         }
 
@@ -160,22 +161,22 @@ namespace FilmCollection.DataAccess.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "FilmCollection");
+                name: "FilmCollections");
 
             migrationBuilder.DropTable(
-                name: "FilmCountry");
+                name: "FilmCountries");
 
             migrationBuilder.DropTable(
-                name: "FilmGenre");
+                name: "FilmGenres");
 
             migrationBuilder.DropTable(
-                name: "Collection");
+                name: "CollectionModels");
 
             migrationBuilder.DropTable(
-                name: "BaseFilmInfo");
+                name: "BaseFilmInfos");
 
             migrationBuilder.DropTable(
-                name: "Genre");
+                name: "Genres");
         }
     }
 }
