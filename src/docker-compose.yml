@@ -47,30 +47,42 @@ services:
           - ASPNETCORE_ENVIRONMENT=Docker
         restart: unless-stopped
 
-  staff:
-       container_name: Staff
-       build:
-         context: "."
-         dockerfile: /Services/Staff/Staff.API/Dockerfile
-       depends_on:
-         - sqlserver
-         - rabbitmq
-       ports: 
-        - 7001:80
-       environment:
-         - ASPNETCORE_ENVIRONMENT=Docker
-       restart: unless-stopped
-    
- auth:
-    container_name: Auth
-    build:
-      context: "."
-      dockerfile: /Services/Authentication/Authentication.API/Dockerfile
-    depends_on:
-      - sqlserver
-    ports: 
-     - 8001:80
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Docker
-    restart: unless-stopped
-
+    staff:
+        container_name: Staff
+        build:
+          context: "."
+          dockerfile: /Services/Staff/Staff.API/Dockerfile
+        depends_on:
+          - sqlserver
+          - rabbitmq
+        ports: 
+         - 7001:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Docker
+        restart: unless-stopped
+    film:
+        container_name: Film
+        build:
+          context: "."
+          dockerfile: /Services/Film/Film.API/Dockerfile
+        depends_on:
+          - sqlserver
+          - rabbitmq
+        ports: 
+         - 6001:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Docker
+        restart: unless-stopped
+  
+    auth:
+        container_name: Auth
+        build:
+          context: "."
+          dockerfile: /Services/Authentication/Authentication.API/Dockerfile
+        depends_on:
+          - sqlserver
+        ports: 
+         - 5001:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Docker
+        restart: unless-stopped

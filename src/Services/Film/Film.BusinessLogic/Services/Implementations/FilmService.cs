@@ -11,6 +11,8 @@ using Film.DataAccess.Repositories.Interfaces;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.Logging;
+using MassTransit;
+using Shared.Messages.FilmMessages;
 
 namespace Film.BusinessLogic.Services.Implementations
 {
@@ -23,14 +25,16 @@ namespace Film.BusinessLogic.Services.Implementations
         private readonly ILogger<FilmService> _logger;
         private readonly IValidator<FilmRequestDTO> _validator;
         private readonly TypeAdapterConfig _typeAdapterConfig;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<FilmRequestDTO> validator,
-            TypeAdapterConfig typeAdapterConfig)
+            TypeAdapterConfig typeAdapterConfig, IPublishEndpoint publishEndpoint)
         {
             _filmRepository = filmRepository;
             _logger = logger;
             _validator = validator;
             _typeAdapterConfig = typeAdapterConfig;
+            _publishEndpoint = publishEndpoint;
         }
 
         /// <summary>
@@ -63,6 +67,9 @@ namespace Film.BusinessLogic.Services.Implementations
 
             _filmRepository.Create(mappedModel);
             await _filmRepository.SaveChangesAsync();
+
+            var message = mappedModel.Adapt<CreatedFilmMessage>();
+            await _publishEndpoint.Publish(message);
 
             return mappedModel.Adapt<FilmResponseDTO>();
         }

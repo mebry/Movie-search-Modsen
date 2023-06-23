@@ -1,7 +1,9 @@
 ﻿using Film.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Reflection;
+using MassTransit;
 
 namespace Film.DataAccess.Contexts
 {
@@ -10,8 +12,11 @@ namespace Film.DataAccess.Contexts
     /// </summary>
     public class FilmContext : DbContext
     {
-        public FilmContext(DbContextOptions<FilmContext> options) : base(options)
+        private readonly IConfiguration _configuration;
+
+        public FilmContext(DbContextOptions<FilmContext> options, IConfiguration configuration) : base(options)
         {
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -70,9 +75,20 @@ namespace Film.DataAccess.Contexts
         /// <param name="modelBuilder">The modelBuilder to apply configurations.</param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
             base.OnModelCreating(modelBuilder);
+            modelBuilder.AddInboxStateEntity();
+            modelBuilder.AddOutboxMessageEntity();
+            modelBuilder.AddOutboxStateEntity();
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());  
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+            }
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

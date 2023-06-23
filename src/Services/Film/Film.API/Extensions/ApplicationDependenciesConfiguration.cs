@@ -1,6 +1,11 @@
 ﻿using Film.BusinessLogic.Extensions;
+using Film.BusinessLogic.MassTransit.Consumers;
+using Film.DataAccess.Contexts;
 using Film.DataAccess.Extensions;
+using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Messages;
+using System.Reflection;
 
 namespace Film.API.Extensions
 {
@@ -14,7 +19,7 @@ namespace Film.API.Extensions
         /// <returns>The updated WebApplicationBuilder instance.</returns>
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
-            builder.Services.AddFilmDatabase(builder.Configuration)
+            builder.Services.AddDbContext<FilmContext>()
             .AddRepositories()
             .ConfigureValidators()
             .ConfigureMappers()
@@ -28,7 +33,8 @@ namespace Film.API.Extensions
                 options.DefaultApiVersion = new ApiVersion(1, 0);
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ReportApiVersions = true;
-            });
+            })
+            .AddMassTransit(builder.Configuration);
 
             return builder;
         }
@@ -45,5 +51,45 @@ namespace Film.API.Extensions
                 .AllowAnyMethod()
                 .AllowAnyHeader());
             });
+
+        public static IServiceCollection AddMassTransit(this IServiceCollection services, IConfiguration config)
+        {
+            return services.AddMassTransit(x =>
+            {
+                var assembly = Assembly.GetAssembly(typeof(UpdateAverageRatingMessageConsumer));
+                var host = config["RabbitMQ:Host"];
+                var virtualHost = config["RabbitMQ:VirtualHost"];
+                var username = config["RabbitMQ:Username"];
+                var password = config["RabbitMQ:Password"];
+
+                x.AddEntityFrameworkOutbox<FilmContext>(o =>
+                {
+                    o.UseSqlServer();
+
+                    o.QueryDelay = TimeSpan.FromSeconds(1);
+
+                    o.UseBusOutbox();
+                });
+
+                x.AddConsumers(assembly);
+
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.Host(host, virtualHost, h =>
+                    {
+                        h.Username(username);
+                        h.Password(password);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdate"]!, x =>
+                    {
+                        x.Bind<UpdateAverageRatingMessage>();
+                        x.ConfigureConsumer<UpdateAverageRatingMessageConsumer>(context);
+                    });
+
+                });
+
+            });
+        }
     }
 }
