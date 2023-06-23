@@ -1,10 +1,7 @@
-﻿using System.Runtime.CompilerServices;
-using Authentication.BusinessLogic.Exceptions.AlreadyExistsException;
-using Authentication.BusinessLogic.Exceptions.BadRequestException;
-using Authentication.BusinessLogic.Exceptions.NotFoundException;
-using Authentication.BusinessLogic.Exceptions;
+﻿using Authentication.BusinessLogic.Exceptions;
 using Authentication.BusinessLogic.Services.Interfaces;
 using Microsoft.AspNetCore.Diagnostics;
+using Shared.Exceptions;
 
 namespace Authentication.API.Middlewares
 {

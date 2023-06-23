@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SharedExceptions = Shared.Exceptions;
 
 namespace Authentication.BusinessLogic.Exceptions.BadRequestException
 {
-    public class UserInvalidCredentialsBadRequestException : BadRequestException
+    public class UserInvalidCredentialsBadRequestException : SharedExceptions.BadRequestException
     {
         public UserInvalidCredentialsBadRequestException(string message) 
             : base(message) { }

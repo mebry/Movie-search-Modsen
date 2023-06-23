@@ -73,3 +73,16 @@ services:
         environment:
           - ASPNETCORE_ENVIRONMENT=Docker
         restart: unless-stopped
+  
+    auth:
+        container_name: Auth
+        build:
+          context: "."
+          dockerfile: /Services/Authentication/Authentication.API/Dockerfile
+        depends_on:
+          - sqlserver
+        ports: 
+         - 5001:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Docker
+        restart: unless-stopped

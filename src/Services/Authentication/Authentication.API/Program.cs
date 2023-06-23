@@ -41,5 +41,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseIdentityServer();
 app.MapControllers();
-
+await app.ApplyMigrationAsync();
 app.Run();
