@@ -4,12 +4,12 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
 {
     public interface ICollectionRepository
     {
-        Task CreateCollectionAsync(Collection collection);
-        Task DeleteCollectionAsync(Collection collection);
-        Task UpdateCollectionAsync(Collection collection);
-        Task<IEnumerable<Collection>> GetAllCollectionsAsync(bool trackChanges);
-        Task<Collection> GetCollectionAsync(Guid id, bool trackChanges);
-        Task<Collection> GetCollectionByTitleAndDescriptionAsync(string title, string description, bool trackChanges);
-        Task<Collection> GetCollectionByTitleAsync(string title, bool trackChanges);
+        Task CreateCollectionAsync(CollectionModel collection);
+        Task DeleteCollectionAsync(CollectionModel collection);
+        Task UpdateCollectionAsync(CollectionModel collection);
+        Task<IEnumerable<CollectionModel>> GetAllCollectionsAsync(bool trackChanges);
+        Task<CollectionModel> GetCollectionAsync(Guid id, bool trackChanges);
+        Task<CollectionModel> GetCollectionByTitleAndDescriptionAsync(string title, string description, bool trackChanges);
+        Task<CollectionModel> GetCollectionByTitleAsync(string title, bool trackChanges);
     }
 }
