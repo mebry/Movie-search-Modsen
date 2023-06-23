@@ -13,10 +13,10 @@ RUN dotnet restore "Services/Rating/Rating.WebAPI/Rating.WebAPI.csproj"
 COPY ./Services/Rating/ ./Services/Rating/
 COPY ./Shared/ ./Shared
 WORKDIR "/src/Services/Rating/Rating.WebAPI"
-RUN dotnet build "Rating.WebAPI.csproj" -c Release -o /app/build
+RUN dotnet build "Rating.WebAPI.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Rating.WebAPI.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Rating.WebAPI.csproj" -c Debug -o /app/publish  
 
 FROM base AS final
 WORKDIR /app
