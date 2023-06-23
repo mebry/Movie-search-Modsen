@@ -60,10 +60,6 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             else
                 existingFilm.AverageRating = rating.Score;
 
-            oldAverageRating = existingFilm.AverageRating;
-
-            if(averageRating < oldAverageRating + 0.1)
-                return existingFilm;
 
             var filmDto = existingFilm.Adapt<FilmDTO>();
             await _eventDispatchService.SendNewAverageRatingAsync(filmDto);
