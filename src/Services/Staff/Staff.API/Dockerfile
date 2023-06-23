@@ -14,10 +14,10 @@ RUN dotnet restore "Services/Staff/Staff.API/Staff.API.csproj"
 COPY ./Services/Staff/ ./Services/Staff
 COPY ./Shared/ ./Shared
 WORKDIR "/src/Services/Staff/Staff.API"
-RUN dotnet build "Staff.API.csproj" -c Release -o /app/build
+RUN dotnet build "Staff.API.csproj" -c Debug  -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Staff.API.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Staff.API.csproj" -c Debug  -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
