@@ -58,7 +58,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             _ratingRepository.Create(mapperModel);
 
             var film = await _eventDecisionService
-                .DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Create);
+                .DecisionToSendAverageRatingChangeEventAsync(model, (int)Changes.Create);
 
             film.CountOfScores++;
 
@@ -86,7 +86,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             var requestRatingDto = existingRating.Adapt<RequestRatingDTO>();
 
-            var film = await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(requestRatingDto, (int)Changes.Delete);
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(requestRatingDto, (int)Changes.Delete);
 
             film.CountOfScores--;
 
@@ -129,7 +129,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             var mapperModel = model.Adapt<RatingFilm>();
             mapperModel.Id = id;
 
-            var film = await _eventDecisionService.DecisionToSendAveragRatingChangEventAsync(model, (int)Changes.Update);
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(model, (int)Changes.Update);
 
             _ratingRepository.Update(mapperModel);
             _filmRepository.Update(film);

@@ -28,7 +28,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             _logger = logger;
         }
 
-        public async Task<Film> DecisionToSendAveragRatingChangEventAsync(RequestRatingDTO rating, int change)
+        public async Task<Film> DecisionToSendAverageRatingChangeEventAsync(RequestRatingDTO rating, int change)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(rating.FilmId);
 
@@ -71,21 +71,21 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             return existingFilm;
         }
 
-        public async Task<bool> DecisionToSendCountOfScoresLongChangEventAsync()
+        public async Task<bool> DecisionToSendCountOfScoresLongChangeEventAsync()
         {
             var predicate = _algorithmService.CountOfScoresForLongPeriod;
 
-            return await DecisionToSendCountOfScoresChangEventAsync(predicate);
+            return await DecisionToSendCountOfScoresChangeEventAsync(predicate);
         }
 
-        public async Task<bool> DecisionToSendCountOfScoresShortChangEventAsync()
+        public async Task<bool> DecisionToSendCountOfScoresShortChangeEventAsync()
         {
             var predicate = _algorithmService.CountOfScoresСhangesInSpecifiedPercentage;
 
-            return await DecisionToSendCountOfScoresChangEventAsync(predicate);
+            return await DecisionToSendCountOfScoresChangeEventAsync(predicate);
         }
 
-        private async Task<bool> DecisionToSendCountOfScoresChangEventAsync(Func<Film, bool> func)
+        private async Task<bool> DecisionToSendCountOfScoresChangeEventAsync(Func<Film, bool> func)
         {
 
             var films = _filmRepository.GetAllByPredicate(func);
