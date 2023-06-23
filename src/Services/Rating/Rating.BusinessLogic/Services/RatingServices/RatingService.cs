@@ -6,7 +6,6 @@ using Rating.BusinessLogic.DTOs;
 using Rating.BusinessLogic.Enums;
 using Rating.BusinessLogic.Extensions;
 using Rating.BusinessLogic.Services.EventDecisionServices;
-using Rating.BusinessLogic.Services.FilmServices;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;

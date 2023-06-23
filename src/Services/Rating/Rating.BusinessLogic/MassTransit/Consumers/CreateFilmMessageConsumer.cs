@@ -1,5 +1,4 @@
-﻿using Mapster;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
