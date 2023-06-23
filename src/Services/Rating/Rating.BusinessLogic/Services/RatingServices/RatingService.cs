@@ -43,9 +43,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
                 throw new ValidationProblemException(errorMessages);
             }
 
-            var isThere = await _ratingRepository.IsThereUserIdForFilmId(model.FilmId, model.UserId);
+            var exists = await _ratingRepository.IsThereUserIdForFilmId(model.FilmId, model.UserId);
 
-            if(isThere)
+            if(exists)
             {
                 _logger.LogError("The user has already rated this film");
 

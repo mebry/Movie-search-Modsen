@@ -49,22 +49,24 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             if(!isPosible)
                 return existingFilm;
 
-            double averageRating = 0;
-
-            if(existingFilm.CountOfScores != 0)
-            {
-                averageRating = await _ratingRepository.CalculateAverageRatingByFilmId(rating.FilmId);
-
-                existingFilm.AverageRating = averageRating;
-            }
-            else
-                existingFilm.AverageRating = rating.Score;
-
+            await CalculateNewAverageRating(existingFilm, newScore);
 
             var filmDto = existingFilm.Adapt<FilmDTO>();
             await _eventDispatchService.SendNewAverageRatingAsync(filmDto);
 
             return existingFilm;
+        }
+
+        private async Task CalculateNewAverageRating(Film film, int score)
+        {
+            if(film.CountOfScores != 0)
+            {
+                double averageRating = await _ratingRepository.CalculateAverageRatingByFilmId(film.Id);
+
+                film.AverageRating = averageRating;
+            }
+            else
+                film.AverageRating = score;
         }
 
         public async Task<bool> DecisionToSendCountOfScoresLongChangeEventAsync()
