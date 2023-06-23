@@ -12,7 +12,7 @@ namespace FilmCollection.DataAccess.Extensions
 {
     public static class MigrationExtension
     {
-        public static async Task ApplyMigration(this IApplicationBuilder applicationBuilder)
+        public static async Task ApplyMigrationAsync(this IApplicationBuilder applicationBuilder)
         {
             using var scope = applicationBuilder.ApplicationServices.CreateScope();
 

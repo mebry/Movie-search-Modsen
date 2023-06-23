@@ -32,6 +32,6 @@ app.UseCors("CorsPolicy");
 
 app.MapControllers();
 
-await app.ApplyMigration();
+await app.ApplyMigrationAsync();
 
 app.Run();
