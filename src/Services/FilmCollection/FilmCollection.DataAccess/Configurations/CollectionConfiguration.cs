@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace FilmCollection.DataAccess.Configurations
 {
-    public class CollectionConfiguration : IEntityTypeConfiguration<Collection>
+    public class CollectionConfiguration : IEntityTypeConfiguration<CollectionModel>
     {
-        public void Configure(EntityTypeBuilder<Collection> builder)
+        public void Configure(EntityTypeBuilder<CollectionModel> builder)
         {
             builder.HasKey(c => c.Id);
 

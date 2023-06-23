@@ -1,6 +1,6 @@
 ﻿namespace FilmCollection.DataAccess.Models
 {
-    public class Collection
+    public class CollectionModel
     {
         public Guid Id { get; set; }    
         public string Title { get; set; }

@@ -15,7 +15,7 @@ namespace FilmCollection.BusinessLogic.Validators.ServiceValidators.Implementati
             _collectionRepository = collectionRepository;
         }
 
-        public async Task<Collection> CheckIfCollectionExistsAndGetAsync(Guid id, bool trackChanges)
+        public async Task<CollectionModel> CheckIfCollectionExistsAndGetAsync(Guid id, bool trackChanges)
         {
             var collection = await _collectionRepository.GetCollectionAsync(id, trackChanges);
             if(collection == null) 
