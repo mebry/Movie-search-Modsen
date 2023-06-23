@@ -7,18 +7,19 @@ using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Shared.Exceptions;
+using Shared.Messages;
 
 namespace Rating.BusinessLogic.Services.EventDecisionServices
 {
     internal class EventDecisionService : IEventDecisionService
     {
-        private readonly IEventDispatchService _eventDispatchService;
+        private readonly ISendMessageManager _eventDispatchService;
         private readonly IAlgorithmsForEventDecisionService _algorithmService;
         private readonly IFilmRepository _filmRepository;
         private readonly IRatingFilmRepository _ratingRepository;
         private readonly ILogger<EventDecisionService> _logger;
 
-        public EventDecisionService(IEventDispatchService eventDispatchService, IAlgorithmsForEventDecisionService algorithmService,
+        public EventDecisionService(ISendMessageManager eventDispatchService, IAlgorithmsForEventDecisionService algorithmService,
             IFilmRepository filmRepository, IRatingFilmRepository ratingRepository, ILogger<EventDecisionService> logger)
         {
             _eventDispatchService = eventDispatchService;
@@ -52,7 +53,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             await CalculateNewAverageRating(existingFilm, newScore);
 
             var filmDto = existingFilm.Adapt<FilmDTO>();
-            await _eventDispatchService.SendNewAverageRatingAsync(filmDto);
+            await _eventDispatchService.SendMessageAsync<FilmDTO, UpdateAverageRatingMessage>(filmDto);
 
             return existingFilm;
         }
@@ -93,7 +94,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
 
             var eventFilms = await PreparingToSendCountOfScoresAsync(films);
 
-            await _eventDispatchService.SendNewCountOfScoresAsync(eventFilms);
+            await _eventDispatchService.SendMessageAsync<IEnumerable<FilmDTO>, IEnumerable<UpdateCountOfScoresMessage>>(eventFilms);
 
             return true;
         }
