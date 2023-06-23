@@ -60,3 +60,16 @@ services:
         environment:
           - ASPNETCORE_ENVIRONMENT=Docker
         restart: unless-stopped
+    film:
+        container_name: Film
+        build:
+          context: "."
+          dockerfile: /Services/Film/Film.API/Dockerfile
+        depends_on:
+          - sqlserver
+          - rabbitmq
+        ports: 
+         - 6001:80
+        environment:
+          - ASPNETCORE_ENVIRONMENT=Docker
+        restart: unless-stopped
