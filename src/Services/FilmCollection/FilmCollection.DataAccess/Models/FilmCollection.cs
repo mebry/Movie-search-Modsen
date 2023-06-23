@@ -2,8 +2,8 @@
 {
     public class FilmCollection
     {
-        public Guid CollectionId { get; set; }  
-        public CollectionModel Collection { get; set; }
+        public Guid CollectionModelId { get; set; }  
+        public CollectionModel CollectionModel { get; set; }
         public Guid BaseFilmInfoId { get; set; }   
         public BaseFilmInfo BaseFilmInfo { get; set; }
     }
