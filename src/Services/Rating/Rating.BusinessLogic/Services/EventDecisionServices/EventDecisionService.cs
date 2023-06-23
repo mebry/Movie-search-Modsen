@@ -1,30 +1,32 @@
 ﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Rating.BusinessLogic.DTOs;
 using Rating.BusinessLogic.Services.AlgorithmServices;
-using Rating.BusinessLogic.Services.EventDispatchServices;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Shared.Exceptions;
+using Shared.Messages;
+using System.Collections.Generic;
 
 namespace Rating.BusinessLogic.Services.EventDecisionServices
 {
     internal class EventDecisionService : IEventDecisionService
     {
-        private readonly IEventDispatchService _eventDispatchService;
         private readonly IAlgorithmsForEventDecisionService _algorithmService;
         private readonly IFilmRepository _filmRepository;
         private readonly IRatingFilmRepository _ratingRepository;
+        private readonly IPublishEndpoint _publishEndpoint;
         private readonly ILogger<EventDecisionService> _logger;
 
-        public EventDecisionService(IEventDispatchService eventDispatchService, IAlgorithmsForEventDecisionService algorithmService,
-            IFilmRepository filmRepository, IRatingFilmRepository ratingRepository, ILogger<EventDecisionService> logger)
+        public EventDecisionService(IAlgorithmsForEventDecisionService algorithmService,
+            IFilmRepository filmRepository, IPublishEndpoint publishEndpoint, IRatingFilmRepository ratingRepository, ILogger<EventDecisionService> logger)
         {
-            _eventDispatchService = eventDispatchService;
             _algorithmService = algorithmService;
             _filmRepository = filmRepository;
             _ratingRepository = ratingRepository;
+            _publishEndpoint = publishEndpoint;
             _logger = logger;
         }
 
@@ -49,22 +51,25 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
             if(!isPosible)
                 return existingFilm;
 
-            double averageRating = 0;
+            await CalculateNewAverageRatingAsync(existingFilm, newScore);
 
-            if(existingFilm.CountOfScores != 0)
-            {
-                averageRating = await _ratingRepository.CalculateAverageRatingByFilmId(rating.FilmId);
+            var message = existingFilm.Adapt<UpdateAverageRatingMessage>();
 
-                existingFilm.AverageRating = averageRating;
-            }
-            else
-                existingFilm.AverageRating = rating.Score;
-
-
-            var filmDto = existingFilm.Adapt<FilmDTO>();
-            await _eventDispatchService.SendNewAverageRatingAsync(filmDto);
+            await _publishEndpoint.Publish(message);
 
             return existingFilm;
+        }
+
+        private async Task CalculateNewAverageRatingAsync(Film film, int score)
+        {
+            if(film.CountOfScores != 0)
+            {
+                double averageRating = await _ratingRepository.CalculateAverageRatingByFilmIdAsync(film.Id);
+
+                film.AverageRating = averageRating;
+            }
+            else
+                film.AverageRating = score;
         }
 
         public async Task<bool> DecisionToSendCountOfScoresLongChangeEventAsync()
@@ -91,7 +96,9 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
 
             var eventFilms = await PreparingToSendCountOfScoresAsync(films);
 
-            await _eventDispatchService.SendNewCountOfScoresAsync(eventFilms);
+            var message = eventFilms.Adapt<IEnumerable<UpdateCountOfScoresMessage>>();
+
+            await _publishEndpoint.Publish(message);
 
             return true;
         }

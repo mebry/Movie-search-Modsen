@@ -6,7 +6,6 @@ using Rating.BusinessLogic.DTOs;
 using Rating.BusinessLogic.Enums;
 using Rating.BusinessLogic.Extensions;
 using Rating.BusinessLogic.Services.EventDecisionServices;
-using Rating.BusinessLogic.Services.FilmServices;
 using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
@@ -43,9 +42,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
                 throw new ValidationProblemException(errorMessages);
             }
 
-            var isThere = await _ratingRepository.IsThereUserIdForFilmId(model.FilmId, model.UserId);
+            var exists = await _ratingRepository.IsThereUserIdForFilmIdAsync(model.FilmId, model.UserId);
 
-            if(isThere)
+            if(exists)
             {
                 _logger.LogError("The user has already rated this film");
 

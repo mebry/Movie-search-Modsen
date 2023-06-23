@@ -1,26 +1,33 @@
-﻿using Mapster;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
-using Rating.BusinessLogic.DTOs;
-using Rating.BusinessLogic.Services.FilmServices;
+using Rating.DataAccess.Entities;
+using Rating.DataAccess.Repositories.FilmRepositories;
 using Shared.Messages.FilmMessages;
 
 namespace Rating.BusinessLogic.MassTransit.Consumers
 {
     public class CreateFilmMessageConsumer : IConsumer<CreatedFilmMessage>
     {
-        private readonly IFilmService _filmService;
+        private readonly IFilmRepository _filmRepository;
         private readonly ILogger<CreateFilmMessageConsumer> _logger;
 
-        public CreateFilmMessageConsumer(IFilmService filmService, ILogger<CreateFilmMessageConsumer> logger)
+        public CreateFilmMessageConsumer(IFilmRepository filmRepository, ILogger<CreateFilmMessageConsumer> logger)
         {
-            _filmService = filmService;
+            _filmRepository = filmRepository;
             _logger = logger;
         }
 
         public async Task Consume(ConsumeContext<CreatedFilmMessage> context)
         {
-            await _filmService.CreateAsync(context.Message.Id);
+            var film = new Film
+            {
+                Id = context.Message.Id
+            };
+
+            _filmRepository.Create(film);
+
+            await _filmRepository.SaveAsync();
+
             _logger.LogInformation("Film was created");
         }
     }

@@ -3,8 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Rating.BusinessLogic.DTOs;
 using Rating.BusinessLogic.Services.AlgorithmServices;
 using Rating.BusinessLogic.Services.EventDecisionServices;
-using Rating.BusinessLogic.Services.EventDispatchServices;
-using Rating.BusinessLogic.Services.FilmServices;
 using Rating.BusinessLogic.Services.RatingServices;
 using Rating.BusinessLogic.Validators;
 using Rating.DataAccess.Extensions;
@@ -24,8 +22,6 @@ namespace Rating.BusinessLogic.Extensions
         private static void AddServices(this IServiceCollection services)
         {
             services.AddScoped<IRatingService, RatingService>();
-            services.AddScoped<IFilmService, FilmService>();
-            services.AddScoped<IEventDispatchService, EventDispatchService>();
             services.AddScoped<IEventDecisionService, EventDecisionService>();
             services.AddScoped<IAlgorithmsForEventDecisionService, AlgorithmsForEventDecisionService>();
         }

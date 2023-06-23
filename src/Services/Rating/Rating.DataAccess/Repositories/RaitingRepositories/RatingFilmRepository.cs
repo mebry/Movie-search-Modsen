@@ -13,7 +13,7 @@ namespace Rating.DataAccess.Repositories.RaitingRepositories
             _context = context;
         }
 
-        public async Task<double> CalculateAverageRatingByFilmId(Guid filmId)
+        public async Task<double> CalculateAverageRatingByFilmIdAsync(Guid filmId)
              => await _context.Ratings
             .AsNoTracking()
             .Where(a => a.FilmId == filmId)
@@ -30,7 +30,7 @@ namespace Rating.DataAccess.Repositories.RaitingRepositories
             .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == entityId);
 
-        public async Task<bool> IsThereUserIdForFilmId(Guid filmId, Guid userId)
+        public async Task<bool> IsThereUserIdForFilmIdAsync(Guid filmId, Guid userId)
              => await _context.Ratings
             .Where(r => r.FilmId == filmId)
             .AnyAsync(r => r.UserId == userId);
