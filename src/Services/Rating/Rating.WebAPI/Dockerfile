@@ -16,7 +16,7 @@ WORKDIR "/src/Services/Rating/Rating.WebAPI"
 RUN dotnet build "Rating.WebAPI.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Rating.WebAPI.csproj" -c Debug -o /app/publish  
+RUN dotnet publish "Rating.WebAPI.csproj" -c Debug -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
