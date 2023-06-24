@@ -5,8 +5,6 @@
         public Guid Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public DateOnly ReleaseDate { get; set; }
-        public double AverageRating { get; set; }
-        public int CountScores { get; set; }
         public TimeSpan Duration { get; set; }
         public List<FilmCountry> FilmCountries { get; set; } = new();
         public List<FilmGenre> FilmGenres { get; set; } = new();
