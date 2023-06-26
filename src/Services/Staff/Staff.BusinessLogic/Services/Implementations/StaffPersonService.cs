@@ -30,7 +30,6 @@ namespace Staff.BusinessLogic.Services.Implementations
             mapperStaffPerson.Id = id;
 
             await _unitOfWork.StaffPersonRepository.CreateAsync(mapperStaffPerson);
-            await _unitOfWork.SaveChangesAsync();
 
             var responseModel = mapperStaffPerson.Adapt<ResponseStaffPersonDTO>();
 
@@ -46,6 +45,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _publishEndpoint.Publish(message);
+            await _unitOfWork.SaveChangesAsync();
 
             return responseModel;
         }
@@ -96,7 +96,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             var mapperStaffPerson = staffPerson.Adapt<StaffPerson>();
             mapperStaffPerson.Id = id;
             _unitOfWork.StaffPersonRepository.Update(mapperStaffPerson);
-            await _unitOfWork.SaveChangesAsync();
+
 
             var responseModel = mapperStaffPerson.Adapt<ResponseStaffPersonDTO>();
 
@@ -112,6 +112,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _publishEndpoint.Publish(message);
+            await _unitOfWork.SaveChangesAsync();
 
             return responseModel;
         }

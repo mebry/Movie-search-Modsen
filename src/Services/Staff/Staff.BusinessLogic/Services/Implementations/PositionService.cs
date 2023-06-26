@@ -29,7 +29,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             var mapperPosition = requestPositionDTO.Adapt<Position>();
             mapperPosition.Id = id;
             await _unitOfWork.PositionRepository.CreateAsync(mapperPosition);
-            await _unitOfWork.SaveChangesAsync();
+
 
             var responseModel = mapperPosition.Adapt<ResponsePositionDTO>();
 
@@ -40,6 +40,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _publishEndpoint.Publish(message);
+            await _unitOfWork.SaveChangesAsync();
 
             return responseModel;
         }

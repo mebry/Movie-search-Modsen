@@ -42,7 +42,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _unitOfWork.StaffPersonPositionRepository.CreateAsync(staffPersonPosition);
-            await _unitOfWork.SaveChangesAsync();
+
 
             var responseModel = staffPersonPosition.Adapt<StaffPersonPositionDTO>();
 
@@ -54,6 +54,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _publishEndpoint.Publish(message);
+            await _unitOfWork.SaveChangesAsync();
 
             return responseModel;
         }
