@@ -1,8 +1,8 @@
 ﻿using FilmCollection.DataAccess.Repositories.Interfaces;
 using MassTransit;
-using Shared.Messages;
+using Shared.Messages.RatingMessages;
 
-namespace FilmCollection.BusinessLogic.MassTransit.Consumers
+namespace FilmCollection.BusinessLogic.MassTransit.Consumers.RatingConsumers
 {
     public class UpdateAverageRatingMessageConsumer : IConsumer<UpdateAverageRatingMessage>
     {
