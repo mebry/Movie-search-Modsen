@@ -8,6 +8,8 @@ using Film.DataAccess.Repositories.Interfaces;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.Logging;
+using Shared.Messages.FilmCountryMessages;
+using MassTransit;
 
 namespace Film.BusinessLogic.Services.Implementations
 {
@@ -21,15 +23,18 @@ namespace Film.BusinessLogic.Services.Implementations
         private readonly IGenreRepository _genreRepository;
         private readonly ILogger<FilmGenreService> _logger;
         private readonly IValidator<FilmGenreRequestDTO> _validator;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public FilmGenreService(IFilmGenreRepository filmGenreRepository, IFilmRepository filmRepository,
-            IGenreRepository genreRepository, ILogger<FilmGenreService> logger, IValidator<FilmGenreRequestDTO> validator)
+            IGenreRepository genreRepository, ILogger<FilmGenreService> logger, IValidator<FilmGenreRequestDTO> validator,
+            IPublishEndpoint publishEndpoint)
         {
             _filmGenreRepository = filmGenreRepository;
             _filmRepository = filmRepository;
             _genreRepository = genreRepository;
             _logger = logger;
             _validator = validator;
+            _publishEndpoint = publishEndpoint;
         }
 
         /// <summary>
@@ -52,6 +57,10 @@ namespace Film.BusinessLogic.Services.Implementations
             var mappedModel = filmGenre.Adapt<FilmGenre>();
 
             _filmGenreRepository.Create(mappedModel);
+
+            var message = mappedModel.Adapt<CreatedFilmGenreMessage>();
+            await _publishEndpoint.Publish(message);
+
             await _filmGenreRepository.SaveChangesAsync();
         }
 
@@ -65,6 +74,9 @@ namespace Film.BusinessLogic.Services.Implementations
             await CheckIfFilmAndGenreExists(filmId, genreId);
 
             _filmGenreRepository.Delete(filmId, genreId);
+
+            await _publishEndpoint.Publish(new RemovedFilmGenreMessage { GenreId = genreId, FilmId = filmId });
+
             await _filmGenreRepository.SaveChangesAsync();
         }
 

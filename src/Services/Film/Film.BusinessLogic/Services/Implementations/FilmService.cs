@@ -6,7 +6,6 @@ using Film.BusinessLogic.Exceptions.NotFound;
 using Film.BusinessLogic.Extensions;
 using Film.BusinessLogic.Services.Interfaces;
 using Film.DataAccess.Entities;
-using Film.DataAccess.Repositories.Implementations;
 using Film.DataAccess.Repositories.Interfaces;
 using FluentValidation;
 using Mapster;
@@ -64,12 +63,8 @@ namespace Film.BusinessLogic.Services.Implementations
 
             var mappedModel = film.Adapt<FilmModel>();
             mappedModel.Id = Guid.NewGuid();
-
-            _filmRepository.Create(mappedModel);
-
-
+            
             var message = mappedModel.Adapt<CreatedFilmMessage>();
-
             await _publishEndpoint.Publish(message);
 
             await _filmRepository.SaveChangesAsync();
@@ -94,6 +89,8 @@ namespace Film.BusinessLogic.Services.Implementations
             }
 
             _filmRepository.Delete(id);
+
+            await _publishEndpoint.Publish(new RemovedFilmMessage { Id = id });
 
             await _filmRepository.SaveChangesAsync();
         }
@@ -178,6 +175,9 @@ namespace Film.BusinessLogic.Services.Implementations
             mappedModel.Id = id;
 
             _filmRepository.Update(mappedModel);
+
+            var message = mappedModel.Adapt<UpdatedFilmMessage>();
+            await _publishEndpoint.Publish(message);
 
             await _filmRepository.SaveChangesAsync();
         }

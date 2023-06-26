@@ -9,6 +9,9 @@ using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.Logging;
 using Shared.Enums;
+using Shared.Messages.GenreMessages;
+using MassTransit;
+using Shared.Messages.FilmCountryMessages;
 
 namespace Film.BusinessLogic.Services.Implementations
 {
@@ -21,14 +24,16 @@ namespace Film.BusinessLogic.Services.Implementations
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<FilmCountryService> _logger;
         private readonly IValidator<FilmCountryRequestDTO> _validator;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public FilmCountryService(IFilmCountryRepository filmCountryRepository, IFilmRepository filmRepository,
-            ILogger<FilmCountryService> logger, IValidator<FilmCountryRequestDTO> validator)
+            ILogger<FilmCountryService> logger, IValidator<FilmCountryRequestDTO> validator, IPublishEndpoint publishEndpoint)
         {
             _filmCountryRepository = filmCountryRepository;
             _filmRepository = filmRepository;
             _logger = logger;
             _validator = validator;
+            _publishEndpoint = publishEndpoint;
         }
 
         /// <summary>
@@ -58,6 +63,10 @@ namespace Film.BusinessLogic.Services.Implementations
             var mappedModel = filmCountry.Adapt<FilmCountry>();
 
             _filmCountryRepository.Create(mappedModel);
+
+            var message = mappedModel.Adapt<CreatedFilmCountryMessage>();
+            await _publishEndpoint.Publish(message);
+
             await _filmCountryRepository.SaveChangesAsync();
         }
 
@@ -78,6 +87,9 @@ namespace Film.BusinessLogic.Services.Implementations
             }
 
             _filmCountryRepository.Delete(filmId, countryId);
+
+            await _publishEndpoint.Publish(new RemovedFilmCountryMessage { CountryId = countryId, FilmId = filmId });
+
             await _filmCountryRepository.SaveChangesAsync();
         }
     }
