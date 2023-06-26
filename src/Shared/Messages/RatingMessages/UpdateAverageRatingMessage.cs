@@ -1,4 +1,4 @@
-﻿namespace Shared.Messages
+﻿namespace Shared.Messages.RatingMessages
 {
     public class UpdateAverageRatingMessage
     {
