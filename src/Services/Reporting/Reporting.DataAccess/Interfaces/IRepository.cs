@@ -1,6 +1,6 @@
 ﻿namespace Reporting.DataAccess.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<T> : ISaveChangesAsync
     {
         /// <summary>
         /// Creates a new entity.
@@ -26,11 +26,5 @@
         /// </summary>
         /// <param name="id">The Id of the entity to delete.</param>
         public void Delete(Guid id);
-
-        /// <summary>
-        /// Saves changes asynchronously.
-        /// </summary>
-        /// <returns>A task that represents the asynchronous save operation.</returns>
-        public Task SaveChangesAsync();
     }
 }
