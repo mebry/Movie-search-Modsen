@@ -4,7 +4,7 @@ using Film.DataAccess.Contexts;
 using Film.DataAccess.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Messages;
+using Shared.Messages.RatingMessages;
 using System.Reflection;
 
 namespace Film.API.Extensions
