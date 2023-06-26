@@ -5,7 +5,7 @@ namespace Reporting.DataAccess.Repositories
 {
     internal abstract class EFRepository<T> : IRepository<T> where T : class
     {
-        private readonly ReportingContext _context;
+        protected readonly ReportingContext _context;
 
         protected EFRepository(ReportingContext context)
         {
@@ -24,9 +24,9 @@ namespace Reporting.DataAccess.Repositories
             _context.Set<T>().Remove(obj!);
         }
 
-        public abstract Task<T> GetByIdAsync(Guid id);
-
         public async Task SaveChangesAsync()
-             => await _context.SaveChangesAsync();
+           => await _context.SaveChangesAsync();
+
+        public abstract Task<T?> GetByIdAsync(Guid id);
     }
 }

@@ -3,7 +3,7 @@ using Reporting.DataAccess.Interfaces;
 
 namespace Reporting.DataAccess.Repositories.RatingRepositories
 {
-    internal interface IRatingRepository : IRepository<Rating>
+    public interface IRatingRepository : IRepository<Rating>
     {
     }
 }
