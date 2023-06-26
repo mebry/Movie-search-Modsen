@@ -11,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/nlog.config"));
 
 builder.Services.ConfigureDataAccess(builder.Configuration);
-builder.Services.ConfigureAPI();
+builder.Services.ConfigureAPI(builder.Configuration);
 builder.Services.ConfigureBusinessLogic();
 
 

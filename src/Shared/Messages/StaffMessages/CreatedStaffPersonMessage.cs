@@ -1,8 +1,8 @@
 ﻿using Shared.Enums;
 
-namespace Staff.BusinessLogic.DTOs
+namespace Shared.Messages.StaffMessages
 {
-    public class ResponseStaffPersonDTO
+    public class CreatedStaffPersonMessage
     {
         public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -11,6 +11,5 @@ namespace Staff.BusinessLogic.DTOs
         public DateTime DateOfBirthday { get; set; }
         public Countries Country { get; set; }
         public string Description { get; set; } = string.Empty;
-
     }
 }

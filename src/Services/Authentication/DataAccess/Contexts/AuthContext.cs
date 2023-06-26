@@ -2,11 +2,7 @@
 using DataAccess.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MassTransit;
 
 namespace DataAccess.Contexts
 {
@@ -21,6 +17,10 @@ namespace DataAccess.Contexts
             base.OnModelCreating(builder);
 
             builder.ApplyConfiguration(new RoleConfiguration());
+
+            builder.AddInboxStateEntity();
+            builder.AddOutboxMessageEntity();
+            builder.AddOutboxStateEntity();
         }
     }
 }
