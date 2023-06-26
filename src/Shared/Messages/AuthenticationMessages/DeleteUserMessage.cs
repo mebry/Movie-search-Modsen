@@ -8,6 +8,6 @@ namespace Shared.Messages.AuthenticationMessages
 {
     public class DeleteUserMessage
     {
-        Guid Id { get; set; }
+        public Guid Id { get; set; }
     }
 }

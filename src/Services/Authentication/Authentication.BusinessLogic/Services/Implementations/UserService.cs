@@ -4,16 +4,13 @@ using Authentication.BusinessLogic.Exceptions.AlreadyExistsException;
 using Authentication.BusinessLogic.Exceptions.BadRequestException;
 using DataAccess.Models;
 using Microsoft.AspNetCore.Identity;
-using Mapster;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using MapsterMapper;
 using Authentication.BusinessLogic.DTOs.RequestDTOs;
 using Authentication.BusinessLogic.DTOs.ResponseDTOs;
+using Shared.Messages.AuthenticationMessages;
+using MassTransit;
+using DataAccess.Contexts;
 
 namespace Authentication.BusinessLogic.Services.Implementations
 {
@@ -23,17 +20,23 @@ namespace Authentication.BusinessLogic.Services.Implementations
         private readonly IUserCheckService _userCheckService;
         private readonly IRoleCheckService _roleCheckService;
         private readonly IMapper _mapper;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private readonly AuthContext _authContext;
 
         public UserService(UserManager<User> userManager,
             IUserCheckService userCheckService,
             IRoleCheckService roleCheckService,
-            IMapper mapper
+            IMapper mapper,
+            IPublishEndpoint publishEndpoint,
+            AuthContext authContext
             )
         {
             _userManager = userManager;
             _userCheckService = userCheckService;
             _roleCheckService = roleCheckService;
             _mapper = mapper;
+            _publishEndpoint = publishEndpoint;
+            _authContext = authContext;
         }
 
         public async Task AddUserToRoleAsync(string userId, string roleId)
@@ -53,6 +56,9 @@ namespace Authentication.BusinessLogic.Services.Implementations
             {
                 throw new UserInvalidCredentialsBadRequestException(result.Errors.ToList()[0].Description);
             }
+            var messageToPublish = _mapper.Map<CreateUserMessage>(mappedUser);
+            await _publishEndpoint.Publish(messageToPublish);
+            await _authContext.SaveChangesAsync();
             var userToReturn = _mapper.Map<UserResponseDto>(mappedUser);
             return userToReturn;
         }
@@ -61,6 +67,9 @@ namespace Authentication.BusinessLogic.Services.Implementations
         {
             var user = await _userCheckService.CheckIfUserExistsAndGetByIdAsync(userId);
             await _userManager.DeleteAsync(user);
+            var messageToPublish = _mapper.Map<DeleteUserMessage>(user);
+            await _publishEndpoint.Publish(messageToPublish);
+            await _authContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<UserResponseDto>> GetAllUsersAsync()
