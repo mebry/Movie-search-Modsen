@@ -63,10 +63,11 @@ namespace Film.BusinessLogic.Services.Implementations
             var mappedModel = filmCountry.Adapt<FilmCountry>();
 
             _filmCountryRepository.Create(mappedModel);
-            await _filmCountryRepository.SaveChangesAsync();
 
             var message = mappedModel.Adapt<CreatedFilmCountryMessage>();
             await _publishEndpoint.Publish(message);
+
+            await _filmCountryRepository.SaveChangesAsync();
         }
 
         /// <summary>
@@ -86,9 +87,10 @@ namespace Film.BusinessLogic.Services.Implementations
             }
 
             _filmCountryRepository.Delete(filmId, countryId);
-            await _filmCountryRepository.SaveChangesAsync();
 
             await _publishEndpoint.Publish(new RemovedFilmCountryMessage { CountryId = countryId, FilmId = filmId });
+
+            await _filmCountryRepository.SaveChangesAsync();
         }
     }
 }

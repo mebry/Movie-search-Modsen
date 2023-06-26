@@ -57,10 +57,11 @@ namespace Film.BusinessLogic.Services.Implementations
             var mappedModel = filmGenre.Adapt<FilmGenre>();
 
             _filmGenreRepository.Create(mappedModel);
-            await _filmGenreRepository.SaveChangesAsync();
 
             var message = mappedModel.Adapt<CreatedFilmGenreMessage>();
             await _publishEndpoint.Publish(message);
+
+            await _filmGenreRepository.SaveChangesAsync();
         }
 
         /// <summary>
@@ -73,9 +74,10 @@ namespace Film.BusinessLogic.Services.Implementations
             await CheckIfFilmAndGenreExists(filmId, genreId);
 
             _filmGenreRepository.Delete(filmId, genreId);
-            await _filmGenreRepository.SaveChangesAsync();
 
             await _publishEndpoint.Publish(new RemovedFilmGenreMessage { GenreId = genreId, FilmId = filmId });
+
+            await _filmGenreRepository.SaveChangesAsync();
         }
 
         /// <summary>

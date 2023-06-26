@@ -64,10 +64,11 @@ namespace Film.BusinessLogic.Services.Implementations
             mappedModel.Id = Guid.NewGuid();
 
             _genreRepository.Create(mappedModel);
-            await _genreRepository.SaveChangesAsync();
 
             var message = mappedModel.Adapt<CreatedGenreMessage>();
             await _publishEndpoint.Publish(message);
+
+            await _genreRepository.SaveChangesAsync();
 
             return mappedModel.Adapt<GenreResponseDTO>();
         }
@@ -90,9 +91,9 @@ namespace Film.BusinessLogic.Services.Implementations
 
             _genreRepository.Delete(id);
 
-            await _genreRepository.SaveChangesAsync();
-
             await _publishEndpoint.Publish(new RemovedGenreMessage { Id = id });
+
+            await _genreRepository.SaveChangesAsync();
         }
 
         /// <summary>
@@ -176,10 +177,10 @@ namespace Film.BusinessLogic.Services.Implementations
 
             _genreRepository.Update(mappedModel);
 
-            await _genreRepository.SaveChangesAsync();
-
             var message = mappedModel.Adapt<UpdatedGenreMessage>();
             await _publishEndpoint.Publish(message);
+
+            await _genreRepository.SaveChangesAsync();
         }
     }
 }
