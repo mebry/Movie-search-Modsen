@@ -63,7 +63,9 @@ namespace Film.BusinessLogic.Services.Implementations
 
             var mappedModel = film.Adapt<FilmModel>();
             mappedModel.Id = Guid.NewGuid();
-            
+
+            _filmRepository.Create(mappedModel);
+
             var message = mappedModel.Adapt<CreatedFilmMessage>();
             await _publishEndpoint.Publish(message);
 
