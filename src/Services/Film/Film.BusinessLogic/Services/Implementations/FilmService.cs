@@ -6,7 +6,6 @@ using Film.BusinessLogic.Exceptions.NotFound;
 using Film.BusinessLogic.Extensions;
 using Film.BusinessLogic.Services.Interfaces;
 using Film.DataAccess.Entities;
-using Film.DataAccess.Repositories.Implementations;
 using Film.DataAccess.Repositories.Interfaces;
 using FluentValidation;
 using Mapster;
@@ -93,6 +92,8 @@ namespace Film.BusinessLogic.Services.Implementations
             _filmRepository.Delete(id);
 
             await _filmRepository.SaveChangesAsync();
+
+            await _publishEndpoint.Publish(new RemovedFilmMessage { Id = id });
         }
 
         /// <summary>
@@ -177,6 +178,9 @@ namespace Film.BusinessLogic.Services.Implementations
             _filmRepository.Update(mappedModel);
 
             await _filmRepository.SaveChangesAsync();
+
+            var message = mappedModel.Adapt<UpdatedFilmMessage>();
+            await _publishEndpoint.Publish(message);
         }
     }
 }

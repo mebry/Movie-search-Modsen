@@ -10,6 +10,9 @@ using Film.DataAccess.Repositories.Interfaces;
 using FluentValidation;
 using Mapster;
 using Microsoft.Extensions.Logging;
+using MassTransit;
+using Shared.Messages.FilmMessages;
+using Shared.Messages.GenreMessages;
 
 namespace Film.BusinessLogic.Services.Implementations
 {
@@ -21,12 +24,15 @@ namespace Film.BusinessLogic.Services.Implementations
         private readonly IGenreRepository _genreRepository;
         private readonly ILogger<GenreService> _logger;
         private readonly IValidator<GenreRequestDTO> _validator;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public GenreService(IGenreRepository genreRepository, ILogger<GenreService> logger, IValidator<GenreRequestDTO> validator)
+        public GenreService(IGenreRepository genreRepository, ILogger<GenreService> logger, IValidator<GenreRequestDTO> validator,
+            IPublishEndpoint publishEndpoint)
         {
             _genreRepository = genreRepository;
             _logger = logger;
             _validator = validator;
+            _publishEndpoint = publishEndpoint;
         }
 
         /// <summary>
@@ -60,6 +66,9 @@ namespace Film.BusinessLogic.Services.Implementations
             _genreRepository.Create(mappedModel);
             await _genreRepository.SaveChangesAsync();
 
+            var message = mappedModel.Adapt<CreatedGenreMessage>();
+            await _publishEndpoint.Publish(message);
+
             return mappedModel.Adapt<GenreResponseDTO>();
         }
 
@@ -82,6 +91,8 @@ namespace Film.BusinessLogic.Services.Implementations
             _genreRepository.Delete(id);
 
             await _genreRepository.SaveChangesAsync();
+
+            await _publishEndpoint.Publish(new RemovedGenreMessage { Id = id });
         }
 
         /// <summary>
@@ -166,6 +177,9 @@ namespace Film.BusinessLogic.Services.Implementations
             _genreRepository.Update(mappedModel);
 
             await _genreRepository.SaveChangesAsync();
+
+            var message = mappedModel.Adapt<UpdatedGenreMessage>();
+            await _publishEndpoint.Publish(message);
         }
     }
 }
