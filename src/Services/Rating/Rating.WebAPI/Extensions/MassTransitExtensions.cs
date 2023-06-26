@@ -1,6 +1,7 @@
 ﻿using MassTransit;
 using Rating.BusinessLogic.MassTransit.Consumers;
 using Rating.DataAccess.Contexts;
+using Shared.Messages.FilmMessages;
 using Shared.Messages.RatingMessages;
 using System.Reflection;
 
@@ -39,8 +40,20 @@ namespace Rating.WebAPI.Extensions
 
                     cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmCreate"]!, x =>
                     {
+                        x.Bind<CreatedFilmMessage>();
+                        x.ConfigureConsumer<CreateFilmMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmUpdate"]!, x =>
+                    {
                         x.Bind<UpdateAverageRatingMessage>();
                         x.ConfigureConsumer<CreateFilmMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmDelete"]!, x =>
+                    {
+                        x.Bind<RemovedFilmMessage>();
+                        x.ConfigureConsumer<DeleteFilmMessageConsimer>(context);
                     });
                 });
             });
