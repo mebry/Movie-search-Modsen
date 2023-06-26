@@ -1,10 +1,12 @@
 ﻿using Film.BusinessLogic.Extensions;
-using Film.BusinessLogic.MassTransit.Consumers;
+using Film.BusinessLogic.MassTransit.Consumers.RatingConsumers;
+using Film.BusinessLogic.MassTransit.Consumers.StaffConsumers;
 using Film.DataAccess.Contexts;
 using Film.DataAccess.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Messages.RatingMessages;
+using Shared.Messages.StaffMessages;
 using System.Reflection;
 
 namespace Film.API.Extensions
@@ -81,10 +83,40 @@ namespace Film.API.Extensions
                         h.Password(password);
                     });
 
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdate"]!, x =>
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdated"]!, x =>
                     {
                         x.Bind<UpdateAverageRatingMessage>();
                         x.ConfigureConsumer<UpdateAverageRatingMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:CountOfScoresUpdated"]!, x =>
+                    {
+                        x.Bind<UpdateCountOfScoresMessage>();
+                        x.ConfigureConsumer<UpdateCountOfScoresMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:PositionCreated"]!, x =>
+                    {
+                        x.Bind<CreatedPositionMessage>();
+                        x.ConfigureConsumer<CreatedPositionMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:StaffPersonCreated"]!, x =>
+                    {
+                        x.Bind<CreatedStaffPersonMessage>();
+                        x.ConfigureConsumer<CreatedStaffPersonMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:StaffPersonUpdated"]!, x =>
+                    {
+                        x.Bind<UpdateStaffPersonMessage>();
+                        x.ConfigureConsumer<UpdateStaffPersonMessageConsumer>(context);
+                    });
+
+                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:StaffPersonPositionCreated"]!, x =>
+                    {
+                        x.Bind<CreatedStaffPersonPositionMessage>();
+                        x.ConfigureConsumer<CreatedStaffPersonPositionMessageConsumer>(context);
                     });
 
                 });
