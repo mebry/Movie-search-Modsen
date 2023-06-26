@@ -69,6 +69,7 @@ namespace Film.BusinessLogic.Services.Implementations
             await _filmRepository.SaveChangesAsync();
 
             var message = mappedModel.Adapt<CreatedFilmMessage>();
+
             await _publishEndpoint.Publish(message);
 
             return mappedModel.Adapt<FilmResponseDTO>();

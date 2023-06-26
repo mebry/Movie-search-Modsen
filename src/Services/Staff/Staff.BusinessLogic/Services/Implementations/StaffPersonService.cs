@@ -1,5 +1,7 @@
 ﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
+using Shared.Messages.StaffMessages;
 using Staff.BusinessLogic.DTOs;
 using Staff.BusinessLogic.Exceptions;
 using Staff.BusinessLogic.Services.Interfaces;
@@ -12,11 +14,13 @@ namespace Staff.BusinessLogic.Services.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<StaffPersonService> _logger;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public StaffPersonService(IUnitOfWork unitOfWork, ILogger<StaffPersonService> logger)
+        public StaffPersonService(IUnitOfWork unitOfWork, ILogger<StaffPersonService> logger, IPublishEndpoint publishEndpoint)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<ResponseStaffPersonDTO> CreateAsync(RequestStaffPersonDTO staffPerson)
@@ -29,6 +33,19 @@ namespace Staff.BusinessLogic.Services.Implementations
             await _unitOfWork.SaveChangesAsync();
 
             var responseModel = mapperStaffPerson.Adapt<ResponseStaffPersonDTO>();
+
+            var message = new CreatedStaffPersonMessage()
+            {
+                Id = responseModel.Id,
+                Name = responseModel.Name,
+                Surname = responseModel.Surname,
+                ImgUrl = responseModel.ImgUrl,
+                DateOfBirthday = responseModel.DateOfBirthday,
+                Country = responseModel.Country,
+                Description = responseModel.Description
+            };
+
+            await _publishEndpoint.Publish(message);
 
             return responseModel;
         }
@@ -82,6 +99,19 @@ namespace Staff.BusinessLogic.Services.Implementations
             await _unitOfWork.SaveChangesAsync();
 
             var responseModel = mapperStaffPerson.Adapt<ResponseStaffPersonDTO>();
+
+            var message = new UpdateStaffPersonMessage()
+            {
+                Id = responseModel.Id,
+                Name = responseModel.Name,
+                Surname = responseModel.Surname,
+                ImgUrl = responseModel.ImgUrl,
+                DateOfBirthday = responseModel.DateOfBirthday,
+                Country = responseModel.Country,
+                Description = responseModel.Description
+            };
+
+            await _publishEndpoint.Publish(message);
 
             return responseModel;
         }

@@ -1,5 +1,7 @@
 ﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
+using Shared.Messages.StaffMessages;
 using Staff.BusinessLogic.DTOs;
 using Staff.BusinessLogic.Exceptions;
 using Staff.BusinessLogic.Services.Interfaces;
@@ -12,11 +14,13 @@ namespace Staff.BusinessLogic.Services.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<StaffPersonPositionService> _logger;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public StaffPersonPositionService(IUnitOfWork unitOfWork, ILogger<StaffPersonPositionService> logger)
+        public StaffPersonPositionService(IUnitOfWork unitOfWork, ILogger<StaffPersonPositionService> logger, IPublishEndpoint publishEndpoint)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<StaffPersonPositionDTO> CreateAsync(Guid staffPersonId, Guid positionId, Guid filmId)
@@ -41,6 +45,16 @@ namespace Staff.BusinessLogic.Services.Implementations
             await _unitOfWork.SaveChangesAsync();
 
             var responseModel = staffPersonPosition.Adapt<StaffPersonPositionDTO>();
+
+            var message = new CreatedStaffPersonPositionMessage()
+            {
+                StaffPersonId = responseModel.StaffPersonId,
+                PositionId = responseModel.Position.Id,
+                FilmId = responseModel.Film.Id
+            };
+
+            await _publishEndpoint.Publish(message);
+
             return responseModel;
         }
 
