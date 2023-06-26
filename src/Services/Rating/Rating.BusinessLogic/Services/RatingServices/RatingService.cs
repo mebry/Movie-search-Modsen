@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using FluentValidation.Results;
 using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Rating.BusinessLogic.DTOs;
 using Rating.BusinessLogic.Enums;
@@ -10,6 +11,7 @@ using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Shared.Exceptions;
+using Shared.Messages.RatingMessages;
 
 namespace Rating.BusinessLogic.Services.RatingServices
 {
@@ -20,20 +22,23 @@ namespace Rating.BusinessLogic.Services.RatingServices
         private readonly ILogger<RatingService> _logger;
         private readonly IValidator<RequestRatingDTO> _validator;
         private readonly IEventDecisionService _eventDecisionService;
+        private readonly IPublishEndpoint _publishEndpoint;
 
         public RatingService(IFilmRepository filmRepository, IRatingFilmRepository ratingRepository,
-            ILogger<RatingService> logger, IValidator<RequestRatingDTO> validator, IEventDecisionService eventDecisionService)
+            ILogger<RatingService> logger, IValidator<RequestRatingDTO> validator,
+            IEventDecisionService eventDecisionService, IPublishEndpoint publishEndpoint)
         {
             _filmRepository = filmRepository;
             _ratingRepository = ratingRepository;
             _logger = logger;
             _validator = validator;
             _eventDecisionService = eventDecisionService;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<ResponseRatingDTO> CreateAsync(RequestRatingDTO model)
         {
-            ValidationResult result = await _validator.ValidateAsync(model);
+            var result = await _validator.ValidateAsync(model);
 
             if(!result.IsValid)
             {
@@ -63,6 +68,10 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             _filmRepository.Update(film);
 
+            var message = mapperModel.Adapt<CreateRatingMessage>();
+
+            await _publishEndpoint.Publish(message);
+
             await _ratingRepository.SaveAsync();
 
             var responseModel = mapperModel.Adapt<ResponseRatingDTO>();
@@ -90,6 +99,10 @@ namespace Rating.BusinessLogic.Services.RatingServices
             film.CountOfScores--;
 
             _filmRepository.Update(film);
+
+            var message = existingRating.Adapt<DeleteRatingMessage>();
+
+            await _publishEndpoint.Publish(message);
 
             await _ratingRepository.SaveAsync();
 
@@ -120,7 +133,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             if(existingRating is null)
             {
-                _logger.LogError("The deletion attempt failed. This id is missing");
+                _logger.LogError("The updation attempt failed. This id is missing");
 
                 throw new NotFoundException("This id is missing");
             }
@@ -132,6 +145,10 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             _ratingRepository.Update(mapperModel);
             _filmRepository.Update(film);
+
+            var message = existingRating.Adapt<UpdateRatingMessage>();
+
+            await _publishEndpoint.Publish(message);
 
             await _ratingRepository.SaveAsync();
 

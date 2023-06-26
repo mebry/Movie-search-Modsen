@@ -7,8 +7,7 @@ using Rating.DataAccess.Entities;
 using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Shared.Exceptions;
-using Shared.Messages;
-using System.Collections.Generic;
+using Shared.Messages.RatingMessages;
 
 namespace Rating.BusinessLogic.Services.EventDecisionServices
 {
