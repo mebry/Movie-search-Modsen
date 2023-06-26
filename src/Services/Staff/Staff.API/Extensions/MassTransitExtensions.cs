@@ -1,6 +1,4 @@
 ﻿using MassTransit;
-using Shared.Messages;
-using Shared.Messages.FilmMessages;
 using Staff.BusinessLogic.MassTransit.Consumers;
 using Staff.DataAccess.Contexts;
 using System.Reflection;
@@ -38,22 +36,7 @@ namespace Staff.API.Extensions
                         h.Password(password);
                     });
 
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdate"]!, x =>
-                    {
-                        x.Bind<UpdateAverageRatingMessage>();
-                        x.ConfigureConsumer<UpdateAverageRatingMessageConsumer>(context);
-                    });
-
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:CountOfScoresUpdate"]!, x =>
-                    {
-                        x.Bind<UpdateCountOfScoresMessage>();
-                        x.ConfigureConsumer<UpdateCountOfScoresMessageConsumer>(context);
-                    });
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmCreated"]!, x =>
-                    {
-                        x.Bind<CreatedFilmMessage>();
-                        x.ConfigureConsumer<CreatedFilmMessageConsumer>(context);
-                    });
+                    cfg.ConfigureEndpoints(context);
 
                 });
 

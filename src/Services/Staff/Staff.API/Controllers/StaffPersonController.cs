@@ -20,6 +20,7 @@ namespace Staff.API.Controllers
         /// </summary>
         /// <returns>Returns staff persons</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ResponseStaffPersonDTO>>> GetAsync()
         {
             var result = await _staffPersonService.GetStaffAsync();
@@ -33,6 +34,8 @@ namespace Staff.API.Controllers
         /// <param name="id">The ID of the staff person</param>
         /// <returns>Returns the staff person with the specified ID</returns>
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseStaffPersonDTO>> GetByIdAsync(Guid id)
         {
             var result = await _staffPersonService.GetStaffPersonByIdAsync(id);
@@ -46,6 +49,9 @@ namespace Staff.API.Controllers
         /// <param name="requestStaffPersonDTO">The staff person data to create</param>
         /// <returns>Returns the created staff person</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<ResponseStaffPersonDTO>> CreateAsync(RequestStaffPersonDTO requestStaffPersonDTO)
         {
             var result = await _staffPersonService.CreateAsync(requestStaffPersonDTO);
@@ -60,6 +66,9 @@ namespace Staff.API.Controllers
         /// <param name="requestStaffPersonDTO">The updated staff person data</param>
         /// <returns>Returns the updated staff person</returns>
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseStaffPersonDTO>> UpdateAsync(Guid id, RequestStaffPersonDTO requestStaffPersonDTO)
         {
             var result = await _staffPersonService.UpdateAsync(id, requestStaffPersonDTO);

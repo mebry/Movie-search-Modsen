@@ -22,6 +22,8 @@ namespace Staff.API.Controllers
         /// <param name="positionId">The ID of the position</param>
         /// <returns>Returns films associated with the staff person and position</returns>
         [HttpGet("films/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ResponseFilmDTO>>> GetFilmsByStaffPersonAndPositionAsync(Guid staffPersonId, Guid positionId)
         {
             var result = await _staffPersonPositionService.GetFilmsByStaffPersonAndPositionAsync(staffPersonId, positionId);
@@ -35,6 +37,8 @@ namespace Staff.API.Controllers
         /// <param name="staffPersonId">The ID of the staff person</param>
         /// <returns>Returns positions associated with the staff person</returns>
         [HttpGet("position/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ResponsePositionDTO>>> GetPositionsByStaffPersonIdAsync(Guid staffPersonId)
         {
             var result = await _staffPersonPositionService.GetPositionsByStaffPersonIdAsync(staffPersonId);
@@ -50,6 +54,9 @@ namespace Staff.API.Controllers
         /// <param name="filmId">The ID of the film</param>
         /// <returns>Returns the created staff person position</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<StaffPersonPositionDTO>> CreateAsync(Guid staffPersonId, Guid positionId, Guid filmId)
         {
             var result = await _staffPersonPositionService.CreateAsync(staffPersonId, positionId, filmId);
