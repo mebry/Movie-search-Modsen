@@ -4,7 +4,7 @@ using Reporting.DataAccess.Entities;
 
 namespace Reporting.DataAccess.Repositories.PositionRepositories
 {
-    internal class PositionRepository : EFRepository<Position>, IPostionRepository
+    internal class PositionRepository : EFRepository<Position>, IPositionRepository
     {
         public PositionRepository(ReportingContext context) : base(context)
         {

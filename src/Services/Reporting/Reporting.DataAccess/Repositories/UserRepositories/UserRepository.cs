@@ -16,4 +16,3 @@ namespace Reporting.DataAccess.Repositories.UserRepository
             .FirstOrDefaultAsync(a => a.Id == id);
     }
 }
-}
