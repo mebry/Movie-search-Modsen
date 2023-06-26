@@ -9,5 +9,6 @@ namespace FilmCollection.DataAccess.Repositories.Interfaces
         Task<Genre> GetGenreByIdAsync(Guid id, bool trackChanges);
         Task<IEnumerable<Genre>> GetAllGenresAsync(bool trackChanges);
         Task<Genre> GetGenreByNameAsync(string name, bool trackChanges);
+        Task UpdateGenreAsync(Genre genre);
     }
 }

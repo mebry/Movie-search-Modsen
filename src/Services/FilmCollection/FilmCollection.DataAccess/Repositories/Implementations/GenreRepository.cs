@@ -21,6 +21,12 @@ namespace FilmCollection.DataAccess.Repositories.Implementations
             await _filmCollectionContext.SaveChangesAsync();
         }
 
+        public async Task UpdateGenreAsync(Genre genre)
+        {
+            Update(genre);
+            await _filmCollectionContext.SaveChangesAsync();
+        }
+
         public async Task DeleteGenreAsync(Genre genre)
         {
             Delete(genre);
