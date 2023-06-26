@@ -1,32 +1,31 @@
-﻿using MassTransit;
+﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
-using Shared.Messages;
-using Staff.DataAccess.Entities;
-using Staff.DataAccess.Repositories.Interfaces;
+using Shared.Messages.RatingMessages;
+using Staff.BusinessLogic.DTOs;
+using Staff.BusinessLogic.Services.Interfaces;
 
 namespace Staff.BusinessLogic.MassTransit.Consumers
 {
     public class UpdateAverageRatingMessageConsumer : IConsumer<UpdateAverageRatingMessage>
     {
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IFilmService _filmService;
         private readonly ILogger<UpdateAverageRatingMessageConsumer> _logger;
 
-        public UpdateAverageRatingMessageConsumer(IUnitOfWork unitOfWork, ILogger<UpdateAverageRatingMessageConsumer> logger)
+        public UpdateAverageRatingMessageConsumer(IFilmService filmService, ILogger<UpdateAverageRatingMessageConsumer> logger)
         {
-            _unitOfWork = unitOfWork;
+            _filmService = filmService;
             _logger = logger;
         }
 
         public async Task Consume(ConsumeContext<UpdateAverageRatingMessage> context)
         {
-            var film = new Film
-            {
-                Id = context.Message.FilmId,
-                AverageRating = context.Message.AverageRating
-            };
+            var film = context.Message.Adapt<RequestFilmDTO>();
+            var filmId = context.Message.FilmId;
 
-            _unitOfWork.FilmRepository.Update(film);
-            await _unitOfWork.SaveChangesAsync();
+            await _filmService.UpdateAsync(filmId, film);
+
+            _logger.LogInformation($"Average rating was successfully updated for film {filmId}");
         }
     }
 }
