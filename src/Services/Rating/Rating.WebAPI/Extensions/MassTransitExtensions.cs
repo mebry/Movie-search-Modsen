@@ -1,7 +1,7 @@
 ﻿using MassTransit;
 using Rating.BusinessLogic.MassTransit.Consumers;
 using Rating.DataAccess.Contexts;
-using Shared.Messages;
+using Shared.Messages.RatingMessages;
 using System.Reflection;
 
 namespace Rating.WebAPI.Extensions

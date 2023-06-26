@@ -1,7 +1,7 @@
 ﻿using Mapster;
 using Microsoft.Extensions.DependencyInjection;
 using Rating.BusinessLogic.DTOs;
-using Shared.Messages;
+using Shared.Messages.RatingMessages;
 
 namespace Rating.BusinessLogic.Extensions
 {
