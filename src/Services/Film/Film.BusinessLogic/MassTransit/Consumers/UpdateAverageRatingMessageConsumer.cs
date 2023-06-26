@@ -1,8 +1,7 @@
-﻿using Film.DataAccess.Repositories.Implementations;
-using Film.DataAccess.Repositories.Interfaces;
+﻿using Film.DataAccess.Repositories.Interfaces;
 using MassTransit;
 using Microsoft.Extensions.Logging;
-using Shared.Messages;
+using Shared.Messages.RatingMessages;
 
 namespace Film.BusinessLogic.MassTransit.Consumers
 {
