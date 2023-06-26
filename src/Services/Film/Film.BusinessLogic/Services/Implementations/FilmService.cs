@@ -66,10 +66,13 @@ namespace Film.BusinessLogic.Services.Implementations
             mappedModel.Id = Guid.NewGuid();
 
             _filmRepository.Create(mappedModel);
-            await _filmRepository.SaveChangesAsync();
+
 
             var message = mappedModel.Adapt<CreatedFilmMessage>();
+
             await _publishEndpoint.Publish(message);
+
+            await _filmRepository.SaveChangesAsync();
 
             return mappedModel.Adapt<FilmResponseDTO>();
         }

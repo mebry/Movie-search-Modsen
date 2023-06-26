@@ -1,5 +1,7 @@
 ﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
+using Shared.Messages.StaffMessages;
 using Staff.BusinessLogic.DTOs;
 using Staff.BusinessLogic.Exceptions;
 using Staff.BusinessLogic.Services.Interfaces;
@@ -12,11 +14,13 @@ namespace Staff.BusinessLogic.Services.Implementations
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger<PositionService> _logger;
+        private readonly IPublishEndpoint _publishEndpoint;
 
-        public PositionService(IUnitOfWork unitOfWork, ILogger<PositionService> logger)
+        public PositionService(IUnitOfWork unitOfWork, ILogger<PositionService> logger, IPublishEndpoint publishEndpoint)
         {
             _unitOfWork = unitOfWork;
             _logger = logger;
+            _publishEndpoint = publishEndpoint;
         }
 
         public async Task<ResponsePositionDTO> CreateAsync(RequestPositionDTO requestPositionDTO)
@@ -25,9 +29,18 @@ namespace Staff.BusinessLogic.Services.Implementations
             var mapperPosition = requestPositionDTO.Adapt<Position>();
             mapperPosition.Id = id;
             await _unitOfWork.PositionRepository.CreateAsync(mapperPosition);
-            await _unitOfWork.SaveChangesAsync();
+
 
             var responseModel = mapperPosition.Adapt<ResponsePositionDTO>();
+
+            var message = new CreatedPositionMessage()
+            {
+                Id = responseModel.Id,
+                Name = responseModel.Name
+            };
+
+            await _publishEndpoint.Publish(message);
+            await _unitOfWork.SaveChangesAsync();
 
             return responseModel;
         }
