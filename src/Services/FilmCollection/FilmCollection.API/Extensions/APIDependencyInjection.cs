@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using MassTransit;
 using FilmCollection.DataAccess.Contexts;
 using System.Reflection;
-using FilmCollection.BusinessLogic.MassTransit.Consumers.RatingConsumers;
+using FilmCollection.BusinessLogic.MassTransit.Consumers.RatingMessageConsumers;
 
 namespace FilmCollection.API.Extensions
 {
