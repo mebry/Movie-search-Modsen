@@ -26,10 +26,12 @@ namespace Staff.BusinessLogic.Services.Implementations
         public async Task<ResponsePositionDTO> CreateAsync(RequestPositionDTO requestPositionDTO)
         {
             var id = new Guid();
-            var mapperPosition = requestPositionDTO.Adapt<Position>();
-            mapperPosition.Id = id;
-            await _unitOfWork.PositionRepository.CreateAsync(mapperPosition);
 
+            var mapperPosition = requestPositionDTO.Adapt<Position>();
+
+            mapperPosition.Id = id;
+
+            await _unitOfWork.PositionRepository.CreateAsync(mapperPosition);
 
             var responseModel = mapperPosition.Adapt<ResponsePositionDTO>();
 
@@ -40,6 +42,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _publishEndpoint.Publish(message);
+
             await _unitOfWork.SaveChangesAsync();
 
             return responseModel;

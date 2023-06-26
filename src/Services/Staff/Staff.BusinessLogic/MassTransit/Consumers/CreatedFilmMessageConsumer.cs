@@ -29,8 +29,6 @@ namespace Staff.BusinessLogic.MassTransit.Consumers
                 CountOfScores = 0
             };
 
-            //var film = context.Message.Adapt<Film>();
-
             await _unitOfWork.FilmRepository.CreateAsync(film);
             await _unitOfWork.SaveChangesAsync();
 
