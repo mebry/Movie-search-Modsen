@@ -28,7 +28,7 @@ namespace Staff.DataAccess.Repositories.Implementations
 
         public async Task<StaffPerson> GetStaffPersonByIdAsync(Guid id)
         {
-            return await _dbContext.Staff.FindAsync(id);
+            return await _dbContext.Staff.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void Update(StaffPerson staffPerson)

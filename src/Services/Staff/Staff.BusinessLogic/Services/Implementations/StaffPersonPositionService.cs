@@ -43,19 +43,20 @@ namespace Staff.BusinessLogic.Services.Implementations
 
             await _unitOfWork.StaffPersonPositionRepository.CreateAsync(staffPersonPosition);
 
-
-            var responseModel = staffPersonPosition.Adapt<StaffPersonPositionDTO>();
-
             var message = new CreatedStaffPersonPositionMessage()
             {
-                StaffPersonId = responseModel.StaffPersonId,
-                PositionId = responseModel.Position.Id,
-                FilmId = responseModel.Film.Id
+                StaffPersonId = staffPersonId,
+                PositionId = positionId,
+                FilmId = filmId
             };
 
             await _publishEndpoint.Publish(message);
 
             await _unitOfWork.SaveChangesAsync();
+
+            var response = await _unitOfWork.StaffPersonPositionRepository.GetPosition(positionId, staffPersonId, filmId);
+
+            var responseModel = response.Adapt<StaffPersonPositionDTO>();
 
             return responseModel;
         }
@@ -87,9 +88,7 @@ namespace Staff.BusinessLogic.Services.Implementations
                 throw new NotFoundException("This id was not found");
             }
 
-            var mapperStaffPersonPosition = staffPersonPosition.Adapt<IEnumerable<StaffPersonPositionDTO>>();
-
-            var responseModel = mapperStaffPersonPosition.Select(x => x.Position);
+            var responseModel = staffPersonPosition.Adapt<IEnumerable<ResponsePositionDTO>>();
 
             return responseModel;
         }
