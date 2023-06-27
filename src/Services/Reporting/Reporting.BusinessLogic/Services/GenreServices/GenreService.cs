@@ -32,9 +32,9 @@ namespace Reporting.BusinessLogic.Services.GenreServices
 
             if(existingGenre is null)
             {
-                _logger.LogError("The film was not found");
+                _logger.LogError("The genre was not found");
 
-                throw new NotFoundException("The film was not found");
+                throw new NotFoundException("The genre was not found");
             }
 
             _genreRepository.Delete(id);
@@ -48,9 +48,9 @@ namespace Reporting.BusinessLogic.Services.GenreServices
 
             if(existingGenre is null)
             {
-                _logger.LogError("The film was not found");
+                _logger.LogError("The genre was not found");
 
-                throw new NotFoundException("The film was not found");
+                throw new NotFoundException("The genre was not found");
             }
 
             entity.Adapt(existingGenre);
