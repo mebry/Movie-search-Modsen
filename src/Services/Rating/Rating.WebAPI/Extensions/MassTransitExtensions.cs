@@ -38,23 +38,7 @@ namespace Rating.WebAPI.Extensions
                         h.Password(password);
                     });
 
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmCreate"]!, x =>
-                    {
-                        x.Bind<CreatedFilmMessage>();
-                        x.ConfigureConsumer<CreateFilmMessageConsumer>(context);
-                    });
-
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmUpdate"]!, x =>
-                    {
-                        x.Bind<UpdateAverageRatingMessage>();
-                        x.ConfigureConsumer<CreateFilmMessageConsumer>(context);
-                    });
-
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:FilmDelete"]!, x =>
-                    {
-                        x.Bind<RemovedFilmMessage>();
-                        x.ConfigureConsumer<DeleteFilmMessageConsimer>(context);
-                    });
+                    cfg.ConfigureEndpoints(context);
                 });
             });
         }
