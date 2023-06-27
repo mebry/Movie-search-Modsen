@@ -1,7 +1,7 @@
 using Reviews.API.Extensions;
 using Reviews.BusinessLogic.Extensions;
 using Reviews.DataAccess.Contexts;
-using Reviews.DataAccess.Extensions;
+using Shared.Extensions;
 using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,6 +29,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.ApplyMigrations();
+app.ApplyMigrations<ReviewsDbContext>();
 
 app.Run();
