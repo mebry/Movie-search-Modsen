@@ -29,9 +29,9 @@ namespace Reporting.BusinessLogic.Services.RatingServices
 
         public async Task DeleteAsync(Guid id)
         {
-            var existingPosition = await _ratingRepository.GetByIdAsync(id);
+            var existingRating = await _ratingRepository.GetByIdAsync(id);
 
-            if(existingPosition is null)
+            if(existingRating is null)
             {
                 _logger.LogError("The rating was not found");
 
@@ -45,17 +45,17 @@ namespace Reporting.BusinessLogic.Services.RatingServices
 
         public async Task UpdateAsync(ConsumerRatingDTO entity)
         {
-            var existingPosition = await _ratingRepository.GetByIdAsync(entity.Id);
+            var existingRating = await _ratingRepository.GetByIdAsync(entity.Id);
 
-            if(existingPosition is null)
+            if(existingRating is null)
             {
                 _logger.LogError("The rating was not found");
 
                 throw new NotFoundException("The rating was not found");
             }
 
-            entity.Adapt(existingPosition);
-            _ratingRepository.Update(existingPosition);
+            entity.Adapt(existingRating);
+            _ratingRepository.Update(existingRating);
 
             await _ratingRepository.SaveChangesAsync();
         }
