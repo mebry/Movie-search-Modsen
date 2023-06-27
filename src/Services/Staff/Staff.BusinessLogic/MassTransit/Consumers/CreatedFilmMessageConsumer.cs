@@ -23,7 +23,7 @@ namespace Staff.BusinessLogic.MassTransit.Consumers
             {
                 Id = context.Message.Id,
                 Title = context.Message.Title,
-                ReleaseDate = Convert.ToDateTime(context.Message.ReleaseDate),
+                ReleaseDate = context.Message.ReleaseDate.ToDateTime(TimeOnly.Parse("10:00 PM")),
                 AverageRating = 0,
                 CountOfScores = 0
             };
