@@ -21,15 +21,18 @@ namespace Film.BusinessLogic.Services.Implementations
     public class FilmService : IFilmService
     {
         private readonly IFilmRepository _filmRepository;
+        private readonly IAgeRestrictionRepository _ageRestrictionRepository;
         private readonly ILogger<FilmService> _logger;
         private readonly IValidator<FilmRequestDTO> _validator;
         private readonly TypeAdapterConfig _typeAdapterConfig;
         private readonly IPublishEndpoint _publishEndpoint;
 
-        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger, IValidator<FilmRequestDTO> validator,
-            TypeAdapterConfig typeAdapterConfig, IPublishEndpoint publishEndpoint)
+        public FilmService(IFilmRepository filmRepository, IAgeRestrictionRepository ageRestrictionRepository,
+            ILogger<FilmService> logger, IPublishEndpoint publishEndpoint,
+            IValidator<FilmRequestDTO> validator, TypeAdapterConfig typeAdapterConfig)
         {
             _filmRepository = filmRepository;
+            _ageRestrictionRepository = ageRestrictionRepository;
             _logger = logger;
             _validator = validator;
             _typeAdapterConfig = typeAdapterConfig;
@@ -53,6 +56,14 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException(validationResult.GetErrorMessages());
             }
 
+            var foundAgeRestriction = await _ageRestrictionRepository.GetByIdAsync(film.AgeRestrictionId);
+
+            if (foundAgeRestriction is null)
+            {
+                _logger.LogError("The are restriction was not found");
+                throw new AgeRestrictionNotFoundException(film.AgeRestrictionId);
+            }
+
             var foundFilm = await _filmRepository.FilmExistsAsync(film.Title, film.ReleaseDate);
 
             if (foundFilm)
@@ -71,7 +82,10 @@ namespace Film.BusinessLogic.Services.Implementations
 
             await _filmRepository.SaveChangesAsync();
 
-            return mappedModel.Adapt<FilmResponseDTO>();
+            var response = mappedModel.Adapt<FilmResponseDTO>();
+            response.AgeRestriction = foundAgeRestriction.Adapt<AgeRestrictionResponseDTO>();
+
+            return response;
         }
 
         /// <summary>
@@ -165,6 +179,14 @@ namespace Film.BusinessLogic.Services.Implementations
                 throw new BadRequestException(validationResult.GetErrorMessages());
             }
 
+            var foundAgeRestriction = await _ageRestrictionRepository.GetByIdAsync(film.AgeRestrictionId);
+
+            if (foundAgeRestriction is null)
+            {
+                _logger.LogError("The are restriction was not found");
+                throw new AgeRestrictionNotFoundException(film.AgeRestrictionId);
+            }
+
             var foundFilm = await _filmRepository.GetByIdAsync(id);
 
             if (foundFilm is null)
@@ -172,15 +194,12 @@ namespace Film.BusinessLogic.Services.Implementations
                 _logger.LogError("The film was not found");
                 throw new FilmNotFoundException(id);
             }
-            var mappedModel = film.Adapt<FilmModel>();
 
-            mappedModel.Id = id;
-            mappedModel.AverageRating = foundFilm.AverageRating;
-            mappedModel.CountScores = foundFilm.CountScores;
+            film.Adapt(foundFilm);
 
-            _filmRepository.Update(mappedModel);
+            _filmRepository.Update(foundFilm);
 
-            var message = mappedModel.Adapt<UpdatedFilmMessage>();
+            var message = foundFilm.Adapt<UpdatedFilmMessage>();
             await _publishEndpoint.Publish(message);
 
             await _filmRepository.SaveChangesAsync();
