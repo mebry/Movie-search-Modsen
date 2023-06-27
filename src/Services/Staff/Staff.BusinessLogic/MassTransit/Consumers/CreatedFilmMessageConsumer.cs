@@ -1,5 +1,4 @@
-﻿using Mapster;
-using MassTransit;
+﻿using MassTransit;
 using Microsoft.Extensions.Logging;
 using Shared.Messages.FilmMessages;
 using Staff.DataAccess.Entities;

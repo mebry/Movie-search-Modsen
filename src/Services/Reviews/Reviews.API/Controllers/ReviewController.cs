@@ -21,6 +21,9 @@ namespace Reviews.API.Controllers
         /// <param name="requestReviewDTO">The review data to create.</param>
         /// <returns>Returns the created review.</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<ResponseReviewDTO>> CreateAsync(RequestReviewDTO requestReviewDTO)
         {
             var result = await _reviewService.CreateAsync(requestReviewDTO);
@@ -34,6 +37,8 @@ namespace Reviews.API.Controllers
         /// <param name="id">The ID of the critic.</param>
         /// <returns>Returns reviews by the critic's ID.</returns>
         [HttpGet("critic/{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ResponseReviewDTO>>> GetAllByCriticIdAsync(Guid id)
         {
             var result = await _reviewService.GetAllByCriticIdAsync(id);
@@ -48,6 +53,8 @@ namespace Reviews.API.Controllers
         /// <param name="typeOfReviewId">The ID of the review type.</param>
         /// <returns>Returns reviews for the film and review type.</returns>
         [HttpGet("{filmId:guid}/{typeOfReviewId:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ResponseReviewDTO>>> GetAllByFilmIdAndTypeAsync(Guid filmId, Guid typeOfReviewId)
         {
             var result = await _reviewService.GetAllByFilmIdAndTypeAsync(filmId, typeOfReviewId);
@@ -56,6 +63,8 @@ namespace Reviews.API.Controllers
         }
 
         [HttpGet("film/{filmId:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<IEnumerable<ResponseReviewDTO>>> GetAllByFilmIdAsync(Guid filmId)
         {
             var result = await _reviewService.GetAllByFilmIdAsync(filmId);
@@ -69,6 +78,8 @@ namespace Reviews.API.Controllers
         /// <param name="id">The ID of the review to remove.</param>
         /// <returns>Returns the removed review.</returns>
         [HttpDelete("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseReviewDTO>> RemoveAsync(Guid id)
         {
             var result = await _reviewService.RemoveReviewAsync(id);
@@ -83,6 +94,9 @@ namespace Reviews.API.Controllers
         /// <param name="requestReviewDTO">The updated review data.</param>
         /// <returns>Returns the updated review.</returns>
         [HttpPut("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponseReviewDTO>> UpdateAsync(Guid id, RequestReviewDTO requestReviewDTO)
         {
             var result = await _reviewService.UpdateAsync(id, requestReviewDTO);

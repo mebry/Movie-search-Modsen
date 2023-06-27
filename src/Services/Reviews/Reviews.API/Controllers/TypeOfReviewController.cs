@@ -21,6 +21,9 @@ namespace Reviews.API.Controllers
         /// <param name="requestTypeOfReviewDTO">The type of review data to create.</param>
         /// <returns>Returns the created type of review.</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<ResponseTypeOfReviewDTO>> CreateAsync(RequestTypeOfReviewDTO requestTypeOfReviewDTO)
         {
             var result = await _typeOfReviewService.CreateAsync(requestTypeOfReviewDTO);
