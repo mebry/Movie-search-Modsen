@@ -1,7 +1,6 @@
 using Hangfire;
 using Rating.BusinessLogic.Extensions;
 using Rating.DataAccess.Contexts;
-using Rating.DataAccess.Extensions;
 using Rating.WebAPI.Extensions;
 using Reporting.DataAccess.Extensions;
 using Shared.Middlewares;
