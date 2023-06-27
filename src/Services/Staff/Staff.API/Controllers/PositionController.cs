@@ -20,6 +20,7 @@ namespace Staff.API.Controllers
         /// </summary>
         /// <returns>Returns positions</returns>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult<IEnumerable<ResponsePositionDTO>>> GetAsync()
         {
             var result = await _positionService.GetPositionsAsync();
@@ -33,6 +34,8 @@ namespace Staff.API.Controllers
         /// <param name="id">The ID of the position</param>
         /// <returns>Returns the position with the specified ID</returns>
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ResponsePositionDTO>> GetByIdAsync(Guid id)
         {
             var result = await _positionService.GetPositionByIdAsync(id);
@@ -46,6 +49,9 @@ namespace Staff.API.Controllers
         /// <param name="requestPositionDTO">The position data to create</param>
         /// <returns>Returns the created position</returns>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
         public async Task<ActionResult<ResponsePositionDTO>> CreateAsync(RequestPositionDTO requestPositionDTO)
         {
             var result = await _positionService.CreateAsync(requestPositionDTO);

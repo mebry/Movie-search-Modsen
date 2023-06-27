@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Shared.Messages.FilmMessages;
 using Staff.DataAccess.Entities;
@@ -30,6 +31,8 @@ namespace Staff.BusinessLogic.MassTransit.Consumers
 
             await _unitOfWork.FilmRepository.CreateAsync(film);
             await _unitOfWork.SaveChangesAsync();
+
+            _logger.LogInformation($"Film {film.Id} has been successfully created");
         }
     }
 }

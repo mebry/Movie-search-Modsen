@@ -54,6 +54,7 @@ namespace Staff.BusinessLogic.Services.Implementations
             };
 
             await _publishEndpoint.Publish(message);
+
             await _unitOfWork.SaveChangesAsync();
 
             return responseModel;
