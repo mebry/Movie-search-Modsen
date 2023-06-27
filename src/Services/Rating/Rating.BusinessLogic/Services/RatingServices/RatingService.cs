@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using Mapster;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -12,7 +11,6 @@ using Rating.DataAccess.Repositories.FilmRepositories;
 using Rating.DataAccess.Repositories.RaitingRepositories;
 using Shared.Exceptions;
 using Shared.Messages.RatingMessages;
-using System.Net;
 
 namespace Rating.BusinessLogic.Services.RatingServices
 {
@@ -62,12 +60,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             _ratingRepository.Create(mapperModel);
 
-            var film = await _eventDecisionService
-                .DecisionToSendAverageRatingChangeEventAsync(model, (int)CountOfScoresChanges.Create);
-
-            film.CountOfScores++;
-
-            _filmRepository.Update(film);
+            await UpdateFilmWhenRatingIsCreated(model);
 
             var message = mapperModel.Adapt<CreateRatingMessage>();
 
@@ -95,11 +88,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             var requestRatingDto = existingRating.Adapt<RequestRatingDTO>();
 
-            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(requestRatingDto, (int)CountOfScoresChanges.Delete);
-
-            film.CountOfScores--;
-
-            _filmRepository.Update(film);
+            await UpdateFilmWhenRatingIsDeleted(requestRatingDto);
 
             var message = existingRating.Adapt<DeleteRatingMessage>();
 
@@ -142,10 +131,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
             var mapperModel = model.Adapt<RatingFilm>();
             mapperModel.Id = id;
 
-            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(model, (int)CountOfScoresChanges.Update);
-
             _ratingRepository.Update(mapperModel);
-            _filmRepository.Update(film);
+
+            await UpdateFilmWhenRatingIsUpdated(model);
 
             var message = existingRating.Adapt<UpdateRatingMessage>();
 
