@@ -18,7 +18,7 @@ namespace Reporting.BusinessLogic.Services.FilmServices
             _logger = logger;
         }
 
-        public async Task Create(ConsumerFilmDTO entity)
+        public async Task CreateAsync(ConsumerFilmDTO entity)
         {
             var mapperModel = entity.Adapt<Film>();
             _filmRepository.Create(mapperModel);
@@ -26,7 +26,7 @@ namespace Reporting.BusinessLogic.Services.FilmServices
             await _filmRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(id);
 
@@ -42,7 +42,7 @@ namespace Reporting.BusinessLogic.Services.FilmServices
             await _filmRepository.SaveChangesAsync();
         }
 
-        public async Task Update(ConsumerFilmDTO entity)
+        public async Task UpdateAsync(ConsumerFilmDTO entity)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(entity.Id);
 

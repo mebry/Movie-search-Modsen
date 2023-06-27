@@ -18,7 +18,7 @@ namespace Reporting.BusinessLogic.Services.GenreServices
             _logger = logger;
         }
 
-        public async Task Create(ConsumerGenreDTO entity)
+        public async Task CreateAsync(ConsumerGenreDTO entity)
         {
             var mapperModel = entity.Adapt<Genre>();
             _genreRepository.Create(mapperModel);
@@ -26,7 +26,7 @@ namespace Reporting.BusinessLogic.Services.GenreServices
             await _genreRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var existingGenre = await _genreRepository.GetByIdAsync(id);
 
@@ -42,7 +42,7 @@ namespace Reporting.BusinessLogic.Services.GenreServices
             await _genreRepository.SaveChangesAsync();
         }
 
-        public async Task Update(ConsumerGenreDTO entity)
+        public async Task UpdateAsync(ConsumerGenreDTO entity)
         {
             var existingGenre = await _genreRepository.GetByIdAsync(entity.Id);
 

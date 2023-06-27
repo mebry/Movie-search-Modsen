@@ -4,8 +4,8 @@ namespace Reporting.BusinessLogic.Services.FilmServices
 {
     internal interface IFilmDataCaptureService
     {
-        public Task Create(ConsumerFilmDTO entity);
-        public Task Update(ConsumerFilmDTO entity);
-        public Task Delete(Guid id);
+        public Task CreateAsync(ConsumerFilmDTO entity);
+        public Task UpdateAsync(ConsumerFilmDTO entity);
+        public Task DeleteAsync(Guid id);
     }
 }

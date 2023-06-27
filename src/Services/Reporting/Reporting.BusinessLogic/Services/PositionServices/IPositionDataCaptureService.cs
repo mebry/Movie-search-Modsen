@@ -4,8 +4,8 @@ namespace Reporting.BusinessLogic.Services.PositionServices
 {
     internal interface IPositionDataCaptureService
     {
-        public Task Create(ConsumerPositionDTO entity);
-        public Task Update(ConsumerPositionDTO entity);
-        public void DeleteAsync(Guid id);
+        public Task CreateAsync(ConsumerPositionDTO entity);
+        public Task UpdateAsync(ConsumerPositionDTO entity);
+        public Task DeleteAsync(Guid id);
     }
 }

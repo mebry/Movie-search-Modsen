@@ -4,8 +4,8 @@ namespace Reporting.BusinessLogic.Services.GenreServices
 {
     internal interface IGenreDataCaptureService
     {
-        public Task Create(ConsumerGenreDTO entity);
-        public Task Update(ConsumerGenreDTO entity);
-        public Task Delete(Guid id);
+        public Task CreateAsync(ConsumerGenreDTO entity);
+        public Task UpdateAsync(ConsumerGenreDTO entity);
+        public Task DeleteAsync(Guid id);
     }
 }

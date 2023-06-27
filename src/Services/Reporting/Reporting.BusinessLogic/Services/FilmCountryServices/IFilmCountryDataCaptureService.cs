@@ -5,7 +5,7 @@ namespace Reporting.BusinessLogic.Services.FilmCountryServices
 {
     internal interface IFilmCountryDataCaptureService
     {
-        public Task Create(ConsumerFilmCountryDTO filmCountry);
-        public Task Delete(Guid filmId, Countries countryEnum);
+        public Task CreateAsync(ConsumerFilmCountryDTO filmCountry);
+        public Task DeleteAsync(Guid filmId, Countries countryEnum);
     }
 }

@@ -25,7 +25,7 @@ namespace Reporting.BusinessLogic.Services.FilmGenreServices
             _logger = logger;
         }
 
-        public async Task Create(ConsumerFilmGenreDTO filmGenre)
+        public async Task CreateAsync(ConsumerFilmGenreDTO filmGenre)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(filmGenre.FilmId);
 
@@ -38,7 +38,7 @@ namespace Reporting.BusinessLogic.Services.FilmGenreServices
 
             var existingGenre = await _genreRepository.GetByIdAsync(filmGenre.GenreId);
 
-            if(existingFilm is null)
+            if(existingGenre is null)
             {
                 _logger.LogError("The genre was not found");
 
@@ -51,7 +51,7 @@ namespace Reporting.BusinessLogic.Services.FilmGenreServices
             await _filmGenreRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid filmId, Guid genreId)
+        public async Task DeleteAsync(Guid filmId, Guid genreId)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(filmId);
 
@@ -64,7 +64,7 @@ namespace Reporting.BusinessLogic.Services.FilmGenreServices
 
             var existingGenre = await _genreRepository.GetByIdAsync(genreId);
 
-            if(existingFilm is null)
+            if(existingGenre is null)
             {
                 _logger.LogError("The genre was not found");
 

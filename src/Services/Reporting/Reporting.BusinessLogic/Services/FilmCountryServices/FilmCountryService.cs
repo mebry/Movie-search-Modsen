@@ -23,7 +23,7 @@ namespace Reporting.BusinessLogic.Services.FilmCountryServices
             _logger = logger;
         }
 
-        public async Task Create(ConsumerFilmCountryDTO filmCountry)
+        public async Task CreateAsync(ConsumerFilmCountryDTO filmCountry)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(filmCountry.FilmId);
 
@@ -40,7 +40,7 @@ namespace Reporting.BusinessLogic.Services.FilmCountryServices
             await _filmCountryRepository.SaveChangesAsync();
         }
 
-        public async Task Delete(Guid filmId, Countries countryEnum)
+        public async Task DeleteAsync(Guid filmId, Countries countryEnum)
         {
             var existingFilm = await _filmRepository.GetByIdAsync(filmId);
 

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.Logging;
 using Reporting.BusinessLogic.DTOs.ConsumerDTOs;
 using Reporting.DataAccess.Entities;
-using Reporting.DataAccess.Repositories.GenreRepositories;
 using Reporting.DataAccess.Repositories.PositionRepositories;
 using Shared.Exceptions;
 
@@ -19,7 +18,7 @@ namespace Reporting.BusinessLogic.Services.PositionServices
             _logger = logger;
         }
 
-        public async Task Create(ConsumerPositionDTO entity)
+        public async Task CreateAsync(ConsumerPositionDTO entity)
         {
             var mapperModel = entity.Adapt<Position>();
             _positionRepository.Create(mapperModel);
@@ -43,7 +42,7 @@ namespace Reporting.BusinessLogic.Services.PositionServices
             await _positionRepository.SaveChangesAsync();
         }
 
-        public async Task Update(ConsumerPositionDTO entity)
+        public async Task UpdateAsync(ConsumerPositionDTO entity)
         {
             var existingPosition = await _positionRepository.GetByIdAsync(entity.Id);
 

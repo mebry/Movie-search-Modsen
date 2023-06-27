@@ -4,7 +4,7 @@ namespace Reporting.BusinessLogic.Services.FilmGenreServices
 {
     internal interface IFilmGenreDataCaptureService
     {
-        public Task Create(ConsumerFilmGenreDTO filmGenre);
-        public Task Delete(Guid filmId, Guid genreId);
+        public Task CreateAsync(ConsumerFilmGenreDTO filmGenre);
+        public Task DeleteAsync(Guid filmId, Guid genreId);
     }
 }
