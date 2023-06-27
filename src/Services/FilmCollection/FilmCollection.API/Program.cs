@@ -4,7 +4,6 @@ using FilmCollection.BusinessLogic.Extensions;
 using FilmCollection.DataAccess.Extensions;
 using FilmCollection.API.Extensions;
 using Shared.Extensions;
-using Reporting.DataAccess.Extensions;
 using FilmCollection.DataAccess.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
