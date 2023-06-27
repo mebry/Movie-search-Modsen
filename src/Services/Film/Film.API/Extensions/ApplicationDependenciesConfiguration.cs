@@ -1,10 +1,12 @@
 ﻿using Film.BusinessLogic.Extensions;
-using Film.BusinessLogic.MassTransit.Consumers;
+using Film.BusinessLogic.MassTransit.Consumers.RatingConsumers;
+using Film.BusinessLogic.MassTransit.Consumers.StaffConsumers;
 using Film.DataAccess.Contexts;
 using Film.DataAccess.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Messages.RatingMessages;
+using Shared.Messages.StaffMessages;
 using System.Reflection;
 
 namespace Film.API.Extensions
@@ -81,11 +83,7 @@ namespace Film.API.Extensions
                         h.Password(password);
                     });
 
-                    cfg.ReceiveEndpoint(config["RabbitMQ:ReceiveEndpoints:AverageRatingUpdate"]!, x =>
-                    {
-                        x.Bind<UpdateAverageRatingMessage>();
-                        x.ConfigureConsumer<UpdateAverageRatingMessageConsumer>(context);
-                    });
+                    cfg.ConfigureEndpoints(context);
 
                 });
 
