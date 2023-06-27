@@ -1,7 +1,9 @@
 using Hangfire;
 using Rating.BusinessLogic.Extensions;
+using Rating.DataAccess.Contexts;
 using Rating.DataAccess.Extensions;
 using Rating.WebAPI.Extensions;
+using Reporting.DataAccess.Extensions;
 using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -29,7 +31,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.ApplyMigrations();
+app.ApplyMigrations<ApplicationContext>();
 
 app.UseHangfireDashboard();
 app.MapHangfireDashboard();
