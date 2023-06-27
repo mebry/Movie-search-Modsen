@@ -3,6 +3,9 @@ using Microsoft.AspNetCore.HttpOverrides;
 using FilmCollection.BusinessLogic.Extensions;
 using FilmCollection.DataAccess.Extensions;
 using FilmCollection.API.Extensions;
+using Shared.Extensions;
+using Reporting.DataAccess.Extensions;
+using FilmCollection.DataAccess.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +35,6 @@ app.UseCors("CorsPolicy");
 
 app.MapControllers();
 
-await app.ApplyMigrationAsync();
+app.ApplyMigrations<FilmCollectionContext>();
 
 app.Run();

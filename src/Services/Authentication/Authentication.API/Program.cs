@@ -5,6 +5,8 @@ using NLog;
 using Authentication.BusinessLogic.Extensions;
 using Authentication.BusinessLogic.Services.Interfaces;
 using Authentication.API.Middlewares;
+using Reporting.DataAccess.Extensions;
+using DataAccess.Contexts;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,5 +43,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 app.UseIdentityServer();
 app.MapControllers();
-await app.ApplyMigrationAsync();
+app.ApplyMigrations<AuthContext>();
 app.Run();
