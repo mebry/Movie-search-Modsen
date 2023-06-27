@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Reporting.DataAccess.Extensions
+namespace Shared.Extensions
 {
     public static class DatabaseConfigurationExtensions
     {
