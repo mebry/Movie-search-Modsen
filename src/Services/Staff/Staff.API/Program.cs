@@ -1,8 +1,8 @@
+using Shared.Extensions;
 using Shared.Middlewares;
 using Staff.API.Extensions;
 using Staff.BusinessLogic.Extensions;
 using Staff.DataAccess.Contexts;
-using Staff.DataAccess.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +30,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.ApplyMigrations();
+app.ApplyMigrations<StaffsDbContext>();
 
 app.Run();
