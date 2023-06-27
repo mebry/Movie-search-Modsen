@@ -1,5 +1,6 @@
 using Film.API.Extensions;
-using Film.DataAccess.Extensions;
+using Film.DataAccess.Contexts;
+using Shared.Extensions;
 using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -32,6 +33,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.ApplyMigrations();
+app.ApplyMigrations<FilmContext>();
 
 app.Run();
