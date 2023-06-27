@@ -1,4 +1,5 @@
-﻿using Staff.DataAccess.Contexts;
+﻿using Microsoft.EntityFrameworkCore;
+using Staff.DataAccess.Contexts;
 using Staff.DataAccess.Entities;
 using Staff.DataAccess.Repositories.Interfaces;
 
@@ -20,7 +21,7 @@ namespace Staff.DataAccess.Repositories.Implementations
 
         public async Task<Film> GetFilmByIdAsync(Guid id)
         {
-            return await _dbContext.Films.FindAsync(id);
+            return await _dbContext.Films.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void RemoveFilm(Film film)

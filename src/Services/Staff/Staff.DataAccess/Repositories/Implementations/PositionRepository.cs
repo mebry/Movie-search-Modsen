@@ -21,7 +21,7 @@ namespace Staff.DataAccess.Repositories.Implementations
 
         public async Task<Position> GetPositionByIdAsync(Guid id)
         {
-            return await _dbContext.Positions.FindAsync(id);
+            return await _dbContext.Positions.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<Position>> GetPositionsAsync()

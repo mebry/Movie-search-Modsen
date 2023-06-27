@@ -30,7 +30,7 @@ namespace Staff.DataAccess.Repositories.Implementations
 
         public async Task<StaffPersonPosition> GetPosition(Guid positionId, Guid staffPersonId, Guid filmId)
         {
-            return await _dbContext.StaffPersonPositions.FindAsync(positionId, staffPersonId, filmId);
+            return await _dbContext.StaffPersonPositions.AsNoTracking().FirstOrDefaultAsync(x => x.PositionId == positionId && x.StaffPersonId == staffPersonId && x.FilmId == filmId);
         }
 
         public async Task<IEnumerable<Position>> GetPositionsByStaffPersonId(Guid staffPersonId)
