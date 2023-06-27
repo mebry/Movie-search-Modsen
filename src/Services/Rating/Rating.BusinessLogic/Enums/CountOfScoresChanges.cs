@@ -1,6 +1,6 @@
 ﻿namespace Rating.BusinessLogic.Enums
 {
-    internal enum Changes
+    internal enum CountOfScoresChanges
     {
         Create = 1,
         Delete = -1,
