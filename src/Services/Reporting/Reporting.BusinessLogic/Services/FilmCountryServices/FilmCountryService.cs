@@ -6,7 +6,6 @@ using Reporting.DataAccess.Repositories.FilmCountryRepositories;
 using Reporting.DataAccess.Repositories.FilmRepositories;
 using Shared.Enums;
 using Shared.Exceptions;
-using System.IO;
 
 namespace Reporting.BusinessLogic.Services.FilmCountryServices
 {
