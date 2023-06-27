@@ -15,12 +15,14 @@ namespace Film.BusinessLogic.MassTransit.Consumers.StaffConsumers
     {
         private readonly IStaffPersonRepository _staffPersonRepository;
         private readonly ILogger<UpdateStaffPersonMessageConsumer> _logger;
+        private readonly TypeAdapterConfig _typeAdapterConfig;
 
         public UpdateStaffPersonMessageConsumer(IStaffPersonRepository staffPersonRepository,
-            ILogger<UpdateStaffPersonMessageConsumer> logger)
+            ILogger<UpdateStaffPersonMessageConsumer> logger, TypeAdapterConfig typeAdapterConfig)
         {
             _staffPersonRepository = staffPersonRepository;
             _logger = logger;
+            _typeAdapterConfig = typeAdapterConfig;
         }
 
         /// <summary>
@@ -31,7 +33,7 @@ namespace Film.BusinessLogic.MassTransit.Consumers.StaffConsumers
         public async Task Consume(ConsumeContext<UpdateStaffPersonMessage> context)
         {
             var message = context.Message;
-            var mappedModel = message.Adapt<StaffPerson>();
+            var mappedModel = message.Adapt<StaffPerson>(_typeAdapterConfig);
 
             _staffPersonRepository.Update(mappedModel);
 
