@@ -151,13 +151,13 @@ namespace Film.BusinessLogic.Services.Implementations
         /// Updates a film asynchronously.
         /// </summary>
         /// <param name="id">The ID of the film to update.</param>
-        /// <param name="tag">The updated film data.</param>
+        /// <param name="film">The updated film data.</param>
         /// <returns>A task that represents the asynchronous operation.</returns>
         /// <exception cref="BadRequestException">Exception if the model isn't valid.></exception>
         /// <exception cref="FilmNotFoundException">Exception if the object is not found.</exception>
-        public async Task UpdateAsync(Guid id, FilmRequestDTO tag)
+        public async Task UpdateAsync(Guid id, FilmRequestDTO film)
         {
-            var validationResult = await _validator.ValidateAsync(tag);
+            var validationResult = await _validator.ValidateAsync(film);
 
             if (!validationResult.IsValid)
             {
@@ -172,9 +172,11 @@ namespace Film.BusinessLogic.Services.Implementations
                 _logger.LogError("The film was not found");
                 throw new FilmNotFoundException(id);
             }
-            var mappedModel = tag.Adapt<FilmModel>();
+            var mappedModel = film.Adapt<FilmModel>();
 
             mappedModel.Id = id;
+            mappedModel.AverageRating = foundFilm.AverageRating;
+            mappedModel.CountScores = foundFilm.CountScores;
 
             _filmRepository.Update(mappedModel);
 
