@@ -4,15 +4,33 @@ using Reporting.DataAccess.Entities;
 
 namespace Reporting.DataAccess.Repositories.GenreRepositories
 {
-    internal class GenreRepository : EFRepository<Genre>, IGenreRepository
+    internal class GenreRepository : IGenreRepository
     {
-        public GenreRepository(ReportingContext context) : base(context)
+        private readonly ReportingContext _context;
+
+        protected GenreRepository(ReportingContext context)
         {
+            _context = context;
         }
 
-        public override async Task<Genre?> GetByIdAsync(Guid id)
-             => await _context.Genres
+        public void Create(Genre entity)
+            => _context.Add(entity);
+
+        public async Task<Genre?> GetByIdAsync(Guid id)
+              => await _context.Genres
             .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == id);
+
+        public void Update(Genre entity)
+             => _context.Update(entity);
+
+        public void Delete(Guid id)
+        {
+            var obj = _context.Users.Find(id);
+            _context.Users.Remove(obj!);
+        }
+
+        public async Task SaveChangesAsync()
+           => await _context.SaveChangesAsync();
     }
 }

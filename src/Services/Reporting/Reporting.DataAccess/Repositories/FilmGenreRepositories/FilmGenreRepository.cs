@@ -3,11 +3,11 @@ using Reporting.DataAccess.Entities;
 
 namespace Reporting.DataAccess.Repositories.FilmGenreRepositories
 {
-    public class FilmGenreRepository : IFilmGenreRepository
+    internal class FilmGenreRepository : IFilmGenreRepository
     {
         private readonly ReportingContext _context;
 
-        public FilmGenreRepository(ReportingContext context)
+        protected FilmGenreRepository(ReportingContext context)
         {
             _context = context;
         }

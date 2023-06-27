@@ -4,15 +4,33 @@ using Reporting.DataAccess.Entities;
 
 namespace Reporting.DataAccess.Repositories.StaffPersonRepositories
 {
-    internal class StaffPersonRepository : EFRepository<StaffPerson>, IStaffPersonRepository
+    internal class StaffPersonRepository : IStaffPersonRepository
     {
-        public StaffPersonRepository(ReportingContext context) : base(context)
+        private readonly ReportingContext _context;
+
+        protected StaffPersonRepository(ReportingContext context)
         {
+            _context = context;
         }
 
-        public override async Task<StaffPerson?> GetByIdAsync(Guid id)
+        public void Create(StaffPerson entity)
+            => _context.Add(entity);
+
+        public async Task<StaffPerson?> GetByIdAsync(Guid id)
               => await _context.StaffPeople
             .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == id);
+
+        public void Update(StaffPerson entity)
+             => _context.Update(entity);
+
+        public void Delete(Guid id)
+        {
+            var obj = _context.Users.Find(id);
+            _context.Users.Remove(obj!);
+        }
+
+        public async Task SaveChangesAsync()
+           => await _context.SaveChangesAsync();
     }
 }

@@ -4,15 +4,33 @@ using Reporting.DataAccess.Entities;
 
 namespace Reporting.DataAccess.Repositories.FilmRepositories
 {
-    internal class FilmRepository : EFRepository<Film>, IFilmRepository
+    internal class FilmRepository : IFilmRepository
     {
-        public FilmRepository(ReportingContext context) : base(context)
+        private readonly ReportingContext _context;
+
+        protected FilmRepository(ReportingContext context)
         {
+            _context = context;
         }
 
-        public override async Task<Film?> GetByIdAsync(Guid id)
+        public void Create(Film entity)
+            => _context.Add(entity);
+
+        public async Task<Film?> GetByIdAsync(Guid id)
               => await _context.Films
             .AsNoTracking()
             .FirstOrDefaultAsync(a => a.Id == id);
+
+        public void Update(Film entity)
+             => _context.Update(entity);
+
+        public void Delete(Guid id)
+        {
+            var obj = _context.Users.Find(id);
+            _context.Users.Remove(obj!);
+        }
+
+        public async Task SaveChangesAsync()
+           => await _context.SaveChangesAsync();
     }
 }
