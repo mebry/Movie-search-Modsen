@@ -7,7 +7,7 @@ using Shared.Messages.GenreMessages;
 
 namespace FilmCollection.BusinessLogic.MassTransit.Consumers.GenreMessageConsumers
 {
-    internal class UpdateGenreMessageConsumer : IConsumer<UpdatedGenreMessage>
+    public class UpdateGenreMessageConsumer : IConsumer<UpdatedGenreMessage>
     {
         private readonly IGenreRepository _genreRepository;
         private readonly IMapper _mapper;

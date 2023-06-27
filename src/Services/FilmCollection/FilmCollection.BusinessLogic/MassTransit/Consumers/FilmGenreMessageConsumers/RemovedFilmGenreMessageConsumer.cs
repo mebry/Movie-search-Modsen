@@ -7,7 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace FilmCollection.BusinessLogic.MassTransit.Consumers.FilmGenreMessageConsumers
 {
-    internal class RemovedFilmGenreMessageConsumer : IConsumer<RemovedFilmGenreMessage>
+    public class RemovedFilmGenreMessageConsumer : IConsumer<RemovedFilmGenreMessage>
     {
         private readonly IFilmGenreRepository _filmGenreRepository;
         private readonly IMapper _mapper;

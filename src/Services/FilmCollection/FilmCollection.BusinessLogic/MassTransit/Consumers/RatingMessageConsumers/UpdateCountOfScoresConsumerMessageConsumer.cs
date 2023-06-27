@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.MassTransit.Consumers.RatingMessageConsumers
 {
-    internal class UpdateCountOfScoresConsumerMessageConsumer :
+    public class UpdateCountOfScoresConsumerMessageConsumer :
         IConsumer<UpdateCountOfScoresMessage>
     {
         private readonly IBaseFilmInfoRepository _baseFilmInfoRepository;

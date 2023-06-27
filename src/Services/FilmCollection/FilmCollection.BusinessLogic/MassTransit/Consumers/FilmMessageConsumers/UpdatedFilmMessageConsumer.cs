@@ -7,7 +7,7 @@ using Shared.Messages.FilmMessages;
 
 namespace FilmCollection.BusinessLogic.MassTransit.Consumers.FilmMessageConsumers
 {
-    internal class UpdatedFilmMessageConsumer : IConsumer<UpdatedFilmMessage>
+    public class UpdatedFilmMessageConsumer : IConsumer<UpdatedFilmMessage>
     {
         private readonly IBaseFilmInfoRepository _baseFilmInfoRepository;
         private readonly IMapper _mapper;
@@ -22,7 +22,11 @@ namespace FilmCollection.BusinessLogic.MassTransit.Consumers.FilmMessageConsumer
 
         public async Task Consume(ConsumeContext<UpdatedFilmMessage> context)
         {
-            await _baseFilmInfoRepository.UpdateBaseFilmInfoAsync(_mapper.Map<BaseFilmInfo>(context.Message));
+            var existingObject = await _baseFilmInfoRepository.GetBaseFilmInfoByIdAsync(context.Message.Id, true);
+
+            var objectToUpdate = _mapper.Map<UpdatedFilmMessage, BaseFilmInfo>(context.Message, existingObject);
+
+            await _baseFilmInfoRepository.UpdateBaseFilmInfoAsync(objectToUpdate);
 
             _logger.LogInformation($"Base film info with {context.Message.Id} was successfully updated");
         }
