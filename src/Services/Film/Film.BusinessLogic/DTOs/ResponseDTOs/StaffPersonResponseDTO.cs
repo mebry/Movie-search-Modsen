@@ -28,6 +28,6 @@
         /// <summary>
         /// The list of positions associated with this person.
         /// </summary>
-        public List<PositionPersonDTO> Positions { get; set; } = new();
+        public List<PositionResponseDTO> Positions { get; set; } = new();
     }
 }

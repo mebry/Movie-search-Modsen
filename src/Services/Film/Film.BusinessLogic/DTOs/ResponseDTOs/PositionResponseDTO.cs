@@ -3,7 +3,7 @@
     /// <summary>
     /// Data transfer object for Position responses.
     /// </summary>
-    public class PositionPersonDTO
+    public class PositionResponseDTO
     {
         /// <summary>
         /// The Id of the position.

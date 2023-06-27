@@ -31,16 +31,6 @@
         public DateOnly ReleaseDate { get; set; }
 
         /// <summary>
-        /// The average rating of the film.
-        /// </summary>
-        public double AverageRating { get; set; }
-
-        /// <summary>
-        /// The count of scores for the film.
-        /// </summary>
-        public int CountScores { get; set; }
-
-        /// <summary>
         /// The URL of the film's poster.
         /// </summary>
         public string PosterURL { get; set; } = string.Empty;
