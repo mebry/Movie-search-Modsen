@@ -4,6 +4,8 @@ using MassTransit;
 using FilmCollection.DataAccess.Contexts;
 using System.Reflection;
 using FilmCollection.BusinessLogic.MassTransit.Consumers.RatingMessageConsumers;
+using FilmCollection.BusinessLogic.MassTransit.Consumers;
+using FilmCollection.BusinessLogic.MassTransit.Consumers.FilmMessageConsumers;
 
 namespace FilmCollection.API.Extensions
 {

@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.MassTransit.Consumers.FilmMessageConsumers
 {
-    internal class RemovedFilmMessageConsumer : IConsumer<RemovedFilmMessage>
+    public class RemovedFilmMessageConsumer : IConsumer<RemovedFilmMessage>
     {
         private IBaseFilmInfoRepository _baseFilmInfoRepository;
         private IMapper _mapper;

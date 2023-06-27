@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FilmCollection.BusinessLogic.MassTransit.Consumers.FilmGenreMessageConsumers
 {
-    internal class CreatedFilmGenreMessageConsumer : IConsumer<CreatedFilmGenreMessage>
+    public class CreatedFilmGenreMessageConsumer : IConsumer<CreatedFilmGenreMessage>
     {
         private readonly IMapper _mapper;
         private readonly IFilmGenreRepository _filmGenreRepository;

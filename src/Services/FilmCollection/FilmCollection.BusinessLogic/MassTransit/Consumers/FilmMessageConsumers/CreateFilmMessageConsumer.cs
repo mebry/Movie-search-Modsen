@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FilmCollection.BusinessLogic.MassTransit.Consumers
+namespace FilmCollection.BusinessLogic.MassTransit.Consumers.FilmMessageConsumers
 {
     public class CreateFilmMessageConsumer : IConsumer<CreatedFilmMessage>
     {
