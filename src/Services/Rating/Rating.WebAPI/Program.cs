@@ -2,7 +2,7 @@ using Hangfire;
 using Rating.BusinessLogic.Extensions;
 using Rating.DataAccess.Contexts;
 using Rating.WebAPI.Extensions;
-using Reporting.DataAccess.Extensions;
+using Shared.Extensions;
 using Shared.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
