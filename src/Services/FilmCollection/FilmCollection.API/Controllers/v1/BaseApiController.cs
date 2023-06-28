@@ -4,7 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FilmCollection.API.Controllers.v1
 {
-    [Route("api/v1/[controller]")]
+    [Route("api/{v:apiversion}/[controller]")]
+    [ApiVersion("1.0")]
     [ApiController]
     [ApiExplorerSettings(GroupName = "v1")]
     public class BaseApiController : ControllerBase
