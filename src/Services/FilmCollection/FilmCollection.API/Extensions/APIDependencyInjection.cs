@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.OpenApi.Models;
 using MassTransit;
 using FilmCollection.DataAccess.Contexts;
 using System.Reflection;
 using FilmCollection.BusinessLogic.MassTransit.Consumers.RatingMessageConsumers;
-using FilmCollection.BusinessLogic.MassTransit.Consumers;
-using FilmCollection.BusinessLogic.MassTransit.Consumers.FilmMessageConsumers;
+using Shared.Extensions;
 
 namespace FilmCollection.API.Extensions
 {
@@ -20,7 +18,8 @@ namespace FilmCollection.API.Extensions
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
-            services.ConfigureSwagger();
+            services.ConfigureSwagger(configuration);
+            services.ConfigureVersioning();
         }
 
         private static void ConfigureCors(this IServiceCollection services)
@@ -35,6 +34,16 @@ namespace FilmCollection.API.Extensions
             });
         }
 
+        private static void ConfigureVersioning(this IServiceCollection services)
+        {
+            services.AddApiVersioning(opt =>
+            {
+                opt.ReportApiVersions = true;
+                opt.AssumeDefaultVersionWhenUnspecified = true;
+                opt.DefaultApiVersion = new ApiVersion(1, 0);
+            });
+        }
+        
         private static void ConfigureMassTransit(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddMassTransit(x =>
@@ -65,14 +74,6 @@ namespace FilmCollection.API.Extensions
                     });
                     cfg.ConfigureEndpoints(context);
                 });
-            });
-        }
-
-        private static void ConfigureSwagger(this IServiceCollection services)
-        {
-            services.AddSwaggerGen(s =>
-            {
-                s.SwaggerDoc("v1", new OpenApiInfo { Title = "FilmCollection Service", Version = "v1" });
             });
         }
     }
