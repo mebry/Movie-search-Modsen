@@ -7,12 +7,12 @@ using Shared.Messages.FilmMessages;
 
 namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmConsumers
 {
-    internal class UpdateFilmMessageConsumer : IConsumer<UpdatedFilmMessage>
+    internal class UpdatedFilmMessageConsumer : IConsumer<UpdatedFilmMessage>
     {
         private readonly IFilmDataCaptureService _filmService;
-        private readonly ILogger<CreateFilmMessageConsumer> _logger;
+        private readonly ILogger<CreatedFilmMessageConsumer> _logger;
 
-        public UpdateFilmMessageConsumer(IFilmDataCaptureService filmService, ILogger<CreateFilmMessageConsumer> logger)
+        public UpdatedFilmMessageConsumer(IFilmDataCaptureService filmService, ILogger<CreatedFilmMessageConsumer> logger)
         {
             _filmService = filmService;
             _logger = logger;

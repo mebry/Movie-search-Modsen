@@ -5,12 +5,12 @@ using Shared.Messages.FilmMessages;
 
 namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmConsumers
 {
-    internal class DeleteFilmMessageConsumer : IConsumer<RemovedFilmMessage>
+    internal class RemovedFilmMessageConsumer : IConsumer<RemovedFilmMessage>
     {
         private readonly IFilmDataCaptureService _filmService;
-        private readonly ILogger<CreateFilmMessageConsumer> _logger;
+        private readonly ILogger<CreatedFilmMessageConsumer> _logger;
 
-        public DeleteFilmMessageConsumer(IFilmDataCaptureService filmService, ILogger<CreateFilmMessageConsumer> logger)
+        public RemovedFilmMessageConsumer(IFilmDataCaptureService filmService, ILogger<CreatedFilmMessageConsumer> logger)
         {
             _filmService = filmService;
             _logger = logger;
