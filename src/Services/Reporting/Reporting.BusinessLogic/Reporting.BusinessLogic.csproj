@@ -7,8 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="MassTransit\Consumers\UserConsumers\" />
-    <Folder Include="MassTransit\Consumers\StaffPersonPositionConsumers\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 
