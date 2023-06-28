@@ -60,7 +60,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             _ratingRepository.Create(mapperModel);
 
-            await UpdateFilmWhenRatingIsCreated(model);
+            await UpdateFilmWhenRatingIsCreatedAsync(model);
 
             var message = mapperModel.Adapt<CreateRatingMessage>();
 
@@ -88,7 +88,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             var requestRatingDto = existingRating.Adapt<RequestRatingDTO>();
 
-            await UpdateFilmWhenRatingIsDeleted(requestRatingDto);
+            await UpdateFilmWhenRatingIsDeletedAsync(requestRatingDto);
 
             var message = existingRating.Adapt<DeleteRatingMessage>();
 
@@ -133,7 +133,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             _ratingRepository.Update(mapperModel);
 
-            await UpdateFilmWhenRatingIsUpdated(model);
+            await UpdateFilmWhenRatingIsUpdatedAsync(model);
 
             var message = existingRating.Adapt<UpdateRatingMessage>();
 
@@ -146,14 +146,14 @@ namespace Rating.BusinessLogic.Services.RatingServices
             return responseModel;
         }
 
-        private async Task UpdateFilmWhenRatingIsUpdated(RequestRatingDTO ratingDTO)
+        private async Task UpdateFilmWhenRatingIsUpdatedAsync(RequestRatingDTO ratingDTO)
         {
             var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(ratingDTO, (int)CountOfScoresChanges.Update);
 
             _filmRepository.Update(film);
         }
 
-        private async Task UpdateFilmWhenRatingIsCreated(RequestRatingDTO ratingDTO)
+        private async Task UpdateFilmWhenRatingIsCreatedAsync(RequestRatingDTO ratingDTO)
         {
             var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(ratingDTO, (int)CountOfScoresChanges.Create);
 
@@ -162,7 +162,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
             _filmRepository.Update(film);
         }
 
-        private async Task UpdateFilmWhenRatingIsDeleted(RequestRatingDTO ratingDTO)
+        private async Task UpdateFilmWhenRatingIsDeletedAsync(RequestRatingDTO ratingDTO)
         {
             var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(ratingDTO, (int)CountOfScoresChanges.Delete);
 
