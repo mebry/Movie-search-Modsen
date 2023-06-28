@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using FluentValidation.Results;
 using Mapster;
 using MassTransit;
 using Microsoft.Extensions.Logging;
@@ -61,12 +60,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             _ratingRepository.Create(mapperModel);
 
-            var film = await _eventDecisionService
-                .DecisionToSendAverageRatingChangeEventAsync(model, (int)Changes.Create);
-
-            film.CountOfScores++;
-
-            _filmRepository.Update(film);
+            await UpdateFilmWhenRatingIsCreatedAsync(model);
 
             var message = mapperModel.Adapt<CreateRatingMessage>();
 
@@ -94,11 +88,7 @@ namespace Rating.BusinessLogic.Services.RatingServices
 
             var requestRatingDto = existingRating.Adapt<RequestRatingDTO>();
 
-            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(requestRatingDto, (int)Changes.Delete);
-
-            film.CountOfScores--;
-
-            _filmRepository.Update(film);
+            await UpdateFilmWhenRatingIsDeletedAsync(requestRatingDto);
 
             var message = existingRating.Adapt<DeleteRatingMessage>();
 
@@ -141,10 +131,9 @@ namespace Rating.BusinessLogic.Services.RatingServices
             var mapperModel = model.Adapt<RatingFilm>();
             mapperModel.Id = id;
 
-            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(model, (int)Changes.Update);
-
             _ratingRepository.Update(mapperModel);
-            _filmRepository.Update(film);
+
+            await UpdateFilmWhenRatingIsUpdatedAsync(model);
 
             var message = existingRating.Adapt<UpdateRatingMessage>();
 
@@ -155,6 +144,31 @@ namespace Rating.BusinessLogic.Services.RatingServices
             var responseModel = mapperModel.Adapt<ResponseRatingDTO>();
 
             return responseModel;
+        }
+
+        private async Task UpdateFilmWhenRatingIsUpdatedAsync(RequestRatingDTO ratingDTO)
+        {
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(ratingDTO, (int)CountOfScoresChanges.Update);
+
+            _filmRepository.Update(film);
+        }
+
+        private async Task UpdateFilmWhenRatingIsCreatedAsync(RequestRatingDTO ratingDTO)
+        {
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(ratingDTO, (int)CountOfScoresChanges.Create);
+
+            film.CountOfScores++;
+
+            _filmRepository.Update(film);
+        }
+
+        private async Task UpdateFilmWhenRatingIsDeletedAsync(RequestRatingDTO ratingDTO)
+        {
+            var film = await _eventDecisionService.DecisionToSendAverageRatingChangeEventAsync(ratingDTO, (int)CountOfScoresChanges.Delete);
+
+            film.CountOfScores--;
+
+            _filmRepository.Update(film);
         }
     }
 }
