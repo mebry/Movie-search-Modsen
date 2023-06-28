@@ -6,6 +6,8 @@ namespace Reporting.BusinessLogic.Services.FilmServices
     {
         public Task CreateAsync(ConsumerFilmDTO entity);
         public Task UpdateAsync(ConsumerFilmDTO entity);
+        public Task UpdateAverageRatingAsync(ConsumerAverageRatingDTO entity);
+        public Task UpdateCountOfScoresAsync(ConsumerCountOfScoresDTO entity);
         public Task DeleteAsync(Guid id);
     }
 }

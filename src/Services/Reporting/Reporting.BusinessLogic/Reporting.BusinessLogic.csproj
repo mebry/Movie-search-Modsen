@@ -7,11 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Extensions\" />
     <Folder Include="MassTransit\Consumers\UserConsumers\" />
-    <Folder Include="MassTransit\Consumers\StaffPersonConsumers\" />
     <Folder Include="MassTransit\Consumers\StaffPersonPositionConsumers\" />
-    <Folder Include="MassTransit\Consumers\RatingConsumers\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 
