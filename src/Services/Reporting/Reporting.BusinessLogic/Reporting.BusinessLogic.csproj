@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="MassTransit\Consumers\FilmGenreConsumers\" />
     <Folder Include="MassTransit\Consumers\GenreConsumers\" />
     <Folder Include="MassTransit\Consumers\UserConsumers\" />
     <Folder Include="MassTransit\Consumers\StaffPersonConsumers\" />

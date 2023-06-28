@@ -24,7 +24,7 @@ namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmConsumers
 
             await _filmService.UpdateAsync(filmConsumer);
 
-            _logger.LogInformation("Film was created");
+            _logger.LogInformation("Film was updated");
         }
     }
 }

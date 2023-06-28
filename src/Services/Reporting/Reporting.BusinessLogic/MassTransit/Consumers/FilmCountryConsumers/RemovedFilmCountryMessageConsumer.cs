@@ -26,7 +26,7 @@ namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmCountryConsumers
 
             await _filmCountryDataCaptureService.DeleteAsync(filmId, countryEnum);
 
-            _logger.LogInformation("Film country was created");
+            _logger.LogInformation("Film country was removed");
         }
     }
 }

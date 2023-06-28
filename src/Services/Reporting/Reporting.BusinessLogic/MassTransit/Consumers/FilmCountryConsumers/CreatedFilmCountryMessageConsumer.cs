@@ -23,9 +23,9 @@ namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmCountryConsumers
         public async Task Consume(ConsumeContext<CreatedFilmCountryMessage> context)
         {
             var message = context.Message;
-            var filmConsumer = message.Adapt<ConsumerFilmCountryDTO>();
+            var filmCountryConsumer = message.Adapt<ConsumerFilmCountryDTO>();
 
-            await _filmCountryDataCaptureService.CreateAsync(filmConsumer);
+            await _filmCountryDataCaptureService.CreateAsync(filmCountryConsumer);
 
             _logger.LogInformation("Film country was created");
         }

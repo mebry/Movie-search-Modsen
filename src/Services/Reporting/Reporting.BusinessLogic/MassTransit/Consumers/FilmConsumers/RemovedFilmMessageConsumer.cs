@@ -22,7 +22,7 @@ namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmConsumers
 
             await _filmService.DeleteAsync(filmId);
 
-            _logger.LogInformation("Film was created");
+            _logger.LogInformation("Film was removed");
         }
     }
 }
