@@ -12,7 +12,6 @@
     <Folder Include="MassTransit\Consumers\StaffPersonConsumers\" />
     <Folder Include="MassTransit\Consumers\StaffPersonPositionConsumers\" />
     <Folder Include="MassTransit\Consumers\RatingConsumers\" />
-    <Folder Include="MassTransit\Consumers\PositionConsumers\" />
     <Folder Include="Validators\" />
   </ItemGroup>
 
