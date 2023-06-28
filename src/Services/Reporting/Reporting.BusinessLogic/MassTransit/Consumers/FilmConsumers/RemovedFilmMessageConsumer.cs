@@ -8,9 +8,10 @@ namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmConsumers
     internal class RemovedFilmMessageConsumer : IConsumer<RemovedFilmMessage>
     {
         private readonly IFilmDataCaptureService _filmService;
-        private readonly ILogger<CreatedFilmMessageConsumer> _logger;
+        private readonly ILogger<RemovedFilmMessageConsumer> _logger;
 
-        public RemovedFilmMessageConsumer(IFilmDataCaptureService filmService, ILogger<CreatedFilmMessageConsumer> logger)
+        public RemovedFilmMessageConsumer(IFilmDataCaptureService filmService,
+            ILogger<RemovedFilmMessageConsumer> logger)
         {
             _filmService = filmService;
             _logger = logger;

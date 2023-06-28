@@ -10,9 +10,10 @@ namespace Reporting.BusinessLogic.MassTransit.Consumers.FilmConsumers
     internal class UpdatedFilmMessageConsumer : IConsumer<UpdatedFilmMessage>
     {
         private readonly IFilmDataCaptureService _filmService;
-        private readonly ILogger<CreatedFilmMessageConsumer> _logger;
+        private readonly ILogger<UpdatedFilmMessageConsumer> _logger;
 
-        public UpdatedFilmMessageConsumer(IFilmDataCaptureService filmService, ILogger<CreatedFilmMessageConsumer> logger)
+        public UpdatedFilmMessageConsumer(IFilmDataCaptureService filmService,
+            ILogger<UpdatedFilmMessageConsumer> logger)
         {
             _filmService = filmService;
             _logger = logger;
