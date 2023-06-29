@@ -67,6 +67,7 @@ namespace Authentication.BusinessLogic.Services.Implementations
             {
                 throw new UserInvalidCredentialsBadRequestException(result.Errors.ToList()[0].Description);
             }
+            await _userManager.AddToRoleAsync(mappedUser, "User");
             var messageToPublish = _mapper.Map<CreateUserMessage>(mappedUser);
             await _publishEndpoint.Publish(messageToPublish);
             await _authContext.SaveChangesAsync();
