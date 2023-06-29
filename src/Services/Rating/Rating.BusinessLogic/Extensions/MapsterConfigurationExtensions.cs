@@ -1,7 +1,6 @@
 ﻿using Mapster;
 using Microsoft.Extensions.DependencyInjection;
-using Rating.BusinessLogic.DTOs;
-using Shared.Messages.RatingMessages;
+using System.Reflection;
 
 namespace Rating.BusinessLogic.Extensions
 {
@@ -9,13 +8,9 @@ namespace Rating.BusinessLogic.Extensions
     {
         public static void RegisterMapsterConfiguration(this IServiceCollection services)
         {
-            TypeAdapterConfig<FilmDTO, UpdateAverageRatingMessage>
-            .NewConfig()
-            .Map(dest => dest.FilmId, src => src.Id);
-
-            TypeAdapterConfig<FilmDTO, UpdateCountOfScoresMessage>
-            .NewConfig()
-            .Map(dest => dest.FilmId, src => src.Id);
+            var config = TypeAdapterConfig.GlobalSettings;
+            config.Scan(Assembly.GetExecutingAssembly());
+            services.AddSingleton(config);
         }
     }
 }
