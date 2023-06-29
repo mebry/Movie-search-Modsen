@@ -126,6 +126,19 @@
       },
 
       "SwaggerKey": "filmCollections"
+    },
+    {
+      "UpstreamPathTemplate": "/api/reporting/{everything}",
+      "UpstreamHttpMethod": "Get",
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "reporting",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
+      "SwaggerKey": "reporting"
     }
   ],
   "SwaggerEndPoints": [
@@ -146,6 +159,15 @@
           "Name": "FilmCollection API v1",
           "Version": "v1",
           "Url": "http://filmcollection:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reporting",
+      "Config": [
+        {
+          "Name": "Reporting API",
+          "Url": "http://rating:80/swagger/swagger.json"
         }
       ]
     }

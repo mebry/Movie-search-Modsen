@@ -125,6 +125,19 @@
         "Role": "Admin"
       },
       "SwaggerKey": "filmCollections"
+    },
+    {
+      "UpstreamPathTemplate": "/api/reporting/{everything}",
+      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7052
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "SwaggerKey": "reporting"
     }
   ],
   "SwaggerEndPoints": [
@@ -147,10 +160,19 @@
           "Url": "https://localhost:7049/swagger/v1/swagger.json"
         }
       ]
+    },
+    {
+      "Key": "reporting",
+      "Config": [
+        {
+          "Name": "Reporting API",
+          "Url": "https://localhost:7052/swagger/v1/swagger.json"
+        }
+      ]
     }
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:3001",
-    "IsCaseSensitive" :  false
+    "IsCaseSensitive": false
   }
 }
