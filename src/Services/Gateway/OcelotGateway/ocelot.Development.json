@@ -125,9 +125,53 @@
         "Role": "Admin"
       },
       "SwaggerKey": "filmCollections"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{apiVersion}/films/{everything}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7162
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
+      "SwaggerKey": "films"
+    },
+    {
+      "UpstreamPathTemplate": "/api/v{apiVersion}/films/{everything}",
+      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7162
+        }
+      ],
+      "DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "Admin"
+      },
+      "SwaggerKey": "films"
     }
+
   ],
   "SwaggerEndPoints": [
+    {
+      "Key": "films",
+      "Config": [
+        {
+          "Name": "Films API v1",
+          "Version": "v1",
+          "Url": "https://localhost:7162/swagger/v1/swagger.json"
+        }
+      ]
+    },
     {
       "Key": "identity",
       "Config": [
