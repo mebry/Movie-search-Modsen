@@ -125,6 +125,26 @@
         "Role": "Admin"
       },
       "SwaggerKey": "filmCollections"
+    },
+    {
+      "UpstreamPathTemplate": "/api/rating/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7209
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "User"
+      },
+      "SwaggerKey": "filmCollections"
     }
   ],
   "SwaggerEndPoints": [
@@ -151,6 +171,6 @@
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:3001",
-    "IsCaseSensitive" :  false
+    "IsCaseSensitive": false
   }
 }

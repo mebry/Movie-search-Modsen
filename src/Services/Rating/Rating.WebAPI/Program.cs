@@ -1,4 +1,5 @@
 using Hangfire;
+using Microsoft.AspNetCore.HttpOverrides;
 using Rating.BusinessLogic.Extensions;
 using Rating.DataAccess.Contexts;
 using Rating.WebAPI.Extensions;
@@ -13,6 +14,8 @@ builder.Services.AddBusinessLogicService();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureHagfire(builder.Configuration);
 builder.Services.ConfigureMassTransit(builder.Configuration);
+builder.Services.ConfigureSwagger(builder.Configuration);
+builder.Services.ConfigureCors();
 
 var app = builder.Build();
 
@@ -21,12 +24,22 @@ app.UseMiddleware<ExceptionMiddleware>();
 if(!app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(s =>
+    {
+        s.SwaggerEndpoint("/swagger/swagger.json", "Rating API");
+    });
 }
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseCors("CorsPolicy");
+
+var forwardedHeaders = new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.All
+};
+
+app.UseForwardedHeaders(forwardedHeaders);
 
 app.MapControllers();
 
