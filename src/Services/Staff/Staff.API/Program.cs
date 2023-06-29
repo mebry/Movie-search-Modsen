@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.HttpOverrides;
 using Shared.Extensions;
 using Shared.Middlewares;
 using Staff.API.Extensions;
@@ -10,8 +11,8 @@ builder.Services.AddBusinessLogicService(builder.Configuration);
 builder.Services.AddControllers();
 builder.Services.AddDbContext<StaffsDbContext>();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 builder.Services.ConfigureMassTransit(builder.Configuration);
+builder.Services.ConfigureSwagger(builder.Configuration);
 
 var app = builder.Build();
 
@@ -21,12 +22,21 @@ app.UseMiddleware<ExceptionMiddleware>();
 if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(s =>
+    {
+        s.SwaggerEndpoint("/swagger/swagger.json", "Staff API");
+    });
 }
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.All
+});
+
+app.UseCors("CorsPolicy");
+
 
 app.MapControllers();
 
