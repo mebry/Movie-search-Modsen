@@ -18,6 +18,7 @@ namespace Reporting.BusinessLogic.Extensions
         {
             services.AddDataAccessService();
             services.AddReportingServices();
+            services.AddDataCaptureServices();
             services.RegisterMapsterConfiguration();
         }
 
