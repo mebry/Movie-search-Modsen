@@ -26,6 +26,8 @@ namespace Reviews.API.Extensions
                     o.UseBusOutbox();
                 });
 
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Reviews", false));
+
                 x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>

@@ -63,10 +63,13 @@ namespace FilmCollection.API.Extensions
                     o.UseBusOutbox();
                 });
 
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("FilmCollection", false));
+
                 x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>
                 {
+
                     cfg.Host(host, virtualHost, h =>
                     {
                         h.Username(username);

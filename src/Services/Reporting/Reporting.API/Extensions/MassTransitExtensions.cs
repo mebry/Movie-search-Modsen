@@ -26,6 +26,8 @@ namespace Reporting.API.Extensions
                     o.UseBusOutbox();
                 });
 
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Reporting", false));
+
                 x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>

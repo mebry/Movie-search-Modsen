@@ -75,6 +75,8 @@ namespace Film.API.Extensions
                     o.UseBusOutbox();
                 });
 
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Film", false));
+
                 x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>

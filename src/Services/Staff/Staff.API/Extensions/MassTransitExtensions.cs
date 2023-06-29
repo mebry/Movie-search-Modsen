@@ -25,7 +25,7 @@ namespace Staff.API.Extensions
 
                     o.UseBusOutbox();
                 });
-
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Staff", false));
                 x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>

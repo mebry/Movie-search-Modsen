@@ -27,7 +27,7 @@ namespace Rating.WebAPI.Extensions
 
                     o.UseBusOutbox();
                 });
-
+                x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("Rating", false));
                 x.AddConsumers(assembly);
 
                 x.UsingRabbitMq((context, cfg) =>
