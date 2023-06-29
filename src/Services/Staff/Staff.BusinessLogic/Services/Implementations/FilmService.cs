@@ -77,12 +77,12 @@ namespace Staff.BusinessLogic.Services.Implementations
                 throw new NotFoundException("This id was not found");
             }
 
-            var mapperFilm = film.Adapt<Film>();
-            mapperFilm.Id = id;
-            _unitOfWork.FilmRepository.Update(mapperFilm);
+            film.Adapt(existingFilm);
+            //mapperFilm.Id = id;
+            _unitOfWork.FilmRepository.Update(existingFilm);
             await _unitOfWork.SaveChangesAsync();
 
-            var resonseModel = mapperFilm.Adapt<ResponseFilmDTO>();
+            var resonseModel = existingFilm.Adapt<ResponseFilmDTO>();
 
             return resonseModel;
         }

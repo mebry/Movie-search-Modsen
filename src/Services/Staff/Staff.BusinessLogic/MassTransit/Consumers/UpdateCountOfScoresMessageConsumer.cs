@@ -21,6 +21,7 @@ namespace Staff.BusinessLogic.MassTransit.Consumers
         public async Task Consume(ConsumeContext<UpdateCountOfScoresMessage> context)
         {
             var film = context.Message.Adapt<RequestFilmDTO>();
+
             var filmId = context.Message.FilmId;
 
             await _filmService.UpdateAsync(filmId, film);
