@@ -8,7 +8,7 @@ namespace Reporting.DataAccess.Repositories.FilmRepositories
     {
         private readonly ReportingContext _context;
 
-        protected FilmRepository(ReportingContext context)
+        public FilmRepository(ReportingContext context)
         {
             _context = context;
         }

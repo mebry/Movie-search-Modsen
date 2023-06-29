@@ -8,7 +8,7 @@ namespace Reporting.DataAccess.Repositories.RatingRepositories
     {
         private readonly ReportingContext _context;
 
-        protected RatingRepository(ReportingContext context)
+        public RatingRepository(ReportingContext context)
         {
             _context = context;
         }

@@ -8,7 +8,7 @@ namespace Reporting.DataAccess.Repositories.PositionRepositories
     {
         private readonly ReportingContext _context;
 
-        protected PositionRepository(ReportingContext context)
+        public PositionRepository(ReportingContext context)
         {
             _context = context;
         }
