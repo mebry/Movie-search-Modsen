@@ -18,10 +18,20 @@ namespace Film.BusinessLogic.Mappings
                 .Map(dest => dest.Genres, src => src.FilmGenres.Select(fg => fg.Genre).ToList())
                 .Map(dest => dest.Tags, src => src.FilmTags.Select(fg => fg.Tag).ToList())
                 .Map(dest => dest.Countries, src => src.FilmCountries.Select(fm => fm.CountryId))
-                .Map(dest => dest.StaffPersons, src => src.StaffPersonPositions.Select(spp => spp.StaffPerson));
-
-            config.NewConfig<StaffPerson, StaffPersonResponseDTO>()
-                .Map(dest => dest.Positions, src => src.StaffPersonPositions.Select(spp => spp.Position));
+                .Map(dest => dest.StaffPersons,src => src.StaffPersonPositions
+                    .GroupBy(sp => sp.StaffPersonId)
+                    .Select(group => new StaffPersonResponseDTO
+                    {
+                        Id = group.Key,
+                        Name = group.First().StaffPerson.Name,
+                        Surname = group.First().StaffPerson.Surname,
+                        ImageUrl = group.First().StaffPerson.ImageUrl,
+                        Positions = group.Select(sp => new PositionResponseDTO
+                        {
+                            Id = sp.PositionId,
+                            Name = sp.Position.Name
+                        }).ToList()
+                    }));
         }
     }
 }
