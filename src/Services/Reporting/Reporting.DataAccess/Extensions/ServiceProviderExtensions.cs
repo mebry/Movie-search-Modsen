@@ -30,7 +30,7 @@ namespace Reporting.DataAccess.Extensions
             service.AddScoped<IUserRepository, UserRepository>();
             service.AddScoped<IFilmCountryRepository, FilmCountryRepository>();
             service.AddScoped<IFilmGenreRepository, FilmGenreRepository>();
-            service.AddScoped<ISatffPersonPositionRepository, SatffPersonPositionRepository>();
+            service.AddScoped<IStaffPersonPositionRepository, StaffPersonPositionRepository>();
         }
     }
 }

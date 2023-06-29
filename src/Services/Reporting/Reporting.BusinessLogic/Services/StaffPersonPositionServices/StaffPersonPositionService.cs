@@ -12,13 +12,13 @@ namespace Reporting.BusinessLogic.Services.StaffPersonPositionServices
 {
     internal class StaffPersonPositionService : IStaffPersonPositionDataCaptureService, IStaffPersonPositionReportingService
     {
-        private readonly ISatffPersonPositionRepository _staffPersonPositionRepository;
+        private readonly IStaffPersonPositionRepository _staffPersonPositionRepository;
         private readonly IStaffPersonRepository _staffPersonRepository;
         private readonly IPositionRepository _positionRepository;
         private readonly IFilmRepository _filmRepository;
         private readonly ILogger<StaffPersonPositionService> _logger;
 
-        public StaffPersonPositionService(ISatffPersonPositionRepository satffPersonPositionRepository,
+        public StaffPersonPositionService(IStaffPersonPositionRepository satffPersonPositionRepository,
             IStaffPersonRepository staffPersonRepository, IPositionRepository positionRepository,
             IFilmRepository filmRepository, ILogger<StaffPersonPositionService> logger)
         {

@@ -112,4 +112,15 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Docker 
         restart: unless-stopped
+
+    reporting:
+        container_name: Reporting
+        build:
+            context: "."
+            dockerfile: "/Services/Reporting/Reporting.API/Dockerfile"
+        ports:
+            - 2001:80
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Docker 
+        restart: unless-stopped
     

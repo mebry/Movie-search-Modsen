@@ -211,7 +211,20 @@
       "RouteClaimsRequirement": {
         "Role": "User"
       },
-      "SwaggerKey": "rating"
+       "SwaggerKey": "rating"
+    },
+    {
+      "UpstreamPathTemplate": "/api/reporting/{everything}",
+      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7052
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "SwaggerKey": "reporting"
     }
 	],
 	"SwaggerEndPoints": [
@@ -259,6 +272,15 @@
         {
           "Name": "Rating API",
           "Url": "http://rating:7209/swagger/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "reporting",
+      "Config": [
+        {
+          "Name": "Reporting API",
+          "Url": "https://localhost:7052/swagger/v1/swagger.json"
         }
       ]
     }

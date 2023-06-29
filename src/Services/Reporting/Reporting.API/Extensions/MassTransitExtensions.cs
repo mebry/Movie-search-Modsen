@@ -1,4 +1,5 @@
 ﻿using MassTransit;
+using Reporting.BusinessLogic.Extensions;
 using Reporting.DataAccess.Contexts;
 using System.Reflection;
 
@@ -10,8 +11,7 @@ namespace Reporting.API.Extensions
         {
             services.AddMassTransit(x =>
             {
-
-                var assembly = Assembly.LoadFrom(config["BllAssemblyPath"]!);
+                var assembly = Assembly.GetAssembly(typeof(ServiceProviderExtensions));
                 var host = config["RabbitMQ:Host"];
                 var virtualHost = config["RabbitMQ:VirtualHost"];
                 var username = config["RabbitMQ:Username"];

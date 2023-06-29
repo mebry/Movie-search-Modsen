@@ -2,8 +2,9 @@
 
 namespace Reporting.DataAccess.Repositories.StaffPersonPositironRepositories
 {
-    public interface ISatffPersonPositionRepository
+    public interface IStaffPersonPositionRepository
     {
+        public Task<IEnumerable<StaffPersonPosition>> GetAllByStaffPersonId(Guid staffPersonId);
         public void Create(StaffPersonPosition staffPerson);
         public void Delete(Guid filmId, Guid staffPersonId, Guid positionId);
 
