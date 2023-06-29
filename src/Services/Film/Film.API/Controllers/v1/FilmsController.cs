@@ -53,7 +53,8 @@ namespace Film.API.Controllers.v1
         /// <returns>The paginated list of films.</returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAsync(int pageNumber, int pageSize, [FromQuery] string filterQueryString, [FromQuery] string orderByQueryString)
+        public async Task<IActionResult> GetAsync([FromQuery] string filterQueryString,
+            [FromQuery] string orderByQueryString, int pageNumber = 1, int pageSize = 10)
         {
             var films = await _filmService.GetFilmsAsync(pageNumber, pageSize, filterQueryString, orderByQueryString);
 
