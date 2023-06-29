@@ -191,7 +191,27 @@
 				"Role": "Admin"
 			},
 			"SwaggerKey": "review"
-		}
+		},
+    {
+      "UpstreamPathTemplate": "/api/rating/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "User"
+      },
+      "SwaggerKey": "rating"
+    }
 	],
 	"SwaggerEndPoints": [
 		{
@@ -231,7 +251,16 @@
 					"Url": "http://reviews:80/swagger/swagger.json"
 				}
 			]
-		}
+		},
+    {
+      "Key": "rating",
+      "Config": [
+        {
+          "Name": "Rating API",
+          "Url": "http://rating:80/swagger/swagger.json"
+        }
+      ]
+    }
 	],
 	"GlobalConfiguration": {
 		"BaseUrl": "http://gateway:80"
