@@ -114,7 +114,7 @@ services:
         restart: unless-stopped
 
     reporting:
-        container_name: Gateway
+        container_name: Reporting
         build:
             context: "."
             dockerfile: "/Services/Reporting/Reporting.API/Dockerfile"
