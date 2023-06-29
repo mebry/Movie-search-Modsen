@@ -5,6 +5,7 @@ using Film.DataAccess.Contexts;
 using Film.DataAccess.Extensions;
 using MassTransit;
 using Microsoft.AspNetCore.Mvc;
+using Shared.Extensions;
 using Shared.Messages.RatingMessages;
 using Shared.Messages.StaffMessages;
 using System.Reflection;
@@ -36,7 +37,8 @@ namespace Film.API.Extensions
                 options.AssumeDefaultVersionWhenUnspecified = true;
                 options.ReportApiVersions = true;
             })
-            .AddMassTransit(builder.Configuration);
+            .AddMassTransit(builder.Configuration)
+            .ConfigureSwagger(builder.Configuration);
 
             return builder;
         }
