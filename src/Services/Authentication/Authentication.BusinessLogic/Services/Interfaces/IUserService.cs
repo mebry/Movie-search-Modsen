@@ -19,7 +19,7 @@ namespace Authentication.BusinessLogic.Services.Interfaces
 
         Task AddUserToRoleAsync(string userId, string roleId);
 
-        Task DeleteUserByUserIdAsync(string userId); 
-
+        Task DeleteUserByUserIdAsync(string userId);
+        Task<IEnumerable<RoleResponseDto>> GetUserRolesAsync(string userId);
     }
 }

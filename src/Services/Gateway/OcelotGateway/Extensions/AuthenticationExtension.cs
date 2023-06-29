@@ -4,12 +4,13 @@ namespace OcelotGateway.Extensions
 {
     public static class AuthenticationExtension
     {
-        public static void ConfigureAuthentication(this IServiceCollection services)
+        public static void ConfigureAuthentication(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAuthentication()
                 .AddJwtBearer("Bearer", options =>
                 {
-                    options.Authority = "https://localhost:7269";
+                    options.RequireHttpsMetadata = false;
+                    options.Authority = configuration["IdentityServer:Authority"];
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateAudience = false

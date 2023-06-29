@@ -101,3 +101,15 @@ services:
         environment:
             - ASPNETCORE_ENVIRONMENT=Docker
         restart: unless-stopped
+    
+    gateway:
+        container_name: Gateway
+        build:
+            context: "."
+            dockerfile: "/Services/Gateway/OcelotGateway/Dockerfile"
+        ports:
+            - 3001:80
+        environment:
+            - ASPNETCORE_ENVIRONMENT=Docker 
+        restart: unless-stopped
+    

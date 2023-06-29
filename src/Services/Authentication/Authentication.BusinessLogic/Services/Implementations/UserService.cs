@@ -17,6 +17,7 @@ namespace Authentication.BusinessLogic.Services.Implementations
     internal class UserService : IUserService
     {
         private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
         private readonly IUserCheckService _userCheckService;
         private readonly IRoleCheckService _roleCheckService;
         private readonly IMapper _mapper;
@@ -24,6 +25,7 @@ namespace Authentication.BusinessLogic.Services.Implementations
         private readonly AuthContext _authContext;
 
         public UserService(UserManager<User> userManager,
+            RoleManager<Role> roleManager,
             IUserCheckService userCheckService,
             IRoleCheckService roleCheckService,
             IMapper mapper,
@@ -37,6 +39,7 @@ namespace Authentication.BusinessLogic.Services.Implementations
             _mapper = mapper;
             _publishEndpoint = publishEndpoint;
             _authContext = authContext;
+            _roleManager = roleManager;
         }
 
         public async Task AddUserToRoleAsync(string userId, string roleId)
@@ -46,6 +49,14 @@ namespace Authentication.BusinessLogic.Services.Implementations
             if (await _userManager.IsInRoleAsync(user, role.Name))
                 throw new UserWithGivenRoleAlreadyExistsException();
             await _userManager.AddToRoleAsync(user, role.Name);
+        }
+
+        public async Task<IEnumerable<RoleResponseDto>> GetUserRolesAsync(string userId)
+        {
+            var user = await _userCheckService.CheckIfUserExistsAndGetByIdAsync(userId);
+            var roleNames = await _userManager.GetRolesAsync(user);
+            var rolesWithId = await _roleManager.Roles.AsNoTracking().Where(r => roleNames.Contains(r.Name)).ToListAsync();
+            return _mapper.Map<IEnumerable<RoleResponseDto>>(rolesWithId);
         }
 
         public async Task<UserResponseDto> CreateUserAsync(UserRequestDto user)

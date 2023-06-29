@@ -43,6 +43,7 @@ namespace Authentication.BusinessLogic.Extensions
         {
             services.AddSingleton<ILoggerService, LoggerService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IRoleService, RoleService>();
         }
 
         private static void AddMappings(this IServiceCollection services) 

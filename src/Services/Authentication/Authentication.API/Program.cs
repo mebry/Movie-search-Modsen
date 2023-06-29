@@ -44,4 +44,5 @@ app.UseAuthorization();
 app.UseIdentityServer();
 app.MapControllers();
 app.ApplyMigrations<AuthContext>();
+await app.SeedAsync();
 app.Run();

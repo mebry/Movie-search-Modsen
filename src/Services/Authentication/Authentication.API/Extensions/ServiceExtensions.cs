@@ -7,6 +7,8 @@ using DataAccess.Models;
 using Microsoft.OpenApi.Models;
 using MassTransit;
 using DataAccess.Contexts;
+using Microsoft.AspNetCore.Mvc;
+using Shared.Extensions;
 
 namespace Authentication.API.Extensions
 {
@@ -19,9 +21,10 @@ namespace Authentication.API.Extensions
             services.AddAuthentication();
             services.AddAuthorization();
             services.AddControllers();
-            services.ConfigureIdentityServer();
-            services.ConfigureSwagger();
+            services.ConfigureIdentityServer(configuration);
+            services.ConfigureSwagger(configuration);
             services.ConfigureMassTransit(configuration);
+            services.ConfigureVersioning();
         }
 
         private static void ConfigureCors(this IServiceCollection services)
@@ -35,11 +38,13 @@ namespace Authentication.API.Extensions
             });
         }
         
-        private static void ConfigureSwagger(this IServiceCollection services)
+        private static void ConfigureVersioning(this IServiceCollection services)
         {
-            services.AddSwaggerGen(s =>
+            services.AddApiVersioning(opt =>
             {
-                s.SwaggerDoc("v1", new OpenApiInfo { Title = "Identity Service", Version = "v1" });
+                opt.ReportApiVersions = true;
+                opt.AssumeDefaultVersionWhenUnspecified = true;
+                opt.DefaultApiVersion = new ApiVersion(1, 0);
             });
         }
 
@@ -74,10 +79,13 @@ namespace Authentication.API.Extensions
 
         }
 
-        private static void ConfigureIdentityServer(this IServiceCollection services)
+        private static void ConfigureIdentityServer(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddIdentityServer()
+            services.AddIdentityServer(opt =>
+            {
+                opt.IssuerUri = configuration["IdentityServer:IssuerUri"];
+            })
                 .AddAspNetIdentity<User>()
                 .AddInMemoryApiScopes(Configuration.GetApiScopes())
                 .AddInMemoryApiResources(Configuration.GetApis())
