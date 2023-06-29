@@ -8,7 +8,7 @@ namespace Reporting.DataAccess.Repositories.UserRepository
     {
         private readonly ReportingContext _context;
 
-        protected UserRepository(ReportingContext context)
+        public UserRepository(ReportingContext context)
         {
             _context = context;
         }

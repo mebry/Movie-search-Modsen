@@ -7,7 +7,7 @@ namespace Reporting.DataAccess.Repositories.FilmGenreRepositories
     {
         private readonly ReportingContext _context;
 
-        protected FilmGenreRepository(ReportingContext context)
+        public FilmGenreRepository(ReportingContext context)
         {
             _context = context;
         }

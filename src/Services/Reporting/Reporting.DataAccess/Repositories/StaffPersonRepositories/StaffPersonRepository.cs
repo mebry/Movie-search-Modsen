@@ -8,7 +8,7 @@ namespace Reporting.DataAccess.Repositories.StaffPersonRepositories
     {
         private readonly ReportingContext _context;
 
-        protected StaffPersonRepository(ReportingContext context)
+        public StaffPersonRepository(ReportingContext context)
         {
             _context = context;
         }
