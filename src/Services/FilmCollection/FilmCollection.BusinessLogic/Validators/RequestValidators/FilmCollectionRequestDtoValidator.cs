@@ -7,7 +7,7 @@ namespace FilmCollection.BusinessLogic.Validators.RequestValidators
     {
         public FilmCollectionRequestDtoValidator() 
         {
-            RuleFor(fc => fc.CollectionId)
+            RuleFor(fc => fc.CollectionModelId)
                 .NotNull()
                 .NotEmpty()
                 .WithMessage("Collection id is required");
