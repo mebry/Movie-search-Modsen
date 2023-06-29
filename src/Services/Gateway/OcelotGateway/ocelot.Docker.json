@@ -198,7 +198,7 @@
 			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
-					"Host": "localhost",
+					"Host": "rating",
 					"Port": 80
 				}
 			],
@@ -326,7 +326,7 @@
 				{
 					"Name": "Reporting API",
 					"Version": "v1",
-					"Url": "http://rating:80/swagger/v1/swagger.json"
+					"Url": "http://reporting:80/swagger/v1/swagger.json"
 				}
 			]
 		}
