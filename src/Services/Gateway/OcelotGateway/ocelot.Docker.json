@@ -173,7 +173,7 @@
       "Config": [
         {
           "Name": "Rating API",
-          "Url": "http://film:80/swagger/swagger.json"
+          "Url": "http://rating:80/swagger/swagger.json"
         }
       ]
     }
