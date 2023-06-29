@@ -26,7 +26,7 @@ if(!app.Environment.IsProduction())
     app.UseSwagger();
     app.UseSwaggerUI(s =>
     {
-        s.SwaggerEndpoint("/swagger/swagger.json", "Rating API");
+        s.SwaggerEndpoint("/swagger/v1/swagger.json", "Rating API");
     });
 }
 

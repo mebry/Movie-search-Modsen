@@ -8,7 +8,7 @@ namespace Reporting.DataAccess.Repositories.GenreRepositories
     {
         private readonly ReportingContext _context;
 
-        protected GenreRepository(ReportingContext context)
+        public GenreRepository(ReportingContext context)
         {
             _context = context;
         }
