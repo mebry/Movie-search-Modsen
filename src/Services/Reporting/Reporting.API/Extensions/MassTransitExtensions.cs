@@ -11,7 +11,7 @@ namespace Reporting.API.Extensions
             services.AddMassTransit(x =>
             {
 
-                var assembly = Assembly.LoadFrom(config["Path"]!);
+                var assembly = Assembly.LoadFrom(config["BllAssemblyPath"]!);
                 var host = config["RabbitMQ:Host"];
                 var virtualHost = config["RabbitMQ:VirtualHost"];
                 var username = config["RabbitMQ:Username"];
