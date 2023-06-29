@@ -1,5 +1,6 @@
 using Film.API.Extensions;
 using Film.DataAccess.Contexts;
+using Microsoft.AspNetCore.HttpOverrides;
 using Shared.Extensions;
 using Shared.Middlewares;
 
@@ -21,11 +22,17 @@ app.UseMiddleware<ExceptionMiddleware>();
 if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(s =>
+    {
+        s.SwaggerEndpoint("/swagger/v1/swagger.json", "Films API v1");
+    });
 }
 
 app.UseHttpsRedirection();
-
+app.UseForwardedHeaders(new ForwardedHeadersOptions
+{
+    ForwardedHeaders = ForwardedHeaders.All
+});
 app.UseCors("CorsPolicy");
 
 app.MapControllers();
