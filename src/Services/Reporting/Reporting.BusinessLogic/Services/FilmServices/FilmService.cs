@@ -4,6 +4,7 @@ using Reporting.BusinessLogic.DTOs.ConsumerDTOs;
 using Reporting.DataAccess.Entities;
 using Reporting.DataAccess.Repositories.FilmRepositories;
 using Shared.Exceptions;
+using Shared.Messages.FilmMessages;
 
 namespace Reporting.BusinessLogic.Services.FilmServices
 {
@@ -53,6 +54,39 @@ namespace Reporting.BusinessLogic.Services.FilmServices
                 throw new NotFoundException("The film was not found");
             }
 
+            await UpdateFilmAsync(entity, existingFilm);
+        }
+
+        public async Task UpdateAverageRatingAsync(ConsumerAverageRatingDTO entity)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(entity.FilmId);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The film was not found");
+
+                throw new NotFoundException("The film was not found");
+            }
+
+            await UpdateFilmAsync(entity, existingFilm);
+        }
+
+        public async Task UpdateCountOfScoresAsync(ConsumerCountOfScoresDTO entity)
+        {
+            var existingFilm = await _filmRepository.GetByIdAsync(entity.FilmId);
+
+            if(existingFilm is null)
+            {
+                _logger.LogError("The film was not found");
+
+                throw new NotFoundException("The film was not found");
+            }
+
+            await UpdateFilmAsync(entity, existingFilm);
+        }
+
+        private async Task UpdateFilmAsync<T>(T entity, Film existingFilm)
+        {
             entity.Adapt(existingFilm);
             _filmRepository.Update(existingFilm);
 

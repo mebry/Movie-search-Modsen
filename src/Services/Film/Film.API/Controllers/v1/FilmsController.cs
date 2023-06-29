@@ -1,15 +1,12 @@
 ﻿using Film.BusinessLogic.DTOs.RequestDTOs;
 using Film.BusinessLogic.Services.Interfaces;
-using Film.DataAccess.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
-using System.Diagnostics.Metrics;
-using System.Runtime.InteropServices;
 
 namespace Film.API.Controllers.v1
 {
+    [Route("api/v{apiVersion:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class FilmsController : ControllerBase
     {

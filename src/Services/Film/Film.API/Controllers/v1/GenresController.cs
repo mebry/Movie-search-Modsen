@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Film.API.Controllers.v1
 {
+    [Route("api/v{apiVersion:apiVersion}/[controller]")]
     [ApiVersion("1.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class GenresController : ControllerBase
     {
