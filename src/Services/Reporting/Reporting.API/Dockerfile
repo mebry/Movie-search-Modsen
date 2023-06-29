@@ -5,13 +5,13 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Services/Reporting.API/Reporting.API.csproj", "Services/Reporting/Reporting.API/"]
+COPY ["Services/Reporting/Reporting.API/Reporting.API.csproj", "Services/Reporting/Reporting.API/"]
 COPY ["Services/Reporting/Reporting.BusinessLogic/Reporting.BusinessLogic.csproj", "Services/Reporting/Reporting.BusinessLogic/"]
 COPY ["Services/Reporting/Reporting.DataAccess/Reporting.DataAccess.csproj", "Services/Reporting/Reporting.DataAccess/"]
 COPY ["Shared/Shared.csproj", "Shared/"]
-RUN dotnet restore "Services/Reportin/Reporting.API/Reporting.API.csproj"
+RUN dotnet restore "Services/Reporting/Reporting.API/Reporting.API.csproj"
 COPY . .
-WORKDIR "/src/Services/Reportin/Reporting.API"
+WORKDIR "/src/Services/Reporting/Reporting.API"
 RUN dotnet build "Reporting.API.csproj" -c Debug -o /app/build
 
 FROM build AS publish

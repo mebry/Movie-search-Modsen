@@ -1,357 +1,348 @@
 {
-  "Routes": [
-    {
-      "UpstreamPathTemplate": "/api/{v}/users",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7269
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/Users",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "identity"
-    },
-    {
-      "UpstreamPathTemplate": "/api/{v}/users",
-      "UpstreamHttpMethod": [ "Post" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7269
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/Users",
-      "SwaggerKey": "identity"
-    },
-    {
-      "UpstreamPathTemplate": "/api/{v}/users/{userId}",
-      "UpstreamHttpMethod": [ "Get", "Delete" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7269
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/Users/{userId}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "identity"
-    },
-    {
-      "UpstreamPathTemplate": "/api/{v}/users/{userId}/roles/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7269
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/Users/{userId}/roles/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "identity"
-    },
-    {
-      "UpstreamPathTemplate": "/api/{v}/roles",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7269
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/Roles",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "identity"
-    },
-    {
-      "UpstreamPathTemplate": "/api/{v}/collections/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7049
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/{everything}",
-      "SwaggerKey": "filmCollections"
-    },
-    {
-      "UpstreamPathTemplate": "/api/{v}/collections/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7049
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{v}/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "filmCollections"
-    },
-    {
-      "UpstreamPathTemplate": "/api/staff/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7082
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "SwaggerKey": "staffPerson"
-    },
-    {
-      "UpstreamPathTemplate": "/api/staff/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7082
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "staffPerson"
-    },
+	"Routes": [
+		{
+			"UpstreamPathTemplate": "/api/{v}/users",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7269
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/Users",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "identity"
+		},
+		{
+			"UpstreamPathTemplate": "/api/{v}/users",
+			"UpstreamHttpMethod": [ "Post" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7269
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/Users",
+			"SwaggerKey": "identity"
+		},
+		{
+			"UpstreamPathTemplate": "/api/{v}/users/{userId}",
+			"UpstreamHttpMethod": [ "Get", "Delete" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7269
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/Users/{userId}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "identity"
+		},
+		{
+			"UpstreamPathTemplate": "/api/{v}/users/{userId}/roles/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7269
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/Users/{userId}/roles/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "identity"
+		},
+		{
+			"UpstreamPathTemplate": "/api/{v}/roles",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7269
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/Roles",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "identity"
+		},
+		{
+			"UpstreamPathTemplate": "/api/{v}/collections/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7049
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/{everything}",
+			"SwaggerKey": "filmCollections"
+		},
+		{
+			"UpstreamPathTemplate": "/api/{v}/collections/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7049
+				}
+			],
+			"DownstreamPathTemplate": "/api/{v}/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "filmCollections"
+		},
+		{
+			"UpstreamPathTemplate": "/api/staff/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7082
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"SwaggerKey": "staffPerson"
+		},
+		{
+			"UpstreamPathTemplate": "/api/staff/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7082
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "staffPerson"
+		},
 
-    {
-      "UpstreamPathTemplate": "/api/review/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7278
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "SwaggerKey": "review"
-    },
-    {
-      "UpstreamPathTemplate": "/api/review/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7278
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "review"
-    },
-    {
-      "UpstreamPathTemplate": "/api/rating/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 5041
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "User"
-      },
-      "SwaggerKey": "rating"
-    },
-    {
-      "UpstreamPathTemplate": "/api/reporting/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7052
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "SwaggerKey": "reporting"
-    },
-    {
-      "UpstreamPathTemplate": "/api/v{apiVersion}/films/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7162
-        }
-      ],
-      "DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
-      "SwaggerKey": "films"
-    },
-    {
-      "UpstreamPathTemplate": "/api/v{apiVersion}/films/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7162
-        }
-      ],
-      "DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "films"
-    }
-  ],
-  "SwaggerEndPoints": [
-    {
-      "Key": "identity",
-      "Config": [
-        {
-          "Name": "Identity API v1",
-          "Version": "v1",
-          "Url": "https://localhost:7269/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "films",
-      "Config": [
-        {
-          "Name": "Films API v1",
-          "Version": "v1",
-          "Url": "https://localhost:7162/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "filmCollections",
-      "Config": [
-        {
-          "Name": "FilmCollection API v1",
-          "Version": "v1",
-          "Url": "https://localhost:7049/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "staff",
-      "Config": [
-        {
-          "Name": "Staff API",
-          "Url": "https://localhost:7082/swagger/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "review",
-      "Config": [
-        {
-          "Name": "Review API",
-          "Url": "https://localhost:7278/swagger/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "staffPerson",
-      "Config": [
-        {
-          "Name": "Staff API",
-          "Version": "v1",
-          "Url": "https://localhost:7082/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "review",
-      "Config": [
-        {
-          "Name": "Review API",
-          "Version": "v1",
-          "Url": "https://localhost:7278/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "rating",
-      "Config": [
-        {
-          "Name": "Rating API",
-          "Version": "v1",
-          "Url": "http://localhost:5041/swagger/v1/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "reporting",
-      "Config": [
-        {
-          "Name": "Reporting API",
-          "Version": "v1",
-          "Url": "https://localhost:7052/swagger/v1/swagger.json"
-        }
-      ]
-    }
-  ],
-  "GlobalConfiguration": {
-    "BaseUrl": "http://localhost:3001",
-    "IsCaseSensitive": false
-  }
+		{
+			"UpstreamPathTemplate": "/api/review/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7278
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"SwaggerKey": "review"
+		},
+		{
+			"UpstreamPathTemplate": "/api/review/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7278
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "review"
+		},
+		{
+			"UpstreamPathTemplate": "/api/rating/{everything}",
+			"UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+			"DownstreamScheme": "http",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 5041
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "User"
+			},
+			"SwaggerKey": "rating"
+		},
+		{
+			"UpstreamPathTemplate": "/api/reporting/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7052
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"SwaggerKey": "reporting"
+		},
+		{
+			"UpstreamPathTemplate": "/api/v{apiVersion}/films/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7162
+				}
+			],
+			"DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
+			"SwaggerKey": "films"
+		},
+		{
+			"UpstreamPathTemplate": "/api/v{apiVersion}/films/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7162
+				}
+			],
+			"DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "films"
+		}
+	],
+	"SwaggerEndPoints": [
+		{
+			"Key": "identity",
+			"Config": [
+				{
+					"Name": "Identity API v1",
+					"Version": "v1",
+					"Url": "https://localhost:7269/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "films",
+			"Config": [
+				{
+					"Name": "Films API v1",
+					"Version": "v1",
+					"Url": "https://localhost:7162/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "filmCollections",
+			"Config": [
+				{
+					"Name": "FilmCollection API v1",
+					"Version": "v1",
+					"Url": "https://localhost:7049/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "staff",
+			"Config": [
+				{
+					"Name": "Staff API",
+					"Url": "https://localhost:7082/swagger/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "staffPerson",
+			"Config": [
+				{
+					"Name": "Staff API",
+					"Version": "v1",
+					"Url": "https://localhost:7082/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "review",
+			"Config": [
+				{
+					"Name": "Review API",
+					"Version": "v1",
+					"Url": "https://localhost:7278/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "rating",
+			"Config": [
+				{
+					"Name": "Rating API",
+					"Version": "v1",
+					"Url": "http://localhost:5041/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "reporting",
+			"Config": [
+				{
+					"Name": "Reporting API",
+					"Version": "v1",
+					"Url": "https://localhost:7052/swagger/v1/swagger.json"
+				}
+			]
+		}
+	],
+	"GlobalConfiguration": {
+		"BaseUrl": "http://localhost:3001",
+		"IsCaseSensitive": false
+	}
 }
