@@ -30,8 +30,8 @@ namespace FilmCollection.BusinessLogic.Services.Implementations
 
         public async Task<FilmCollectionResponseDto> CreateFilmCollectionAssociationAsync(FilmCollectionRequestDto filmCollectionRequestDto)
         {
-            await _filmCollectonServiceValidator.CheckIfAssociationBetweenFilmInfoAndCollectionNotExistsAsync(filmCollectionRequestDto.BaseFilmInfoId, filmCollectionRequestDto.CollectionId);
-            await _collectionServiceValidator.CheckIfCollectionExistsAsync(filmCollectionRequestDto.CollectionId);
+            await _filmCollectonServiceValidator.CheckIfAssociationBetweenFilmInfoAndCollectionNotExistsAsync(filmCollectionRequestDto.BaseFilmInfoId, filmCollectionRequestDto.CollectionModelId);
+            await _collectionServiceValidator.CheckIfCollectionExistsAsync(filmCollectionRequestDto.CollectionModelId);
             await _baseFilmInfoServiceValidator.CheckIfBaseFilmInfoExistsAsync(filmCollectionRequestDto.BaseFilmInfoId);
             var associationToCreate = _mapper.Map<FilmCollection.DataAccess.Models.FilmCollection>(filmCollectionRequestDto);
             await _filmCollectionRepository.CreateFilmCollectionAsync(associationToCreate);

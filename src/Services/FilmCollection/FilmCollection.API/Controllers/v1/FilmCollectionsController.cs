@@ -40,7 +40,7 @@ namespace FilmCollection.API.Controllers.v1
             if (!result.IsValid)
                 ProcessInvalidValidationResult(result, "Invalid data was provided when trying to create a FilmCollection association");
             var createdFilmCollection = await _filmCollectionService.CreateFilmCollectionAssociationAsync(filmCollectionRequest);
-            return CreatedAtRoute("GetFilmCollectionById", new {filmId = createdFilmCollection.BaseFilmInfoId, collectionId = createdFilmCollection.CollectionId}, createdFilmCollection);
+            return CreatedAtRoute("GetFilmCollectionById", new {filmId = createdFilmCollection.BaseFilmInfoId, collectionId = createdFilmCollection.CollectionModelId}, createdFilmCollection);
         }
 
         [HttpDelete("{collectionId}/{filmId}")]

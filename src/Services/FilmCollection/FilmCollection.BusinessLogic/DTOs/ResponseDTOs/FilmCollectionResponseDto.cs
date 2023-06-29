@@ -2,7 +2,7 @@
 {
     public class FilmCollectionResponseDto
     {
-        public Guid CollectionId { get; set; }
+        public Guid CollectionModelId { get; set; }
         public Guid BaseFilmInfoId { get; set; }
     }
 }
