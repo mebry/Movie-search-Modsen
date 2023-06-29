@@ -124,8 +124,27 @@
       "RouteClaimsRequirement": {
         "Role": "Admin"
       },
-
       "SwaggerKey": "filmCollections"
+    },
+    {
+      "UpstreamPathTemplate": "/api/rating/{everything}",
+      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/api/{everything}",
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer",
+        "AllowedScopes": []
+      },
+      "RouteClaimsRequirement": {
+        "Role": "User"
+      },
+      "SwaggerKey": "rating"
     }
   ],
   "SwaggerEndPoints": [
@@ -146,6 +165,15 @@
           "Name": "FilmCollection API v1",
           "Version": "v1",
           "Url": "http://filmcollection:80/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "rating",
+      "Config": [
+        {
+          "Name": "Rating API",
+          "Url": "http://film:80/swagger/swagger.json"
         }
       ]
     }
