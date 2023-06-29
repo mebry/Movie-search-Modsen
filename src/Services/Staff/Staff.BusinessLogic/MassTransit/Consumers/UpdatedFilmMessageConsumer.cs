@@ -1,4 +1,5 @@
-﻿using MassTransit;
+﻿using Mapster;
+using MassTransit;
 using Microsoft.Extensions.Logging;
 using Shared.Messages.FilmMessages;
 using Staff.BusinessLogic.DTOs;
@@ -22,10 +23,10 @@ namespace Staff.BusinessLogic.MassTransit.Consumers
             var film = new RequestFilmDTO
             {
                 Title = context.Message.Title,
-                ReleaseDate = Convert.ToDateTime(context.Message.ReleaseDate),
-                AverageRating = 0,
-                CountOfScores = 0
+                ReleaseDate = context.Message.ReleaseDate.ToDateTime(TimeOnly.Parse("10:00 PM"))
             };
+
+
             var filmId = context.Message.Id;
 
             await _filmService.UpdateAsync(filmId, film);
