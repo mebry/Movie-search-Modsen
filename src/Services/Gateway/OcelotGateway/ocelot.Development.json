@@ -127,7 +127,7 @@
 			"SwaggerKey": "filmCollections"
 		},
 		{
-			"UpstreamPathTemplate": "/api/staffPerson/{everything}",
+			"UpstreamPathTemplate": "/api/staff/{everything}",
 			"UpstreamHttpMethod": [ "Get" ],
 			"DownstreamScheme": "https",
 			"DownstreamHostAndPorts": [
@@ -140,7 +140,7 @@
 			"SwaggerKey": "staffPerson"
 		},
 		{
-			"UpstreamPathTemplate": "/api/staffPerson/{everything}",
+			"UpstreamPathTemplate": "/api/staff/{everything}",
 			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
 			"DownstreamScheme": "https",
 			"DownstreamHostAndPorts": [
@@ -193,39 +193,39 @@
 			},
 			"SwaggerKey": "review"
 		},
-    {
-      "UpstreamPathTemplate": "/api/rating/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7209
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "User"
-      },
-       "SwaggerKey": "rating"
-    },
-    {
-      "UpstreamPathTemplate": "/api/reporting/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7052
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "SwaggerKey": "reporting"
-    }
+		{
+			"UpstreamPathTemplate": "/api/rating/{everything}",
+			"UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7209
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "User"
+			},
+			"SwaggerKey": "rating"
+		},
+		{
+			"UpstreamPathTemplate": "/api/reporting/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7052
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"SwaggerKey": "reporting"
+		}
 	],
 	"SwaggerEndPoints": [
 		{
@@ -249,11 +249,12 @@
 			]
 		},
 		{
-			"Key": "staff",
+			"Key": "staffPerson",
 			"Config": [
 				{
 					"Name": "Staff API",
-					"Url": "https://localhost:7082/swagger/swagger.json"
+					"Version": "v1",
+					"Url": "https://localhost:7082/swagger/v1/swagger.json"
 				}
 			]
 		},
@@ -262,28 +263,29 @@
 			"Config": [
 				{
 					"Name": "Review API",
-					"Url": "https://localhost:7278/swagger/swagger.json"
+					"Version": "v1",
+					"Url": "https://localhost:7278/swagger/v1/swagger.json"
 				}
 			]
 		},
-     {
-      "Key": "rating",
-      "Config": [
-        {
-          "Name": "Rating API",
-          "Url": "http://rating:7209/swagger/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "reporting",
-      "Config": [
-        {
-          "Name": "Reporting API",
-          "Url": "https://localhost:7052/swagger/v1/swagger.json"
-        }
-      ]
-    }
+		{
+			"Key": "rating",
+			"Config": [
+				{
+					"Name": "Rating API",
+					"Url": "http://rating:7209/swagger/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "reporting",
+			"Config": [
+				{
+					"Name": "Reporting API",
+					"Url": "https://localhost:7052/swagger/v1/swagger.json"
+				}
+			]
+		}
 	],
 	"GlobalConfiguration": {
 		"BaseUrl": "http://localhost:3001",

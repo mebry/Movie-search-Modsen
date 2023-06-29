@@ -192,39 +192,39 @@
 			},
 			"SwaggerKey": "review"
 		},
-    {
-      "UpstreamPathTemplate": "/api/rating/{everything}",
-      "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 80
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "User"
-      },
-       "SwaggerKey": "rating"
-    },
-    {
-      "UpstreamPathTemplate": "/api/reporting/{everything}",
-      "UpstreamHttpMethod": "Get",
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "reporting",
-          "Port": 80
-        }
-      ],
-      "DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
-      "SwaggerKey": "reporting"
-    }
+		{
+			"UpstreamPathTemplate": "/api/rating/{everything}",
+			"UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 80
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "User"
+			},
+			"SwaggerKey": "rating"
+		},
+		{
+			"UpstreamPathTemplate": "/api/reporting/{everything}",
+			"UpstreamHttpMethod": "Get",
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "reporting",
+					"Port": 80
+				}
+			],
+			"DownstreamPathTemplate": "/api/v{apiVersion}/{everything}",
+			"SwaggerKey": "reporting"
+		}
 	],
 	"SwaggerEndPoints": [
 		{
@@ -252,7 +252,8 @@
 			"Config": [
 				{
 					"Name": "Staff API",
-					"Url": "http://staff:80/swagger/swagger.json"
+					"Version": "v1",
+					"Url": "http://staff:80/swagger/v1/swagger.json"
 				}
 			]
 		},
@@ -261,28 +262,29 @@
 			"Config": [
 				{
 					"Name": "Review API",
-					"Url": "http://reviews:80/swagger/swagger.json"
+					"Version": "v1",
+					"Url": "http://reviews:80/swagger/v1/swagger.json"
 				}
 			]
 		},
-    {
-      "Key": "rating",
-      "Config": [
-        {
-          "Name": "Rating API",
-          "Url": "http://rating:80/swagger/swagger.json"
-        }
-      ]
-    },
-    {
-      "Key": "reporting",
-      "Config": [
-        {
-          "Name": "Reporting API",
-          "Url": "http://rating:80/swagger/swagger.json"
-        }
-      ]
-    }
+		{
+			"Key": "rating",
+			"Config": [
+				{
+					"Name": "Rating API",
+					"Url": "http://rating:80/swagger/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "reporting",
+			"Config": [
+				{
+					"Name": "Reporting API",
+					"Url": "http://rating:80/swagger/swagger.json"
+				}
+			]
+		}
 	],
 	"GlobalConfiguration": {
 		"BaseUrl": "http://gateway:80"
