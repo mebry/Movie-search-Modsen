@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Reporting.BusinessLogic.DTOs.ResponseDTOs;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace Reporting.BusinessLogic.Services.StaffPersonServices
 {
-    internal interface IStaffPersonReportingService
+    public interface IStaffPersonReportingService
     {
+        public Task<ResponseStaffPersonPositionsInFilms> GetAllPositionsInFIlms(Guid staffPersonId);
     }
 }
