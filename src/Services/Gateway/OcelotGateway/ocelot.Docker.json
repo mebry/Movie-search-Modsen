@@ -127,9 +127,9 @@
 			"SwaggerKey": "filmCollections"
 		},
 		{
-			"UpstreamPathTemplate": "/api/staffPerson/{everything}",
+			"UpstreamPathTemplate": "/api/staff/{everything}",
 			"UpstreamHttpMethod": [ "Get" ],
-			"DownstreamScheme": "https",
+			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "staff",
@@ -140,9 +140,9 @@
 			"SwaggerKey": "staffPerson"
 		},
 		{
-			"UpstreamPathTemplate": "/api/staffPerson/{everything}",
+			"UpstreamPathTemplate": "/api/staff/{everything}",
 			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-			"DownstreamScheme": "https",
+			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "staff",
@@ -162,7 +162,7 @@
 		{
 			"UpstreamPathTemplate": "/api/review/{everything}",
 			"UpstreamHttpMethod": [ "Get" ],
-			"DownstreamScheme": "https",
+			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "reviews",
@@ -175,7 +175,7 @@
 		{
 			"UpstreamPathTemplate": "/api/review/{everything}",
 			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-			"DownstreamScheme": "https",
+			"DownstreamScheme": "http",
 			"DownstreamHostAndPorts": [
 				{
 					"Host": "reviews",
