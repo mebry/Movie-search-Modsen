@@ -126,73 +126,73 @@
       },
       "SwaggerKey": "filmCollections"
     },
-    {
-      "UpstreamPathTemplate": "/api/staffPerson/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7082
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "SwaggerKey": "staffPerson"
-    },
-    {
-      "UpstreamPathTemplate": "/api/staffPerson/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7082
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "staffPerson"
-    },
+   	{
+			"UpstreamPathTemplate": "/api/staff/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7082
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"SwaggerKey": "staffPerson"
+		},
+		{
+			"UpstreamPathTemplate": "/api/staff/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7082
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "staffPerson"
+		},
 
-    {
-      "UpstreamPathTemplate": "/api/review/{everything}",
-      "UpstreamHttpMethod": [ "Get" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7278
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "SwaggerKey": "review"
-    },
-    {
-      "UpstreamPathTemplate": "/api/review/{everything}",
-      "UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
-      "DownstreamScheme": "https",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 7278
-        }
-      ],
-      "DownstreamPathTemplate": "/api/{everything}",
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "Bearer",
-        "AllowedScopes": []
-      },
-      "RouteClaimsRequirement": {
-        "Role": "Admin"
-      },
-      "SwaggerKey": "review"
-    },
+		{
+			"UpstreamPathTemplate": "/api/review/{everything}",
+			"UpstreamHttpMethod": [ "Get" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7278
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"SwaggerKey": "review"
+		},
+		{
+			"UpstreamPathTemplate": "/api/review/{everything}",
+			"UpstreamHttpMethod": [ "Post", "Delete", "Put" ],
+			"DownstreamScheme": "https",
+			"DownstreamHostAndPorts": [
+				{
+					"Host": "localhost",
+					"Port": 7278
+				}
+			],
+			"DownstreamPathTemplate": "/api/{everything}",
+			"AuthenticationOptions": {
+				"AuthenticationProviderKey": "Bearer",
+				"AllowedScopes": []
+			},
+			"RouteClaimsRequirement": {
+				"Role": "Admin"
+			},
+			"SwaggerKey": "review"
+		},
     {
       "UpstreamPathTemplate": "/api/rating/{everything}",
       "UpstreamHttpMethod": [ "Get", "Post", "Delete", "Put" ],
@@ -266,6 +266,26 @@
         }
       ]
     },
+    {
+			"Key": "staffPerson",
+			"Config": [
+				{
+					"Name": "Staff API",
+					"Version": "v1",
+					"Url": "https://localhost:7082/swagger/v1/swagger.json"
+				}
+			]
+		},
+		{
+			"Key": "review",
+			"Config": [
+				{
+					"Name": "Review API",
+					"Version": "v1",
+					"Url": "https://localhost:7278/swagger/v1/swagger.json"
+				}
+			]
+		},
     {
       "Key": "rating",
       "Config": [
