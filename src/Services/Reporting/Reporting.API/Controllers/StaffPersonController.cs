@@ -18,7 +18,7 @@ namespace Reporting.API.Controllers
         [HttpGet("id")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<ResponseStaffPersonPositionsInFilms>> GetStaffPersonPositionsInFIlms(Guid id)
+        public async Task<ActionResult<ResponseStaffPersonPositionsInFilms>> GetStaffPersonPositionsInFilms(Guid id)
         {
             var response = await _staffPersonReportingService.GetAllPositionsInFIlms(id);
 

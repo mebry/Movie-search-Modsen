@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.HttpOverrides;
 using Reporting.API.Extensions;
 using Shared.Extensions;
 
@@ -26,12 +25,7 @@ app.UseHttpsRedirection();
 
 app.UseCors("CorsPolicy");
 
-var forwardedHeaders = new ForwardedHeadersOptions
-{
-    ForwardedHeaders = ForwardedHeaders.All
-};
-
-app.UseForwardedHeaders(forwardedHeaders);
+app.ApplyForwardedHeaders();
 
 app.MapControllers();
 
