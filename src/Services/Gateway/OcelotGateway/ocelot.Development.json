@@ -292,15 +292,6 @@
 			]
 		},
 		{
-			"Key": "staff",
-			"Config": [
-				{
-					"Name": "Staff API",
-					"Url": "https://localhost:7082/swagger/swagger.json"
-				}
-			]
-		},
-		{
 			"Key": "staffPerson",
 			"Config": [
 				{
