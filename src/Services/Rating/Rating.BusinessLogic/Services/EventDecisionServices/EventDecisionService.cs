@@ -18,18 +18,16 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
         private readonly IRatingFilmRepository _ratingRepository;
         private readonly IPublishEndpoint _publishEndpoint;
         private readonly ILogger<EventDecisionService> _logger;
-        private readonly TypeAdapterConfig _typeAdapterConfig;
 
         public EventDecisionService(IAlgorithmsForEventDecisionService algorithmService,
             IFilmRepository filmRepository, IPublishEndpoint publishEndpoint, IRatingFilmRepository ratingRepository,
-            ILogger<EventDecisionService> logger, TypeAdapterConfig typeAdapterConfig)
+            ILogger<EventDecisionService> logger)
         {
             _algorithmService = algorithmService;
             _filmRepository = filmRepository;
             _ratingRepository = ratingRepository;
             _publishEndpoint = publishEndpoint;
             _logger = logger;
-            _typeAdapterConfig = typeAdapterConfig;
         }
 
         public async Task<Film> DecisionToSendAverageRatingChangeEventAsync(RequestRatingDTO rating, int change)
@@ -55,7 +53,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
 
             await CalculateNewAverageRatingAsync(existingFilm, newScore);
 
-            var message = existingFilm.Adapt<UpdateAverageRatingMessage>(_typeAdapterConfig);
+            var message = existingFilm.Adapt<UpdateAverageRatingMessage>();
 
             await _publishEndpoint.Publish(message);
 
@@ -98,7 +96,7 @@ namespace Rating.BusinessLogic.Services.EventDecisionServices
 
             var eventFilms = await PreparingToSendCountOfScoresAsync(films);
 
-            var message = eventFilms.Adapt<IEnumerable<UpdateCountOfScoresMessage>>(_typeAdapterConfig);
+            var message = eventFilms.Adapt<IEnumerable<UpdateCountOfScoresMessage>>();
 
             await _publishEndpoint.Publish(message);
 

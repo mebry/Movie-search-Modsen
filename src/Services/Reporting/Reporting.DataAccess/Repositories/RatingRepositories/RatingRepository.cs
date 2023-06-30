@@ -32,5 +32,13 @@ namespace Reporting.DataAccess.Repositories.RatingRepositories
 
         public async Task SaveChangesAsync()
            => await _context.SaveChangesAsync();
+
+        public async Task<List<Rating>?> GetRatingByUserId(Guid userId)
+            => await _context.Ratings
+            .AsNoTracking()
+            .Where(r => r.UserId == userId)
+            .Include(r => r.Film)
+            .Include(r => r.Film!.FilmGenres)
+            .ToListAsync();
     }
 }

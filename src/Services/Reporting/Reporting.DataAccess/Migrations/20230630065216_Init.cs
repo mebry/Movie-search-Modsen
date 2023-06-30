@@ -18,7 +18,9 @@ namespace Reporting.DataAccess.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Duration = table.Column<TimeSpan>(type: "time", nullable: false)
+                    Duration = table.Column<TimeSpan>(type: "time", nullable: false),
+                    AverageRating = table.Column<double>(type: "float", nullable: false),
+                    CountOfScores = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
