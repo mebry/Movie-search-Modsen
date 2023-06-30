@@ -15,6 +15,7 @@ Technologies Used:
 8. IdentityServer4
 9. Ocelot Gateway
 10. Hangfire
+11. MassTransit
 
 Project Description:
 
@@ -38,13 +39,12 @@ Microservices:
 2. Collections
 3. Reviews
 4. Ratings
-5. Employees
-6. Statistics
-7. Authorization
+5. Staff
+6. Authorization
 
-Simplified version of databases for microservices. 
-Statistics is not shown in this diagram. 
-Also, not all replication for databases is provided.
-Countries is an enumeration stored in Shared.
-![image](https://github.com/mebry/Movie-search-Modsen/assets/91991278/d74ade6b-16e6-4769-91a1-42f98528d97a)
+Here is a database schema for the microservices. Each microservice is represented by a different color.
+Database replication is present from other databases. 
+![image](https://github.com/mebry/Movie-search-Modsen/assets/98938779/680c4979-0020-4b68-828b-704494d9194a)
+
+
 
