@@ -6,7 +6,7 @@ using Shared.Messages.RatingMessages;
 
 namespace Rating.BusinessLogic.Mappings
 {
-    public class RatingMappingConfig : IRegister
+    public class AverageRatingMappingConfig : IRegister
     {
         public void Register(TypeAdapterConfig config)
         {
