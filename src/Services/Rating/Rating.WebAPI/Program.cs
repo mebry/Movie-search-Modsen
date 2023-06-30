@@ -11,7 +11,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddBusinessLogicService();
-builder.Services.AddSwaggerGen();
 builder.Services.ConfigureHagfire(builder.Configuration);
 builder.Services.ConfigureMassTransit(builder.Configuration);
 builder.Services.ConfigureSwagger(builder.Configuration);
