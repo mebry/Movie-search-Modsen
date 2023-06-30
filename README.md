@@ -28,10 +28,10 @@ Project Description:
 7. Film collections.
 8. Authorization and authentication.
 9. Role-based policy.
-10. Statistics.
-11. Ability to create new films, edit and delete.
-12. Ability to modify or remove ratings as per user discretion.
-13. Ability to add new staff and edit their information.
+10. Ability to create new films, edit and delete.
+11. Ability to modify or remove ratings as per user discretion.
+12. Ability to add new staff and edit their information.
+13. etc
 
 Microservices:
 
