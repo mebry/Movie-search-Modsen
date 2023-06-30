@@ -1,21 +1,24 @@
 ﻿using Mapster;
 using Microsoft.Extensions.Logging;
 using Reporting.BusinessLogic.DTOs.ConsumerDTOs;
+using Reporting.BusinessLogic.DTOs.ResponseDTOs;
 using Reporting.DataAccess.Entities;
 using Reporting.DataAccess.Repositories.FilmRepositories;
+using Reporting.DataAccess.Repositories.RatingRepositories;
 using Shared.Exceptions;
-using Shared.Messages.FilmMessages;
 
 namespace Reporting.BusinessLogic.Services.FilmServices
 {
     internal class FilmService : IFilmDataCaptureService, IFilmReportingService
     {
         private readonly IFilmRepository _filmRepository;
+        private readonly IRatingRepository _ratingRepository;
         private readonly ILogger<FilmService> _logger;
 
-        public FilmService(IFilmRepository filmRepository, ILogger<FilmService> logger)
+        public FilmService(IFilmRepository filmRepository, IRatingRepository ratingRepository, ILogger<FilmService> logger)
         {
             _filmRepository = filmRepository;
+            _ratingRepository = ratingRepository;
             _logger = logger;
         }
 

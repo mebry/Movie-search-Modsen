@@ -196,6 +196,12 @@ namespace Reporting.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CountOfScores")
+                        .HasColumnType("int");
+
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
 

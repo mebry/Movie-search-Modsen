@@ -12,7 +12,7 @@ using Reporting.DataAccess.Contexts;
 namespace Reporting.DataAccess.Migrations
 {
     [DbContext(typeof(ReportingContext))]
-    [Migration("20230629165539_Init")]
+    [Migration("20230630065216_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -198,6 +198,12 @@ namespace Reporting.DataAccess.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<double>("AverageRating")
+                        .HasColumnType("float");
+
+                    b.Property<int>("CountOfScores")
+                        .HasColumnType("int");
 
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");

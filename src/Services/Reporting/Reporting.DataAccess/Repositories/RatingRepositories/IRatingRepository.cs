@@ -17,6 +17,8 @@ namespace Reporting.DataAccess.Repositories.RatingRepositories
         /// <returns>A task that represents the asynchronous operation and contains the retrieved entity.</returns>
         public Task<Rating?> GetByIdAsync(Guid id);
 
+        public Task<List<Rating>?> GetRatingByUserId(Guid userId);
+
         /// <summary>
         /// Updates an existing entity.
         /// </summary>

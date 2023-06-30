@@ -1,8 +1,9 @@
 ﻿using Mapster;
+using MassTransit.Initializers;
 using Microsoft.Extensions.Logging;
 using Reporting.BusinessLogic.DTOs.ConsumerDTOs;
+using Reporting.BusinessLogic.DTOs.ResponseDTOs;
 using Reporting.DataAccess.Entities;
-using Reporting.DataAccess.Repositories.PositionRepositories;
 using Reporting.DataAccess.Repositories.RatingRepositories;
 using Shared.Exceptions;
 
@@ -43,6 +44,22 @@ namespace Reporting.BusinessLogic.Services.RatingServices
             await _ratingRepository.SaveChangesAsync();
         }
 
+        public async Task<List<ResponseGroupNumberOfFilmsByRating>> GetResponseGroupNumberOfFilmsByRating(Guid userId)
+        {
+            var ratings = await _ratingRepository.GetRatingByUserId(userId);
+
+            var response = ratings!.GroupBy(
+                r => r.Score,
+                s => s.Film,
+                (key, f) => new ResponseGroupNumberOfFilmsByRating()
+                {
+                    Score = key,
+                    CountOfFilms = f.Count()
+                }).ToList();
+
+            return response;
+        }
+
         public async Task UpdateAsync(ConsumerRatingDTO entity)
         {
             var existingRating = await _ratingRepository.GetByIdAsync(entity.Id);
@@ -58,6 +75,11 @@ namespace Reporting.BusinessLogic.Services.RatingServices
             _ratingRepository.Update(existingRating);
 
             await _ratingRepository.SaveChangesAsync();
+        }
+
+        Task<ResponseGroupNumberOfFilmsByRating> IRatingReportingService.GetResponseGroupNumberOfFilmsByRating(Guid userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
